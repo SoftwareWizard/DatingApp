@@ -12,5 +12,21 @@ namespace DatingApp.API.Controllers
         {
             return new string[] { "value1", "value2" };
         }
+
+        [HttpGet("{id}")]
+        public ActionResult<string> Get(int id)
+        {
+            return "value";
+        }
+
+        [HttpPost]
+        public void Put(int id, [FromBody] string value)
+        { }
+
+        [HttpDelete("{id}")]
+        public void Delete(int id)
+        {
+            
+        }
     }
 }
