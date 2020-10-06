@@ -1,3 +1,4 @@
+import { AccountService } from './../services/account.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,12 +9,14 @@ import { Component, OnInit } from '@angular/core';
 export class NavComponent implements OnInit {
    model: any = { username: '', password: ''};
 
-   constructor() {}
+   constructor(private accountService: AccountService) {}
 
    ngOnInit(): void {
    }
 
-   login(): void {
-     console.log(this.model);
+   async login(): void {
+    let token$ = this.accountService.login(this.model);
+    let token = await token$.toPromise();
+    console.log(token);
    }
 }
