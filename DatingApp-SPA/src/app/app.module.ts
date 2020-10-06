@@ -7,6 +7,8 @@ import { ValueComponent } from './value/value.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NavComponent } from './nav/nav.component';
 import { FormsModule } from '@angular/forms';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
    declarations: [AppComponent, ValueComponent, NavComponent],
@@ -14,6 +16,8 @@ import { FormsModule } from '@angular/forms';
       BrowserModule,
       HttpClientModule,
       FormsModule,
+      BsDropdownModule.forRoot(),
+      BrowserAnimationsModule
    ],
    providers: [],
    bootstrap: [AppComponent],
