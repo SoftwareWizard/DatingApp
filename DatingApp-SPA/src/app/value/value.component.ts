@@ -17,7 +17,8 @@ export class ValueComponent implements OnInit {
    constructor(private http: HttpClient) {}
 
    ngOnInit(): void {
-      this.getValues();
+      this.values = [{ id: 1, name: 'Simon' }];
+      // this.getValues();
    }
 
    getValues(): void {
