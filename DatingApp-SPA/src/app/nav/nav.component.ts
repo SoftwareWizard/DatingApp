@@ -9,11 +9,10 @@ import { map, tap } from 'rxjs/operators';
    templateUrl: './nav.component.html',
    styleUrls: ['./nav.component.css'],
 })
-export class NavComponent implements OnInit, OnDestroy {
+export class NavComponent implements OnInit {
    model: any = { username: 'john', password: 'password' };
    user$: Observable<User>;
    loggedIn$: Observable<boolean>;
-   sub: Subscription;
 
    constructor(private accountService: AccountService) {}
 
@@ -22,12 +21,12 @@ export class NavComponent implements OnInit, OnDestroy {
       this.loggedIn$ = this.user$.pipe(map(user => !!user));
    }
 
-   ngOnDestroy(): void {
-    this.sub.unsubscribe();
-  }
-
-   login(): void {
-      this.sub = this.accountService.login(this.model).subscribe();
+   async login(): Promise<void> {
+      try {
+         await this.accountService.login(this.model);
+      } catch (error) {
+         console.log(error);
+      }
    }
 
    logout(): void {
