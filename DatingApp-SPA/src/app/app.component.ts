@@ -1,4 +1,4 @@
-import { AccountService } from './services/account.service';
+import { AccountService, LOCAL_STORAGE_KEY_USER } from './services/account.service';
 import { Component, OnInit } from '@angular/core';
 import { User } from './models/user';
 
@@ -14,11 +14,13 @@ export class AppComponent implements OnInit {
    constructor(private accountService: AccountService) {}
 
    ngOnInit(): void {
-    // this.setCurrentUser();
+      this.setCurrentUser();
    }
 
    setCurrentUser(): void {
-      // const user: User = JSON.parse(localStorage.getItem('user'));
-      // this.accountService.setCurrentUser(user);
+      const user: User = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY_USER));
+      if (user) {
+         this.accountService.setCurrentUser(user);
+      }
    }
 }

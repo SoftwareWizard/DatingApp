@@ -3,7 +3,8 @@
     <h1>Find your match</h1>
     <p class="lead">Come on ...</p>
     <div class="text-center">
-      <button (click)="registerToggle()" class="btn btn-primary btn-lg mr-2">Register</button>
+      <button *ngIf="!(loggedIn$ | async)" (click)="onRegisterToggle()"
+        class="btn btn-primary btn-lg mr-2">Register</button>
       <button class="btn btn-info btn-lg">Learn more</button>
     </div>
   </div>

@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { error } from 'console';
 import { ReplaySubject } from 'rxjs';
-import { catchError, delay, map } from 'rxjs/operators';
+import { delay, map } from 'rxjs/operators';
 import { User } from '../models/user';
+
+export const LOCAL_STORAGE_KEY_USER = 'user';
 
 @Injectable({
    providedIn: 'root',
@@ -22,6 +23,7 @@ export class AccountService {
             delay(2000),
             map(user => {
                if (user) {
+                  localStorage.setItem(LOCAL_STORAGE_KEY_USER, JSON.stringify(user));
                   this.currentUserSource.next(user);
                }
             })
@@ -31,6 +33,11 @@ export class AccountService {
 
    logout(): void {
       this.currentUserSource.next(null);
+      localStorage.removeItem(LOCAL_STORAGE_KEY_USER);
+   }
+
+   setCurrentUser(user: any): void {
+      this.currentUserSource.next(user);
    }
 
    register(model: any): Promise<void> {
@@ -40,7 +47,7 @@ export class AccountService {
             delay(2000),
             map(user => {
                if (user) {
-                  localStorage.setItem('user', JSON.stringify(user));
+                  localStorage.setItem(LOCAL_STORAGE_KEY_USER, JSON.stringify(user));
                   this.currentUserSource.next(user);
                }
             })

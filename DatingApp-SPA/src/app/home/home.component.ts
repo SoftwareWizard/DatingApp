@@ -1,5 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { AccountService } from './../services/account.service';
 import { Component, OnInit } from '@angular/core';
+import { map } from 'rxjs/operators';
 
 @Component({
    selector: 'app-home',
@@ -8,18 +10,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
    registerMode = false;
-   users: any;
+   loggedIn$: Observable<boolean>;
 
-   constructor(private http: HttpClient) {}
+   constructor(private accountService: AccountService) {}
 
-   ngOnInit(): void {}
+   ngOnInit(): void {
+      this.loggedIn$ = this.accountService.currentUser$.pipe(map(user => !!user));
+   }
 
-   registerToggle(): void {
+   onRegisterToggle(): void {
       this.registerMode = !this.registerMode;
    }
 
    onCancelRegister(): void {
-      console.log('cancelled Registration');
       this.registerMode = false;
    }
 }
