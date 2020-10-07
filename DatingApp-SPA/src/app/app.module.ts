@@ -19,7 +19,7 @@ import { RegisterComponent } from './register/register.component';
       HttpClientModule,
       FormsModule,
       BsDropdownModule.forRoot(),
-      BrowserAnimationsModule
+      BrowserAnimationsModule,
    ],
    providers: [],
    bootstrap: [AppComponent],
