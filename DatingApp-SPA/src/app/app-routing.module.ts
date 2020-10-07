@@ -6,12 +6,19 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { ListsComponent } from './lists/lists.component';
 
+export class AppRoutes {
+   public static ROOT = '';
+   public static MEMBERS = 'members';
+   public static LISTS = 'lists';
+   public static MESSAGES = 'messages';
+}
+
 const routes: Routes = [
-   { path: '', component: HomeComponent },
-   { path: 'members', component: MemberListComponent },
-   { path: 'members/:id', component: MemberDetailComponent },
-   { path: 'lists', component: ListsComponent },
-   { path: 'messages', component: MessagesComponent },
+   { path: AppRoutes.ROOT, component: HomeComponent },
+   { path: AppRoutes.MEMBERS, component: MemberListComponent },
+   { path: `${AppRoutes.MEMBERS}/:id`, component: MemberDetailComponent },
+   { path: AppRoutes.LISTS, component: ListsComponent },
+   { path: AppRoutes.MESSAGES, component: MessagesComponent },
    { path: '**', component: HomeComponent, pathMatch: 'full' },
 ];
 

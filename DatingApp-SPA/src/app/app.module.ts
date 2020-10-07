@@ -1,3 +1,4 @@
+import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -14,8 +15,16 @@ import { RegisterComponent } from './register/register.component';
 import { MessagesComponent } from './messages/messages.component';
 
 @NgModule({
-   declarations: [AppComponent, ValueComponent, NavComponent, HomeComponent, RegisterComponent, MessagesComponent],
+   declarations: [
+      AppComponent,
+      ValueComponent,
+      NavComponent,
+      HomeComponent,
+      RegisterComponent,
+      MessagesComponent,
+   ],
    imports: [
+      AppRoutingModule,
       BrowserModule,
       HttpClientModule,
       FormsModule,

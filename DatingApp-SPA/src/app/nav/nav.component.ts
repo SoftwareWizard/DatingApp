@@ -2,7 +2,8 @@ import { AccountService } from './../services/account.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, of, Subscription } from 'rxjs';
 import { User } from '../models/user';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
+import { AppRoutes } from '../app-routing.module';
 
 @Component({
    selector: 'app-nav',
@@ -10,6 +11,7 @@ import { map, tap } from 'rxjs/operators';
    styleUrls: ['./nav.component.css'],
 })
 export class NavComponent implements OnInit {
+   ROUTES = AppRoutes;
    model: any = { username: 'john', password: 'password' };
    user$: Observable<User>;
    loggedIn$: Observable<boolean>;
