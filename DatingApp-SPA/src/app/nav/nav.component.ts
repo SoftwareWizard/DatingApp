@@ -4,6 +4,7 @@ import { Observable, of, Subscription } from 'rxjs';
 import { User } from '../models/user';
 import { map } from 'rxjs/operators';
 import { AppRoutes } from '../app-routing.module';
+import { Router } from '@angular/router';
 
 @Component({
    selector: 'app-nav',
@@ -16,7 +17,7 @@ export class NavComponent implements OnInit {
    user$: Observable<User>;
    loggedIn$: Observable<boolean>;
 
-   constructor(private accountService: AccountService) {}
+   constructor(private accountService: AccountService, private router: Router) {}
 
    ngOnInit(): void {
       this.user$ = this.accountService.currentUser$;
@@ -26,6 +27,7 @@ export class NavComponent implements OnInit {
    async login(): Promise<void> {
       try {
          await this.accountService.login(this.model);
+         this.router.navigateByUrl(`/${this.ROUTES.MEMBERS}`);
       } catch (error) {
          console.log(error);
       }
@@ -33,5 +35,6 @@ export class NavComponent implements OnInit {
 
    logout(): void {
       this.accountService.logout();
+      this.router.navigateByUrl('/');
    }
 }

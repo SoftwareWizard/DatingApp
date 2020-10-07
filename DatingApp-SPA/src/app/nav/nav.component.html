@@ -1,15 +1,15 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
   <div class="container">
-    <a class="navbar-brand" routerLink="/">Dating App</a>
+    <a class="navbar-brand" routerLink="/" routerLinkActive="active">Dating App</a>
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" routerLink="/{{ ROUTES.MEMBERS }}">Matches</a>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/{{ ROUTES.MEMBERS }}" routerLinkActive="active">Matches</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/{{ ROUTES.LISTS }}">Lists</a>
+        <a class="nav-link" routerLink="/{{ ROUTES.LISTS }}" routerLinkActive="active">Lists</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/{{ ROUTES.MESSAGES }}">Messages</a>
+        <a class="nav-link" routerLink="/{{ ROUTES.MESSAGES }}" routerLinkActive="active">Messages</a>
       </li>
     </ul>
 
