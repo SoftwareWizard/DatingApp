@@ -6,4 +6,11 @@
   <button type="button" class="btn btn-danger mr-2" (click)="get401Error()">Unauthorized</button>
   <button type="button" class="btn btn-danger mr-2" (click)="get404Error()">Not Found</button>
   <button type="button" class="btn btn-danger mr-2" (click)="get500Error()">Internal Server Error</button>
+  <button type="button" class="btn btn-danger mr-2" (click)="get500NullReferenceExceptionError()">Null Reference Exception</button>
+
+  <div class="row mt-5" *ngIf="hasValidationErrors$ | async">
+    <ul class="text-danger">
+      <li *ngFor="let error of (validationErrors$ | async)">{{ error }}</li>
+    </ul>
+  </div>
 </div>

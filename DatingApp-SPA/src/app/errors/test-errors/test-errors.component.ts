@@ -1,5 +1,7 @@
+import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { map } from 'rxjs/operators';
 
 @Component({
    selector: 'app-test-errors',
@@ -9,9 +11,15 @@ import { Component, OnInit } from '@angular/core';
 export class TestErrorsComponent implements OnInit {
    baseUrl = 'http://localhost:5000/api';
 
+   private sub: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
+   validationErrors$ = this.sub.asObservable();
+   hasValidationErrors$: Observable<boolean>;
+
    constructor(private http: HttpClient) {}
 
-   ngOnInit(): void {}
+   ngOnInit(): void {
+      this.hasValidationErrors$ = this.validationErrors$.pipe(map(errors => errors.length > 0));
+   }
 
    async get400Error(): Promise<string> {
       try {
@@ -26,7 +34,7 @@ export class TestErrorsComponent implements OnInit {
          const model = { username: '', password: '' };
          return await this.http.post<string>(`${this.baseUrl}/auth/register`, model).toPromise();
       } catch (error) {
-         console.error(error);
+         this.sub.next(error);
       }
    }
 
@@ -53,4 +61,12 @@ export class TestErrorsComponent implements OnInit {
          console.error(error);
       }
    }
+
+   async get500NullReferenceExceptionError(): Promise<string> {
+    try {
+       return await this.http.get<string>(`${this.baseUrl}/buggy/null-reference-exception`).toPromise();
+    } catch (error) {
+       console.error(error);
+    }
+ }
 }
