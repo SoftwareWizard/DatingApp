@@ -16,10 +16,17 @@ export class AppRoutes {
 
 const routes: Routes = [
    { path: AppRoutes.ROOT, component: HomeComponent },
-   { path: AppRoutes.MEMBERS, component: MemberListComponent, canActivate: [AuthGuard] },
-   { path: `${AppRoutes.MEMBERS}/:id`, component: MemberDetailComponent },
-   { path: AppRoutes.LISTS, component: ListsComponent },
-   { path: AppRoutes.MESSAGES, component: MessagesComponent },
+   {
+      path: AppRoutes.ROOT,
+      runGuardsAndResolvers: 'always',
+      canActivate: [AuthGuard],
+      children: [
+         { path: AppRoutes.MEMBERS, component: MemberListComponent },
+         { path: `${AppRoutes.MEMBERS}/:id`, component: MemberDetailComponent },
+         { path: AppRoutes.LISTS, component: ListsComponent },
+         { path: AppRoutes.MESSAGES, component: MessagesComponent },
+      ],
+   },
    { path: '**', component: HomeComponent, pathMatch: 'full' },
 ];
 
