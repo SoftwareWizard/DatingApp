@@ -2,19 +2,21 @@
   <div class="container">
     <a class="navbar-brand" routerLink="/" routerLinkActive="active">Dating App</a>
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/{{ ROUTES.MEMBERS }}" routerLinkActive="active">Matches</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/{{ ROUTES.LISTS }}" routerLinkActive="active">Lists</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/{{ ROUTES.MESSAGES }}" routerLinkActive="active">Messages</a>
-      </li>
+      <ng-container *ngIf="loggedIn$ | async">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/{{ ROUTES.MEMBERS }}" routerLinkActive="active">Matches</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/{{ ROUTES.LISTS }}" routerLinkActive="active">Lists</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/{{ ROUTES.MESSAGES }}" routerLinkActive="active">Messages</a>
+        </li>
+      </ng-container>
     </ul>
 
-    <div class="dropdown" dropdown *ngIf="loggedIn$ | async">
-      <a class="nav-link dropdown-toggle text-light" dropdownToggle>{{ (user$ | async).username }}</a>
+    <div class="dropdown" dropdown *ngIf="(loggedIn$ | async)">
+      <a class="nav-link dropdown-toggle text-light" dropdownToggle>{{ (user$ | async).username | titlecase}}</a>
       <div class="dropdown-menu mt-2" *dropdownMenu>
         <a class="dropdown-item">Edit Profile</a>
         <div class="dropdown-divider"></div>
