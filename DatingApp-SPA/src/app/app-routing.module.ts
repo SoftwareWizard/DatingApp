@@ -1,3 +1,4 @@
+import { AuthGuard } from './guards/auth.guard';
 import { MessagesComponent } from './messages/messages.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { MemberListComponent } from './members/member-list/member-list.component';
@@ -15,7 +16,7 @@ export class AppRoutes {
 
 const routes: Routes = [
    { path: AppRoutes.ROOT, component: HomeComponent },
-   { path: AppRoutes.MEMBERS, component: MemberListComponent },
+   { path: AppRoutes.MEMBERS, component: MemberListComponent, canActivate: [AuthGuard] },
    { path: `${AppRoutes.MEMBERS}/:id`, component: MemberDetailComponent },
    { path: AppRoutes.LISTS, component: ListsComponent },
    { path: AppRoutes.MESSAGES, component: MessagesComponent },

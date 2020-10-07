@@ -5,12 +5,14 @@ import { delay, map } from 'rxjs/operators';
 import { User } from '../models/user';
 
 export const LOCAL_STORAGE_KEY_USER = 'user';
+const DelayInMilliseconds = 1000;
 
 @Injectable({
    providedIn: 'root',
 })
 export class AccountService {
-   private baseUrl = 'http://localhost:5000/api';
+
+  private baseUrl = 'http://localhost:5000/api';
    private currentUserSource = new ReplaySubject<User>(1);
    currentUser$ = this.currentUserSource.asObservable();
 
@@ -20,7 +22,7 @@ export class AccountService {
       return this.http
          .post<User>(`${this.baseUrl}/auth`, model)
          .pipe(
-            delay(2000),
+            delay(DelayInMilliseconds),
             map(user => {
                if (user) {
                   localStorage.setItem(LOCAL_STORAGE_KEY_USER, JSON.stringify(user));
@@ -44,7 +46,7 @@ export class AccountService {
       return this.http
          .post<User>(`${this.baseUrl}/auth/register`, model)
          .pipe(
-            delay(2000),
+            delay(DelayInMilliseconds),
             map(user => {
                if (user) {
                   localStorage.setItem(LOCAL_STORAGE_KEY_USER, JSON.stringify(user));

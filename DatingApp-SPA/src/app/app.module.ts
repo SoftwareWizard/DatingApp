@@ -13,6 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { MessagesComponent } from './messages/messages.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
    declarations: [
@@ -24,6 +25,7 @@ import { MessagesComponent } from './messages/messages.component';
       MessagesComponent,
    ],
    imports: [
+      ToastrModule.forRoot({ positionClass: 'toast-bottom-right' }),
       AppRoutingModule,
       BrowserModule,
       HttpClientModule,
