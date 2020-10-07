@@ -11,9 +11,10 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
+import { MessagesComponent } from './messages/messages.component';
 
 @NgModule({
-   declarations: [AppComponent, ValueComponent, NavComponent, HomeComponent, RegisterComponent],
+   declarations: [AppComponent, ValueComponent, NavComponent, HomeComponent, RegisterComponent, MessagesComponent],
    imports: [
       BrowserModule,
       HttpClientModule,
