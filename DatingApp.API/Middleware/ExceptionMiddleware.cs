@@ -10,20 +10,16 @@ using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace DatingApp.API.Middleware
 {
-    public class ExceptionMiddleware : IMiddleware
+    public class ExceptionMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly ILogger<ExceptionMiddleware> _logger;
-        private readonly IHostEnvironment _environment;
 
-        public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger, IHostEnvironment environment)
+        public ExceptionMiddleware(RequestDelegate next)
         {
             _next = next;
-            _logger = logger;
-            _environment = environment;
         }
 
-        public async Task InvokeAsync(HttpContext context, RequestDelegate next)
+        public async Task InvokeAsync(HttpContext context, ILogger<ExceptionMiddleware> logger, IHostEnvironment environment)
         {
             try
             {
@@ -31,11 +27,11 @@ namespace DatingApp.API.Middleware
             }
             catch (Exception exception)
             {
-                _logger.LogError(exception, exception.Message);
+                logger.LogError(exception, exception.Message);
                 context.Response.ContentType = "application/json";
                 context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
-                var response = _environment.IsDevelopment()
+                var response = environment.IsDevelopment()
                     ? new ApiException(context.Response.StatusCode, exception.Message, exception.StackTrace?.ToString())
                     : new ApiException(context.Response.StatusCode, "Internal Server Error");
 
