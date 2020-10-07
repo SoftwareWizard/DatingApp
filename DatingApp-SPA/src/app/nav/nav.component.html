@@ -13,6 +13,9 @@
           <a class="nav-link" routerLink="/{{ ROUTES.MESSAGES }}" routerLinkActive="active">Messages</a>
         </li>
       </ng-container>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/{{ ROUTES.TEST_ERRORS }}" routerLinkActive="active">Test Error</a>
+      </li>
     </ul>
 
     <div class="dropdown" dropdown *ngIf="(loggedIn$ | async)">

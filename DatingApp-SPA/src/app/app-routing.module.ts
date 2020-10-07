@@ -1,3 +1,5 @@
+import { TestErrorsComponent } from './errors/test-errors/test-errors.component';
+import { AppRoutingModule } from './app-routing.module';
 import { AuthGuard } from './guards/auth.guard';
 import { MessagesComponent } from './messages/messages.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
@@ -12,6 +14,7 @@ export class AppRoutes {
    public static MEMBERS = 'members';
    public static LISTS = 'lists';
    public static MESSAGES = 'messages';
+   public static TEST_ERRORS = 'test-errors';
 }
 
 const routes: Routes = [
@@ -27,6 +30,7 @@ const routes: Routes = [
          { path: AppRoutes.MESSAGES, component: MessagesComponent },
       ],
    },
+   { path: AppRoutes.TEST_ERRORS, component: TestErrorsComponent },
    { path: '**', component: HomeComponent, pathMatch: 'full' },
 ];
 
