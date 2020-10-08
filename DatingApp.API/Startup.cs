@@ -1,5 +1,6 @@
 using System.Text;
 using DatingApp.API.Data;
+using DatingApp.API.Interfaces;
 using DatingApp.API.Middleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
