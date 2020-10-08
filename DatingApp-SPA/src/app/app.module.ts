@@ -20,6 +20,7 @@ import { ServerErrorComponent } from './errors/server-error/server-error.compone
 import { ErrorInterceptor } from './interceptor/error.interceptor';
 import { MemberListComponent } from './members/member-list/member-list.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
+import { MemberCardComponent } from './members/member-card/member-card.component';
 
 @NgModule({
    declarations: [
@@ -33,7 +34,8 @@ import { MemberDetailComponent } from './members/member-detail/member-detail.com
       NotFoundComponent,
       ServerErrorComponent,
       MemberListComponent,
-      MemberDetailComponent
+      MemberDetailComponent,
+      MemberCardComponent
    ],
    imports: [
       AppRoutingModule,
