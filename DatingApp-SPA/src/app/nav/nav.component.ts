@@ -18,7 +18,7 @@ export class NavComponent implements OnInit {
    MSG_TITLE = 'LOGIN';
 
    ROUTES = AppRoutes;
-   model: any = { username: 'john', password: 'password' };
+   model: any = { username: 'lisa', password: 'Pa$$w0rd' };
    user$: Observable<User>;
    loggedIn$: Observable<boolean>;
 
