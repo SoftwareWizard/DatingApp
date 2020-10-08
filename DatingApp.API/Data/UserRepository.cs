@@ -34,17 +34,24 @@ namespace DatingApp.API.Data
 
         public async Task<IEnumerable<User>> GetUsersAsync()
         {
-            return await _context.Users.ToListAsync();
+            return await _context
+                .Users
+                .Include(item => item.Photos)
+                .ToListAsync();
         }
 
         public async Task<User> GetUserById(int id)
         {
-            return await _context.Users.FindAsync(id);
+            return await _context
+                .Users
+                .FindAsync(id);
         }
 
         public async Task<User> GetUserByUsernameAsync(string username)
         {
-            return await _context.Users.SingleOrDefaultAsync(item => item.Username == username);
+            return await _context
+                .Users
+                .SingleOrDefaultAsync(item => item.Username == username);
         }
     }
 }

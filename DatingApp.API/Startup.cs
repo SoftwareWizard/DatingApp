@@ -1,5 +1,7 @@
 using System.Text;
+using AutoMapper;
 using DatingApp.API.Data;
+using DatingApp.API.Helpers;
 using DatingApp.API.Interfaces;
 using DatingApp.API.Middleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -8,7 +10,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 
 namespace DatingApp.API
@@ -31,6 +32,7 @@ namespace DatingApp.API
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddControllers();
+            services.AddAutoMapper(config => config.AddProfile(typeof(AutoMapperProfiles)));
             services.AddCors();
             services.AddAuthentication((JwtBearerDefaults.AuthenticationScheme))
                 .AddJwtBearer(options =>
