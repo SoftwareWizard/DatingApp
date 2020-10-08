@@ -1,3 +1,4 @@
+import { JwtInterceptor } from './interceptor/jwt.interceptor.interceptor';
 
 import { SharedModule } from './modules/shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
@@ -45,7 +46,10 @@ import { MemberCardComponent } from './members/member-card/member-card.component
       BrowserAnimationsModule,
       SharedModule,
    ],
-   providers: [{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
+   providers: [
+     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+    ],
    bootstrap: [AppComponent],
 })
 export class AppModule {}
