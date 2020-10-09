@@ -1,6 +1,6 @@
 import { ToastrService } from 'ngx-toastr';
 import { MemberService } from './../services/member.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { Member } from '../models/member';
 import { NgForm } from '@angular/forms';
 
@@ -13,6 +13,7 @@ export class MemberEditComponent implements OnInit {
    @ViewChild('editForm') editForm: NgForm;
    member: Member;
    username: string;
+   @HostListener('window:beforeunload', ['$event']) _ = ($event: any) => this.onUnload($event);
 
    constructor(private memberService: MemberService, private toastr: ToastrService) {}
 
@@ -21,8 +22,19 @@ export class MemberEditComponent implements OnInit {
       this.member = await this.memberService.getMemberByUsername(this.username).toPromise();
    }
 
-   updateMember(): void {
-      this.editForm.reset(this.member);
-      this.toastr.success('Profile updated.');
+   async updateMember(): Promise<void> {
+      try {
+         await this.memberService.updateMember(this.member).toPromise();
+         this.editForm.reset(this.member);
+         this.toastr.success('Profile updated.');
+      } catch (error) {
+         this.toastr.error(error.message);
+      }
+   }
+
+   onUnload($event: any): void {
+      if (this.editForm.dirty) {
+         $event.returnValue = true;
+      }
    }
 }
