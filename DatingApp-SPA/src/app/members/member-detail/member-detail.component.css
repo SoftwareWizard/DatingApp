@@ -1,3 +1,8 @@
 .tab-pane {
   margin-top: 5px;
 }
+
+.image-gallery {
+  display: inline-block;
+  margin-bottom: 20px;
+}

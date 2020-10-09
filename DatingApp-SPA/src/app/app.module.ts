@@ -4,6 +4,7 @@ import { SharedModule } from './modules/shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 import { AppComponent } from './app.component';
 import { ValueComponent } from './value/value.component';
@@ -22,6 +23,7 @@ import { ErrorInterceptor } from './interceptor/error.interceptor';
 import { MemberListComponent } from './members/member-list/member-list.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { MemberCardComponent } from './members/member-card/member-card.component';
+import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 
 @NgModule({
    declarations: [
@@ -36,7 +38,7 @@ import { MemberCardComponent } from './members/member-card/member-card.component
       ServerErrorComponent,
       MemberListComponent,
       MemberDetailComponent,
-      MemberCardComponent
+      MemberCardComponent,
    ],
    imports: [
       AppRoutingModule,
@@ -45,6 +47,11 @@ import { MemberCardComponent } from './members/member-card/member-card.component
       FormsModule,
       BrowserAnimationsModule,
       SharedModule,
+      TabsModule.forRoot(),
+      NgxGalleryModule
+   ],
+   exports: [
+     NgxGalleryModule
    ],
    providers: [
      { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
