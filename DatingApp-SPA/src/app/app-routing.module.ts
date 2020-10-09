@@ -1,3 +1,4 @@
+import { PreventUnsavedChangesGuard } from './guards/prevent-unsaved-changes.guard';
 import { TestErrorsComponent } from './errors/test-errors/test-errors.component';
 import { AuthGuard } from './guards/auth.guard';
 import { MessagesComponent } from './messages/messages.component';
@@ -23,7 +24,11 @@ const routes: Routes = [
          { path: `${AppRouteNames.MEMBERS}/:id`, component: MemberDetailComponent },
          { path: AppRouteNames.LISTS, component: ListsComponent },
          { path: AppRouteNames.MESSAGES, component: MessagesComponent },
-         { path: AppRouteNames.MEMBER_EDIT, component: MemberEditComponent },
+         {
+            path: AppRouteNames.MEMBER_EDIT,
+            component: MemberEditComponent,
+            canDeactivate: [PreventUnsavedChangesGuard],
+         },
       ],
    },
    { path: AppRouteNames.TEST_ERRORS, component: TestErrorsComponent },
