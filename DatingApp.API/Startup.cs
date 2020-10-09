@@ -4,6 +4,7 @@ using DatingApp.API.Data;
 using DatingApp.API.Helpers;
 using DatingApp.API.Interfaces;
 using DatingApp.API.Middleware;
+using DatingApp.API.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,10 +28,13 @@ namespace DatingApp.API
         public void ConfigureServices(IServiceCollection services)
         {
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
+            var cloudinarySettingsSection = Configuration.GetSection("CloudinarySettings");
 
             services.AddDbContext<DataContext>(optionsBuilder => optionsBuilder.UseSqlServer(connectionString));
+            services.Configure<CloudinarySettings>(cloudinarySettingsSection);
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<IPhotoService, PhotoService>();
             services.AddControllers();
             services.AddAutoMapper(config => config.AddProfile(typeof(AutoMapperProfiles)));
             services.AddCors();

@@ -16,6 +16,7 @@ export class LoadingInterceptor implements HttpInterceptor {
       this.busyService.busy();
       try {
          const result = await next.handle(request).pipe(timeout(5000)).toPromise();
+         await of().pipe(delay(300)).toPromise();
          return result;
       } catch (error) {
         throw error;
