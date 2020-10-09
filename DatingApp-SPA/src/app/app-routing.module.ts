@@ -9,33 +9,24 @@ import { HomeComponent } from './home/home.component';
 import { ListsComponent } from './lists/lists.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
-
-export class AppRoutes {
-   public static ROOT = '';
-   public static MEMBERS = 'members';
-   public static LISTS = 'lists';
-   public static MESSAGES = 'messages';
-   public static TEST_ERRORS = 'test-errors';
-   public static NOT_FOUND = 'not-found';
-   public static SERVER_ERROR = 'server-error';
-}
+import { AppRouteNames } from './app-routing.names';
 
 const routes: Routes = [
-   { path: AppRoutes.ROOT, component: HomeComponent },
+   { path: AppRouteNames.ROOT, component: HomeComponent },
    {
-      path: AppRoutes.ROOT,
+      path: AppRouteNames.ROOT,
       runGuardsAndResolvers: 'always',
       canActivate: [AuthGuard],
       children: [
-         { path: AppRoutes.MEMBERS, component: MemberListComponent },
-         { path: `${AppRoutes.MEMBERS}/:id`, component: MemberDetailComponent },
-         { path: AppRoutes.LISTS, component: ListsComponent },
-         { path: AppRoutes.MESSAGES, component: MessagesComponent },
+         { path: AppRouteNames.MEMBERS, component: MemberListComponent },
+         { path: `${AppRouteNames.MEMBERS}/:id`, component: MemberDetailComponent },
+         { path: AppRouteNames.LISTS, component: ListsComponent },
+         { path: AppRouteNames.MESSAGES, component: MessagesComponent },
       ],
    },
-   { path: AppRoutes.TEST_ERRORS, component: TestErrorsComponent },
-   { path: AppRoutes.NOT_FOUND, component: NotFoundComponent },
-   { path: AppRoutes.SERVER_ERROR, component: ServerErrorComponent },
+   { path: AppRouteNames.TEST_ERRORS, component: TestErrorsComponent },
+   { path: AppRouteNames.NOT_FOUND, component: NotFoundComponent },
+   { path: AppRouteNames.SERVER_ERROR, component: ServerErrorComponent },
    { path: '**', component: HomeComponent, pathMatch: 'full' },
 ];
 

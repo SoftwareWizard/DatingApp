@@ -45,8 +45,8 @@ namespace DatingApp.API.Controllers
             return Ok(userDto);
         }
 
-        [HttpGet("{username}")]
-        public async Task<ActionResult<MemberDto>> GetUser(string username)
+        // TODO: remove later
+        private async Task<ActionResult<MemberDto>> GetUser(string username)
         {
             var user = await _repository.GetUserByUsernameAsync(username);
             var userDto = _mapper.Map<MemberDto>(user);

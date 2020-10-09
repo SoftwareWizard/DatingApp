@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using DatingApp.API.Interfaces;
 using DatingApp.API.Models;
@@ -18,7 +17,8 @@ namespace DatingApp.API.Data
 
         public void Update(User user)
         {
-            _context.Entry(user).State = EntityState.Modified;
+            _context.Entry(user)
+                .State = EntityState.Modified;
         }
 
         public async Task<bool> SaveAllAsync()
@@ -44,13 +44,15 @@ namespace DatingApp.API.Data
         {
             return await _context
                 .Users
-                .FindAsync(id);
+                .Include(item => item.Photos)
+                .SingleOrDefaultAsync(item => item.Id == id);
         }
 
         public async Task<User> GetUserByUsernameAsync(string username)
         {
             return await _context
                 .Users
+                .Include(item => item.Photos)
                 .SingleOrDefaultAsync(item => item.Username == username);
         }
     }

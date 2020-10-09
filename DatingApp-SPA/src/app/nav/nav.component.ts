@@ -1,9 +1,10 @@
+import { AppRouteNames } from './../app-routing.names';
 import { AccountService } from './../services/account.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, of, Subscription } from 'rxjs';
 import { User } from '../models/user';
 import { map } from 'rxjs/operators';
-import { AppRoutes } from '../app-routing.module';
+
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
@@ -17,7 +18,7 @@ export class NavComponent implements OnInit {
    MSG_ERROR = 'Error';
    MSG_TITLE = 'LOGIN';
 
-   ROUTES = AppRoutes;
+   ROUTES = AppRouteNames;
    model: any = { username: 'lisa', password: 'Pa$$w0rd' };
    user$: Observable<User>;
    loggedIn$: Observable<boolean>;

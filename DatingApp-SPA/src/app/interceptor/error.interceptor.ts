@@ -6,7 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { catchError } from 'rxjs/operators';
 
 import { StatusCodes } from 'http-status-codes';
-import { AppRoutes } from '../app-routing.module';
+import { AppRouteNames } from '../app-routing.names';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -36,12 +36,12 @@ export class ErrorInterceptor implements HttpInterceptor {
                      break;
 
                   case StatusCodes.NOT_FOUND:
-                     this.router.navigateByUrl(`/${AppRoutes.NOT_FOUND}`);
+                     this.router.navigateByUrl(`/${AppRouteNames.NOT_FOUND}`);
                      break;
 
                   case StatusCodes.INTERNAL_SERVER_ERROR:
                      const navigationExtras: NavigationExtras = { state: { error: error.error } };
-                     this.router.navigateByUrl(`/${AppRoutes.SERVER_ERROR}`, navigationExtras);
+                     this.router.navigateByUrl(`/${AppRouteNames.SERVER_ERROR}`, navigationExtras);
                      break;
 
                   default:
