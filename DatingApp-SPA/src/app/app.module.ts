@@ -24,6 +24,7 @@ import { MemberListComponent } from './members/member-list/member-list.component
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { MemberCardComponent } from './members/member-card/member-card.component';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+import { MemberEditComponent } from './member-edit/member-edit.component';
 
 @NgModule({
    declarations: [
@@ -39,6 +40,7 @@ import { NgxGalleryModule } from '@kolkov/ngx-gallery';
       MemberListComponent,
       MemberDetailComponent,
       MemberCardComponent,
+      MemberEditComponent,
    ],
    imports: [
       AppRoutingModule,

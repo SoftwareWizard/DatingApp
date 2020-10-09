@@ -19,4 +19,8 @@ export class MemberService {
    getMember(id: number): Observable<Member> {
       return this.http.get<Member>(`${this.baseUrl}/users/${id}`);
    }
+
+   getMemberByUsername(username: string): Observable<Member> {
+      return this.http.get<Member>(`${this.baseUrl}/users/profile/${username}`);
+   }
 }

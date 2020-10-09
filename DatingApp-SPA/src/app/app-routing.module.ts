@@ -10,6 +10,7 @@ import { ListsComponent } from './lists/lists.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
 import { AppRouteNames } from './app-routing.names';
+import { MemberEditComponent } from './member-edit/member-edit.component';
 
 const routes: Routes = [
    { path: AppRouteNames.ROOT, component: HomeComponent },
@@ -22,6 +23,7 @@ const routes: Routes = [
          { path: `${AppRouteNames.MEMBERS}/:id`, component: MemberDetailComponent },
          { path: AppRouteNames.LISTS, component: ListsComponent },
          { path: AppRouteNames.MESSAGES, component: MessagesComponent },
+         { path: AppRouteNames.MEMBER_EDIT, component: MemberEditComponent },
       ],
    },
    { path: AppRouteNames.TEST_ERRORS, component: TestErrorsComponent },
