@@ -5,3 +5,11 @@ a.dropdown-item {
 a.nav-link.dropdown-toggle {
   cursor: pointer;
 }
+
+.photo-thumbnail {
+  max-width: 25px;
+  max-height: 25px;
+  border-radius: 25px;
+  border: 1px solid white;
+  display: inline;
+}

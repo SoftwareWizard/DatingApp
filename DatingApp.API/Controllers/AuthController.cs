@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -53,6 +54,7 @@ namespace DatingApp.API.Controllers
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
             var userFromRepo = await _authRepository.Login(userForLoginDto.Username, userForLoginDto.Password);
+            var photoUrl = userFromRepo?.Photos?.FirstOrDefault(item => item.IsMain)?.Url;
 
             if (userFromRepo == null)
             {
@@ -81,7 +83,8 @@ namespace DatingApp.API.Controllers
             return Ok(new
             {
                 userFromRepo.Username,
-                Token = token
+                Token = token,
+                PhotoUrl = photoUrl
             });
         }
     }
