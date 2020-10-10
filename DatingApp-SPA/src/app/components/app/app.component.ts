@@ -1,6 +1,8 @@
-import { AccountService, LOCAL_STORAGE_KEY_USER } from './services/account.service';
+
 import { Component, OnInit } from '@angular/core';
-import { User } from './models/user';
+import { User } from 'src/app/models/user';
+import { AccountService, LOCAL_STORAGE_KEY_USER } from 'src/app/services/account.service';
+
 
 @Component({
    selector: 'app-root',

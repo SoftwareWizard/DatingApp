@@ -3,19 +3,24 @@ import { SharedModule } from './modules/shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import { AppComponent } from './app.component';
-
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { AppComponent, HomeComponent } from './components';
 import { MemberListComponent } from './members/member-list/member-list.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { MemberCardComponent } from './members/member-card/member-card.component';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
-import { ErrorInterceptor, JwtInterceptor, LoadingInterceptor, NavComponent } from './core';
-import { HomeComponent, RegisterComponent } from './components';
+
+import {
+   ErrorInterceptor,
+   JwtInterceptor,
+   LoadingInterceptor,
+   NavComponent,
+   RegisterComponent,
+} from './core';
 
 @NgModule({
    declarations: [
@@ -37,15 +42,14 @@ import { HomeComponent, RegisterComponent } from './components';
       ReactiveFormsModule,
       BrowserAnimationsModule,
       SharedModule,
-      ErrorsModule
+      ErrorsModule,
    ],
-   exports: [
-   ],
+   exports: [],
    providers: [
-     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true }
-    ],
+      { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+      { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+      { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
+   ],
    bootstrap: [AppComponent],
 })
 export class AppModule {}
