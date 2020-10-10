@@ -4,16 +4,12 @@ import { AppRouteNames } from './app-routing.names';
 
 import { AuthGuard, PreventUnsavedChangesGuard } from './core';
 
-import { TestErrorsComponent } from './errors/test-errors/test-errors.component';
-import { MessagesComponent } from './messages/messages.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { MemberListComponent } from './members/member-list/member-list.component';
 import { HomeComponent } from './home/home.component';
 import { ListsComponent } from './lists/lists.component';
-import { NotFoundComponent } from './errors/not-found/not-found.component';
-import { ServerErrorComponent } from './errors/server-error/server-error.component';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
-
+import { NotFoundComponent, ServerErrorComponent, TestErrorsComponent } from './modules/errors';
 
 const routes: Routes = [
    { path: AppRouteNames.ROOT, component: HomeComponent },
@@ -25,7 +21,6 @@ const routes: Routes = [
          { path: AppRouteNames.MEMBERS, component: MemberListComponent },
          { path: `${AppRouteNames.MEMBERS}/:id`, component: MemberDetailComponent },
          { path: AppRouteNames.LISTS, component: ListsComponent },
-         { path: AppRouteNames.MESSAGES, component: MessagesComponent },
          {
             path: AppRouteNames.MEMBER_EDIT,
             component: MemberEditComponent,
