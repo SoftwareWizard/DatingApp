@@ -6,7 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { catchError } from 'rxjs/operators';
 
 import { StatusCodes } from 'http-status-codes';
-import { AppRouteNames } from '../app-routing.names';
+import { AppRouteNames } from 'src/app/app-routing.names';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {

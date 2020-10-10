@@ -1,12 +1,12 @@
-import { AppRouteNames } from './../app-routing.names';
-import { AccountService } from './../services/account.service';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, of, Subscription } from 'rxjs';
-import { User } from '../models/user';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { AppRouteNames } from 'src/app/app-routing.names';
+import { User } from 'src/app/models/user';
+import { AccountService } from 'src/app/services/account.service';
 
 @Component({
    selector: 'app-nav',
