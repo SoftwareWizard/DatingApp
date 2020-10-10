@@ -1,3 +1,4 @@
+import { MemberService } from './../../services/member.service';
 import { AccountService } from './../../services/account.service';
 import { User } from './../../models/user';
 import { environment } from './../../../environments/environment';
@@ -21,12 +22,12 @@ export class PhotoEditorComponent implements OnInit {
    response: string;
    user: User;
 
-   constructor(private accountService: AccountService) {
+   constructor(private accountService: AccountService, private memberService: MemberService) {
       this.accountService.currentUser$.pipe(take(1)).subscribe(user => (this.user = user));
    }
 
    ngOnInit(): void {
-     this.initalizeUploader();
+      this.initalizeUploader();
    }
 
    initalizeUploader(): void {
@@ -45,13 +46,19 @@ export class PhotoEditorComponent implements OnInit {
       };
 
       this.uploader.onSuccessItem = (item, response, status, headers) => {
-        if (response) {
-          const photo = JSON.parse(response);
-          this.member.photos.push(photo);
-        }
-
-
+         if (response) {
+            const photo = JSON.parse(response);
+            this.member.photos.push(photo);
+         }
       };
+   }
+
+   async onDeletePhoto(id: number): Promise<void> {
+      await this.memberService.deletePhoto(id).toPromise();
+   }
+
+   async onSetMain(id: number): Promise<void> {
+      await this.memberService.setMainPhoto(id).toPromise();
    }
 
    public fileOverBase(e: any): void {

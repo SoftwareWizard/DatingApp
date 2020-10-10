@@ -55,5 +55,10 @@ namespace DatingApp.API.Data
                 .Include(item => item.Photos)
                 .SingleOrDefaultAsync(item => item.Username == username);
         }
+
+        public void DeletePhoto(User user, in Photo photo)
+        {
+            user.Photos.Remove(photo);
+        }
     }
 }

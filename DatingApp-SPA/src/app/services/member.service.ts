@@ -25,6 +25,14 @@ export class MemberService {
    }
 
    updateMember(member: Member): Observable<any> {
-     return this.http.put(`${this.baseUrl}/users`, member);
+      return this.http.put(`${this.baseUrl}/users`, member);
+   }
+
+   deletePhoto(id: number): Observable<any> {
+      return this.http.delete(`${this.baseUrl}/users/photo/${id}`);
+   }
+
+   setMainPhoto(id: number): Observable<any> {
+      return this.http.put(`${this.baseUrl}/users/set-main-photo/${id}`, null);
    }
 }

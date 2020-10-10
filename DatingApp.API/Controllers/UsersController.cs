@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.Internal;
 using DatingApp.API.Dtos;
 using DatingApp.API.Extensions;
 using DatingApp.API.Interfaces;
@@ -103,6 +105,51 @@ namespace DatingApp.API.Controllers
 
             var photoDto = _mapper.Map<PhotoDto>(photo);
             return CreatedAtRoute("GetUser", new {user.Username}, photoDto);
+        }
+
+        [HttpPut("set-main-photo/{photoId}")]
+        public async Task<ActionResult> SetMainPhoto(int photoId)
+        {
+            var username = User.GetUsername();
+            var user = await _repository.GetUserByUsernameAsync(username);
+
+            var photos = user.Photos;
+            photos.ForAll(item => item.IsMain = false);
+            var mainPhoto = photos.FirstOrDefault(item => item.Id == photoId);
+
+            if (mainPhoto == null)
+            {
+                return BadRequest("Photo not available");
+            }
+
+            mainPhoto.IsMain = true;
+
+            await _repository.SaveAllAsync();
+            return Ok();
+        }
+
+        [HttpDelete("photo/{photoId}")]
+        public async Task<ActionResult> DeletePhoto(int photoId)
+        {
+            var username = User.GetUsername();
+            var user = await _repository.GetUserByUsernameAsync(username);
+            var photo = user.Photos.FirstOrDefault(item => item.Id == photoId);
+
+            if (photo == null)
+            {
+                return BadRequest("Photo not available");
+            }
+
+            var result = await _photoService.DeletePhotoAsync(photo.PublicId);
+            
+            if (result.Error != null)
+            {
+                return BadRequest("Could not delete Photo");
+            }
+
+            _repository.DeletePhoto(user, photo);
+            await _repository.SaveAllAsync();
+            return Ok();
         }
     }
 }

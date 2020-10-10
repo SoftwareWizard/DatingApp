@@ -15,5 +15,6 @@ namespace DatingApp.API.Interfaces
         public Task<User> GetUserById(int id);
 
         public Task<User> GetUserByUsernameAsync(string username);
+        public void DeletePhoto(User user, in Photo photo);
     }
 }
