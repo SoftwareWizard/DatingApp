@@ -6,10 +6,9 @@ import { AuthGuard, PreventUnsavedChangesGuard } from './core';
 
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { MemberListComponent } from './members/member-list/member-list.component';
-import { HomeComponent } from './home/home.component';
-import { ListsComponent } from './lists/lists.component';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { NotFoundComponent, ServerErrorComponent, TestErrorsComponent } from './modules/errors';
+import { HomeComponent, ListsComponent } from './components';
 
 const routes: Routes = [
    { path: AppRouteNames.ROOT, component: HomeComponent },

@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
-import { AccountService } from './../services/account.service';
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
+import { AccountService } from 'src/app/services/account.service';
 
 @Component({
    selector: 'app-home',
