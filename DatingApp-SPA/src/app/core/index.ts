@@ -12,3 +12,4 @@ export * from './components/register/register.component';
 export * from './services/account.service';
 export * from './services/busy.service';
 
+export * from './models/user';

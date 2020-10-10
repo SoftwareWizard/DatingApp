@@ -1,8 +1,8 @@
-import { Member } from './../../models/member';
-import { MemberService } from './../../services/member.service';
+import { Member } from '../../models/member';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
+import { MemberService } from '../../services/member.service';
 
 const IMAGE_SIZE_IN_PIXEL = 500;
 

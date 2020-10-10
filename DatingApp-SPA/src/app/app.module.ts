@@ -1,3 +1,4 @@
+import { MembersModule } from './modules/members/members.module';
 import { ErrorsModule } from './modules/errors/errors.module';
 import { SharedModule } from './modules/shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
@@ -6,13 +7,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { AppComponent, HomeComponent } from './components';
-import { MemberListComponent } from './members/member-list/member-list.component';
-import { MemberDetailComponent } from './members/member-detail/member-detail.component';
-import { MemberCardComponent } from './members/member-card/member-card.component';
-import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
-import { MemberEditComponent } from './members/member-edit/member-edit.component';
 
 import {
    ErrorInterceptor,
@@ -27,12 +22,7 @@ import {
       AppComponent,
       NavComponent,
       HomeComponent,
-      RegisterComponent,
-      MemberListComponent,
-      MemberDetailComponent,
-      MemberCardComponent,
-      MemberEditComponent,
-      PhotoEditorComponent,
+      RegisterComponent
    ],
    imports: [
       AppRoutingModule,
@@ -43,6 +33,7 @@ import {
       BrowserAnimationsModule,
       SharedModule,
       ErrorsModule,
+      MembersModule
    ],
    exports: [],
    providers: [

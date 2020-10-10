@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanDeactivate } from '@angular/router';
-import { MemberEditComponent } from 'src/app/members/member-edit/member-edit.component';
+import { MemberEditComponent } from 'src/app/modules/members';
 
 @Injectable({
    providedIn: 'root',

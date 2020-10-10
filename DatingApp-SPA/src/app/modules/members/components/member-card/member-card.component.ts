@@ -1,6 +1,6 @@
-import { AppRouteNames } from './../../app-routing.names';
-import { Member } from './../../models/member';
+import { Member } from '../../models/member';
 import { Component, Input, OnInit } from '@angular/core';
+import { MembersRouteNames } from '../../members-routing.names';
 
 @Component({
    selector: 'app-member-card',
@@ -8,7 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
    styleUrls: ['./member-card.component.css'],
 })
 export class MemberCardComponent implements OnInit {
-  ROUTES = AppRouteNames;
+  ROUTES = MembersRouteNames;
   @Input() member: Member;
 
    constructor() {}

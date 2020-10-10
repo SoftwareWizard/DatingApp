@@ -5,8 +5,9 @@ import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AppRouteNames } from 'src/app/app-routing.names';
-import { User } from 'src/app/models/user';
-import { AccountService } from 'src/app/services/account.service';
+import { User } from 'src/app/core/models/user';
+import { AccountService } from '../../services/account.service';
+
 
 @Component({
    selector: 'app-nav',
