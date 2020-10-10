@@ -53,14 +53,8 @@ import { MemberEditComponent } from './members/member-edit/member-edit.component
       ReactiveFormsModule,
       BrowserAnimationsModule,
       SharedModule,
-      TabsModule.forRoot(),
-      NgxGalleryModule,
-      NgxSpinnerModule,
-      FileUploadModule
    ],
    exports: [
-     NgxGalleryModule,
-     FileUploadModule
    ],
    providers: [
      { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
