@@ -7,11 +7,10 @@ import { NgModule } from '@angular/core';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 
 import { AppComponent } from './app.component';
-import { ValueComponent } from './value/value.component';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NavComponent } from './nav/nav.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
@@ -24,16 +23,15 @@ import { MemberListComponent } from './members/member-list/member-list.component
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { MemberCardComponent } from './members/member-card/member-card.component';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
-import { MemberEditComponent } from './member-edit/member-edit.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { LoadingInterceptor } from './interceptor/loading.interceptor';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 import { FileUploadModule } from 'ng2-file-upload';
+import { MemberEditComponent } from './members/member-edit/member-edit.component';
 
 @NgModule({
    declarations: [
       AppComponent,
-      ValueComponent,
       NavComponent,
       HomeComponent,
       RegisterComponent,
@@ -52,6 +50,7 @@ import { FileUploadModule } from 'ng2-file-upload';
       BrowserModule,
       HttpClientModule,
       FormsModule,
+      ReactiveFormsModule,
       BrowserAnimationsModule,
       SharedModule,
       TabsModule.forRoot(),

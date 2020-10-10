@@ -11,7 +11,7 @@ import { ListsComponent } from './lists/lists.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
 import { AppRouteNames } from './app-routing.names';
-import { MemberEditComponent } from './member-edit/member-edit.component';
+import { MemberEditComponent } from './members/member-edit/member-edit.component';
 
 const routes: Routes = [
    { path: AppRouteNames.ROOT, component: HomeComponent },

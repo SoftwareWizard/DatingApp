@@ -1,7 +1,7 @@
+import { MemberService } from './../../services/member.service';
+import { Member } from './../../models/member';
 import { ToastrService } from 'ngx-toastr';
-import { MemberService } from './../services/member.service';
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
-import { Member } from '../models/member';
 import { NgForm } from '@angular/forms';
 
 @Component({
