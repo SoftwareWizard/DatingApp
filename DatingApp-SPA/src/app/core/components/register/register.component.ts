@@ -1,5 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import {
+   AbstractControl,
+   FormBuilder,
+   FormControl,
+   FormGroup,
+   ValidatorFn,
+   Validators,
+} from '@angular/forms';
 import { User } from 'src/app/core/models/user';
 import { AccountService } from '../../services/account.service';
 
@@ -14,31 +21,32 @@ export class RegisterComponent implements OnInit {
 
    model: any = {};
    registerForm: FormGroup;
-   isUsernameValid: any;
 
-   constructor(private accountService: AccountService) {}
+   constructor(private accountService: AccountService, private fb: FormBuilder) {}
 
    ngOnInit(): void {
       this.initializeForm();
    }
 
    initializeForm(): void {
-      this.registerForm = new FormGroup({
-         username: new FormControl('Hello', [Validators.required, Validators.minLength(4)]),
-         password: new FormControl('', [
-            Validators.required,
-            Validators.minLength(4),
-            Validators.maxLength(8),
-         ]),
-         confirmPassword: new FormControl('', [
-            Validators.required,
-            Validators.minLength(4),
-            Validators.maxLength(8),
-            this.matchValues('password'),
-         ]),
+      this.registerForm = this.fb.group({
+         gender: ['male'],
+         username: ['Hello', [Validators.required, Validators.minLength(4)]],
+         knownAs: ['', Validators.required],
+         dateOfBirth: ['', Validators.required],
+         city: ['', Validators.required],
+         country: ['', Validators.required],
+         password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(8)]],
+         confirmPassword: [
+            '',
+            [
+               Validators.required,
+               Validators.minLength(4),
+               Validators.maxLength(8),
+               this.matchValues('password'),
+            ],
+         ],
       });
-
-      this.isUsernameValid = this.registerForm.get('username')?.errors && this.registerForm.get('username');
    }
 
    matchValues(matchTo: string): ValidatorFn {
