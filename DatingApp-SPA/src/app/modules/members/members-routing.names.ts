@@ -1,3 +1,3 @@
 export class MembersRouteNames {
-  public static EDIT = 'edit';
+  public static EDIT = 'edit/member';
 }

@@ -12,7 +12,7 @@ const routes: Routes = [
    { path: '', component: MemberListComponent },
    { path: ':id', component: MemberDetailComponent },
    {
-      path: 'edit/test',
+      path: MembersRouteNames.EDIT,
       component: MemberEditComponent,
       canDeactivate: [PreventUnsavedChangesGuard],
    },

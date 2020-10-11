@@ -4,10 +4,11 @@ import { map } from 'rxjs/operators';
 
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { AppRouteNames } from 'src/app/app-routing.names';
 import { User } from 'src/app/core/models/user';
 import { AccountService } from '../../services/account.service';
 
+import { AppRouteNames } from 'src/app/app-routing.names';
+import { MembersRouteNames } from 'src/app/modules/members/members-routing.names';
 
 @Component({
    selector: 'app-nav',
@@ -20,6 +21,8 @@ export class NavComponent implements OnInit {
    MSG_TITLE = 'LOGIN';
 
    ROUTES = AppRouteNames;
+   MEMBERS_ROUTES = MembersRouteNames;
+
    model: any = { username: 'lisa', password: 'Pa$$w0rd' };
    user$: Observable<User>;
    loggedIn$: Observable<boolean>;

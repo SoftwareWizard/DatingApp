@@ -1,8 +1,6 @@
 import { MembersRoutingModule } from './members-routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-
 import { SharedModule } from '../shared/shared.module';
 import { MemberCardComponent } from './components/member-card/member-card.component';
 import { MemberDetailComponent } from './components/member-detail/member-detail.component';
@@ -18,7 +16,7 @@ import { PhotoEditorComponent } from './components/photo-editor/photo-editor.com
       MemberListComponent,
       PhotoEditorComponent,
    ],
-   imports: [CommonModule, FormsModule, MembersRoutingModule, SharedModule],
+   imports: [CommonModule, MembersRoutingModule, SharedModule],
    exports: [MemberListComponent, MemberEditComponent, MembersRoutingModule],
 })
 export class MembersModule {}
