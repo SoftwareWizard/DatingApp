@@ -17,9 +17,10 @@ import {
    NavComponent,
    RegisterComponent,
 } from './core';
+import { TextInputComponent } from './core/components/text-input/text-input.component';
 
 @NgModule({
-   declarations: [AppComponent, NavComponent, HomeComponent, RegisterComponent],
+   declarations: [AppComponent, NavComponent, HomeComponent, RegisterComponent, TextInputComponent],
    imports: [
       BrowserModule,
       BrowserAnimationsModule,
