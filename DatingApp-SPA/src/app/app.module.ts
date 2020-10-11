@@ -1,13 +1,13 @@
-import { MembersModule } from './modules/members/members.module';
-import { ErrorsModule } from './modules/errors/errors.module';
-import { SharedModule } from './modules/shared/shared.module';
-import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ErrorsModule } from './modules/errors/errors.module';
+import { SharedModule } from './modules/shared/shared.module';
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent, HomeComponent } from './components';
+import { MembersModule } from './modules/members/members.module';
 
 import {
    ErrorInterceptor,
@@ -18,12 +18,7 @@ import {
 } from './core';
 
 @NgModule({
-   declarations: [
-      AppComponent,
-      NavComponent,
-      HomeComponent,
-      RegisterComponent
-   ],
+   declarations: [AppComponent, NavComponent, HomeComponent, RegisterComponent],
    imports: [
       AppRoutingModule,
       BrowserModule,
@@ -33,7 +28,7 @@ import {
       BrowserAnimationsModule,
       SharedModule,
       ErrorsModule,
-      MembersModule
+      MembersModule,
    ],
    exports: [],
    providers: [

@@ -1,8 +1,8 @@
 import { Member } from '../../models/member';
 import { ToastrService } from 'ngx-toastr';
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { MemberService } from '../../services/member.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
    selector: 'app-member-edit',

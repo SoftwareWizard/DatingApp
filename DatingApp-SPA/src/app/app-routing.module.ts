@@ -1,22 +1,20 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AppRouteNames } from './app-routing.names';
+import { AuthGuard } from './core';
 
-import { AuthGuard, PreventUnsavedChangesGuard } from './core';
 import { NotFoundComponent, ServerErrorComponent, TestErrorsComponent } from './modules/errors';
 import { HomeComponent, ListsComponent } from './components';
 
 const routes: Routes = [
    { path: AppRouteNames.ROOT, component: HomeComponent },
    {
-      path: 'members',
+      path: AppRouteNames.MEMBERS,
       runGuardsAndResolvers: 'always',
       canActivate: [AuthGuard],
-      loadChildren: './modules/members/members.module#MembersModule'
-      // children: [
-      //   { path: AppRouteNames.LISTS, component: ListsComponent },
-      // ],
+      loadChildren: './modules/members/members.module#MembersModule',
    },
+   { path: AppRouteNames.LISTS, component: ListsComponent },
    { path: AppRouteNames.TEST_ERRORS, component: TestErrorsComponent },
    { path: AppRouteNames.NOT_FOUND, component: NotFoundComponent },
    { path: AppRouteNames.SERVER_ERROR, component: ServerErrorComponent },
@@ -24,9 +22,11 @@ const routes: Routes = [
 ];
 
 @NgModule({
-   imports: [RouterModule.forRoot(routes, {
-    preloadingStrategy: PreloadAllModules
-   })],
+   imports: [
+      RouterModule.forRoot(routes, {
+         preloadingStrategy: PreloadAllModules,
+      }),
+   ],
    exports: [RouterModule],
 })
 export class AppRoutingModule {}
