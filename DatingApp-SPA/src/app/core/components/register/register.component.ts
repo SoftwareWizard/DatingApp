@@ -1,3 +1,5 @@
+import { AppRouteNames } from './../../../app-routing.names';
+import { Router } from '@angular/router';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
    AbstractControl,
@@ -21,8 +23,13 @@ export class RegisterComponent implements OnInit {
 
    model: any = {};
    registerForm: FormGroup;
+   validationErrors: string[];
 
-   constructor(private accountService: AccountService, private fb: FormBuilder) {}
+   constructor(
+      private accountService: AccountService,
+      private fb: FormBuilder,
+      private router: Router
+   ) {}
 
    ngOnInit(): void {
       this.initializeForm();
@@ -60,14 +67,14 @@ export class RegisterComponent implements OnInit {
    async register(): Promise<void> {
       try {
          await this.accountService.register(this.model);
-         this.cancelRegister.emit();
+         this.router.navigateByUrl(`/${AppRouteNames.MEMBERS}`);
       } catch (error) {
-         console.log(error);
+         this.validationErrors = error;
       }
    }
 
    cancel(): void {
-      console.log('cancelled');
-      this.cancelRegister.emit();
+     this.registerForm.reset();
+     this.initializeForm();
    }
 }

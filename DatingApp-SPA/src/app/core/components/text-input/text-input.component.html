@@ -1,6 +1,16 @@
 <div class="form-group">
-  <input [class.is-invalid]="ngControl.touched && ngControl.invalid" type="{{ type }}" [formControl]="ngControl.control"
-    class="form-control mb-2" placeholder="{{ label }}" />
+  <ng-container *ngIf="type === 'date';else normal">
+    <input [class.is-invalid]="ngControl.touched && ngControl.invalid" type="text"
+      [formControl]="ngControl.control" bsDatepicker
+      [bsConfig]="bsConfig"
+      class="form-control mb-2" placeholder="{{ label }}" />
+  </ng-container>
+
+  <ng-template #normal>
+    <input [class.is-invalid]="ngControl.touched && ngControl.invalid" type="{{ type }}"
+      [formControl]="ngControl.control" class="form-control mb-2" placeholder="{{ label }}" />
+  </ng-template>
+
   <div *ngIf="ngControl.control.errors?.required" class="invalid-feedback">Please enter {{ label}}.</div>
   <div *ngIf="ngControl.control.errors?.minlength" class="invalid-feedback">{{ label}} must be at least
     {{ ngControl.control.errors.minlength['requiredLength']}} characters.</div>
