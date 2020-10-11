@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using DatingApp.API.Dtos;
+using DatingApp.API.Helpers;
 using DatingApp.API.Models;
 
 namespace DatingApp.API.Interfaces
@@ -10,7 +11,7 @@ namespace DatingApp.API.Interfaces
 
         public Task<bool> SaveAllAsync();
 
-        public Task<IEnumerable<User>> GetUsersAsync();
+        public Task<PagedList<MemberDto>> GetUsersAsync(UserParams userParams);
 
         public Task<User> GetUserById(int id);
 

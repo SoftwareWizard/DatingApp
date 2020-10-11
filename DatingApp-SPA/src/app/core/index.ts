@@ -13,3 +13,4 @@ export * from './services/account.service';
 export * from './services/busy.service';
 
 export * from './models/user';
+export * from './models/pagination';

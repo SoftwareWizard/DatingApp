@@ -1,5 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using DatingApp.API.Dtos;
+using DatingApp.API.Helpers;
 using DatingApp.API.Interfaces;
 using DatingApp.API.Models;
 using Microsoft.EntityFrameworkCore;
@@ -9,10 +13,12 @@ namespace DatingApp.API.Data
     public class UserRepository : IUserRepository
     {
         private readonly DataContext _context;
+        private readonly IMapper _mapper;
 
-        public UserRepository(DataContext context)
+        public UserRepository(DataContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public void Update(User user)
@@ -32,12 +38,14 @@ namespace DatingApp.API.Data
             return false;
         }
 
-        public async Task<IEnumerable<User>> GetUsersAsync()
+        public async Task<PagedList<MemberDto>> GetUsersAsync(UserParams userParams)
         {
-            return await _context
-                .Users
+            var query = _context.Users
                 .Include(item => item.Photos)
-                .ToListAsync();
+                .ProjectTo<MemberDto>(_mapper.ConfigurationProvider)
+                .AsNoTracking();
+
+            return await PagedList<MemberDto>.CreateAsync(query, userParams.PageNumber, userParams.PageSize);
         }
 
         public async Task<User> GetUserById(int id)

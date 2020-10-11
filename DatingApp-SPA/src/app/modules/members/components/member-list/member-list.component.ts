@@ -1,3 +1,4 @@
+import { PaginatedResult } from './../../../../core/models/pagination';
 import { Component, OnInit } from '@angular/core';
 import { Member } from '../../models/member';
 import { MemberService } from '../../services/member.service';
@@ -8,7 +9,7 @@ import { MemberService } from '../../services/member.service';
    styleUrls: ['./member-list.component.css'],
 })
 export class MemberListComponent implements OnInit {
-   members: Member[];
+   page: PaginatedResult<Member[]> = new PaginatedResult<Member[]>();
 
    constructor(private memberService: MemberService) {}
 
@@ -17,6 +18,6 @@ export class MemberListComponent implements OnInit {
    }
 
    async loadMembers(): Promise<void> {
-      this.members = await this.memberService.getMembers().toPromise();
+      this.page = await this.memberService.getMembers(1, 4).toPromise();
    }
 }

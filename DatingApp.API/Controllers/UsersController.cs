@@ -5,6 +5,7 @@ using AutoMapper;
 using AutoMapper.Internal;
 using DatingApp.API.Dtos;
 using DatingApp.API.Extensions;
+using DatingApp.API.Helpers;
 using DatingApp.API.Interfaces;
 using DatingApp.API.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -30,10 +31,13 @@ namespace DatingApp.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers([FromQuery] UserParams userParams)
         {
-            var users = await _repository.GetUsersAsync();
-            var userDtos = _mapper.Map<IEnumerable<MemberDto>>(users);
+            var userDtos = await _repository.GetUsersAsync(userParams);
+
+            Response.AddPaginationHeader(
+                userDtos.CurrentPage, userDtos.PageSize,
+                userDtos.TotalCount, userDtos.TotalPages);
 
             return Ok(userDtos);
         }
@@ -104,7 +108,7 @@ namespace DatingApp.API.Controllers
             if (hasErrors) return BadRequest("Photo could not be stored");
 
             var photoDto = _mapper.Map<PhotoDto>(photo);
-            return CreatedAtRoute("GetUser", new {user.Username}, photoDto);
+            return CreatedAtRoute("GetUser", new { user.Username }, photoDto);
         }
 
         [HttpPut("set-main-photo/{photoId}")]
@@ -141,7 +145,7 @@ namespace DatingApp.API.Controllers
             }
 
             var result = await _photoService.DeletePhotoAsync(photo.PublicId);
-            
+
             if (result.Error != null)
             {
                 return BadRequest("Could not delete Photo");
