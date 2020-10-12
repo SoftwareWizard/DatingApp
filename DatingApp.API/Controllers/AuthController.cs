@@ -84,7 +84,8 @@ namespace DatingApp.API.Controllers
             {
                 userFromRepo.Username,
                 Token = token,
-                PhotoUrl = photoUrl
+                PhotoUrl = photoUrl,
+                userFromRepo.Gender
             });
         }
     }

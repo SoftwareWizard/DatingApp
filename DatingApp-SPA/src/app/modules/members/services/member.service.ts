@@ -5,7 +5,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Member } from '../models/member';
 import { environment } from 'src/environments/environment';
 import { PaginatedResult } from 'src/app/core';
-import { map } from 'rxjs/operators';
+import { map, min } from 'rxjs/operators';
 
 @Injectable({
    providedIn: 'root',
@@ -15,12 +15,30 @@ export class MemberService {
 
    constructor(private http: HttpClient) {}
 
-   getMembers(page?: number, itemsPerPage?: number): Observable<PaginatedResult<Member[]>> {
+   getMembers(
+      page?: number,
+      itemsPerPage?: number,
+      minAge?: number,
+      maxAge?: number,
+      gender?: string
+   ): Observable<PaginatedResult<Member[]>> {
       let params = new HttpParams();
 
       if (page !== null && itemsPerPage !== null) {
          params = params.append('pageNumber', page.toString());
          params = params.append('pageSize', itemsPerPage.toString());
+      }
+
+      if (minAge) {
+        params = params.append('minAge', minAge.toString());
+      }
+
+      if (maxAge) {
+        params = params.append('maxAge', maxAge.toString());
+      }
+
+      if (gender) {
+        params = params.append('gender', gender);
       }
 
       return this.http

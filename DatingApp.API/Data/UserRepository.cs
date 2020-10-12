@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -7,6 +9,7 @@ using DatingApp.API.Helpers;
 using DatingApp.API.Interfaces;
 using DatingApp.API.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace DatingApp.API.Data
 {
@@ -40,10 +43,17 @@ namespace DatingApp.API.Data
 
         public async Task<PagedList<MemberDto>> GetUsersAsync(UserParams userParams)
         {
+            var minDob = DateTime.Today.AddYears(-userParams.MaxAge - 1);
+            var maxDob = DateTime.Today.AddYears(-userParams.MinAge);
+
             var query = _context.Users
                 .Include(item => item.Photos)
+                .Where(item => item.Gender == userParams.Gender)
+                .Where(item => item.Username != userParams.CurrentUsername)
+                .Where(item => item.DateOfBirth >= minDob && item.DateOfBirth <= maxDob)
                 .ProjectTo<MemberDto>(_mapper.ConfigurationProvider)
-                .AsNoTracking();
+                .AsNoTracking()
+                .AsQueryable();
 
             return await PagedList<MemberDto>.CreateAsync(query, userParams.PageNumber, userParams.PageSize);
         }

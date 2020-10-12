@@ -8,6 +8,14 @@
 
         public int PageNumber { get; set; } = 1;
 
+        public string CurrentUsername { get; set; }
+
+        public string Gender { get; set; }
+
+        public int MinAge { get; set; } = 18;
+
+        public int MaxAge { get; set; } = 99;
+
         public int PageSize
         {
             get => _pageSize;

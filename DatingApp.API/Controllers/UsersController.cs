@@ -33,6 +33,15 @@ namespace DatingApp.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers([FromQuery] UserParams userParams)
         {
+            var username = User.GetUsername();
+            userParams.CurrentUsername = username;
+
+            if (string.IsNullOrEmpty(userParams.Gender))
+            {
+                var user = await _repository.GetUserByUsernameAsync(username);
+                userParams.Gender = user.Gender == "male" ? "female" : "male";
+            }
+
             var userDtos = await _repository.GetUsersAsync(userParams);
 
             Response.AddPaginationHeader(
@@ -108,7 +117,7 @@ namespace DatingApp.API.Controllers
             if (hasErrors) return BadRequest("Photo could not be stored");
 
             var photoDto = _mapper.Map<PhotoDto>(photo);
-            return CreatedAtRoute("GetUser", new { user.Username }, photoDto);
+            return CreatedAtRoute("GetUser", new {user.Username}, photoDto);
         }
 
         [HttpPut("set-main-photo/{photoId}")]
@@ -121,10 +130,7 @@ namespace DatingApp.API.Controllers
             photos.ForAll(item => item.IsMain = false);
             var mainPhoto = photos.FirstOrDefault(item => item.Id == photoId);
 
-            if (mainPhoto == null)
-            {
-                return BadRequest("Photo not available");
-            }
+            if (mainPhoto == null) return BadRequest("Photo not available");
 
             mainPhoto.IsMain = true;
 
@@ -139,17 +145,11 @@ namespace DatingApp.API.Controllers
             var user = await _repository.GetUserByUsernameAsync(username);
             var photo = user.Photos.FirstOrDefault(item => item.Id == photoId);
 
-            if (photo == null)
-            {
-                return BadRequest("Photo not available");
-            }
+            if (photo == null) return BadRequest("Photo not available");
 
             var result = await _photoService.DeletePhotoAsync(photo.PublicId);
 
-            if (result.Error != null)
-            {
-                return BadRequest("Could not delete Photo");
-            }
+            if (result.Error != null) return BadRequest("Could not delete Photo");
 
             _repository.DeletePhoto(user, photo);
             await _repository.SaveAllAsync();

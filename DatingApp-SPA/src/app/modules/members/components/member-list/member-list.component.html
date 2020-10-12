@@ -1,10 +1,13 @@
 <h2>Members</h2>
-<div class="row">
-
+<div class="row" *ngIf="page.result?.length > 0;else noResult">
   <div class="col-2" *ngFor="let member of page.result">
     <app-member-card [member]="member"></app-member-card>
   </div>
 </div>
+
+<ng-template #noResult class="row justify-content-center" >
+  <p class="text-center text-danger">No Result</p>
+</ng-template>
 
 <div class="row">
   <div class="col-lg-4 col-sm-12">
@@ -22,13 +25,35 @@
       {{ itemsPerPage }}
     </div>
   </div>
-  <div class="col-lg-4 col-sm-12" *ngIf="page.pagination">
+  <div class="col-lg-3 col-sm-12" *ngIf="page.pagination">
     <pagination class="text-sm-center" [boundaryLinks]="true" [totalItems]="page.pagination.totalItems"
       [itemsPerPage]="itemsPerPage" [(ngModel)]="page.pagination.currentPage" (pageChanged)="pageChanged($event)"
       previousText="&#8249;" nextText="&#8250;" firstText="&#8810;" lastText="&#8811;">
     </pagination>
   </div>
-  <div class="col-lg-4 col-sm-12 text-lg-right text-sm-center" *ngIf="page.pagination">
-    Here I like a filter
+  <div class="col-lg-5 col-sm-12">
+    <div class="form-inline">
+      <div class="form-inline mr-2">
+        <label class="mr-1">Min Age</label>
+        <select class="form-control" name="minAge" id="minAge" [(ngModel)]="minAge" (change)="onSelectionChanged()">
+          <option *ngFor="let age of ages">{{ age }}</option>
+        </select>
+      </div>
+
+      <div class="form-inline mr-2">
+        <label class="mr-1">Max Age</label>
+        <select class="form-control" name="minAge" id="minAge" [(ngModel)]="maxAge" (change)="onSelectionChanged()">
+          <option *ngFor="let age of ages">{{ age }}</option>
+        </select>
+      </div>
+
+      <div class="form-inline">
+        <label class="mr-1">Gender</label>
+        <select class="form-control" name="minAge" id="minAge" [(ngModel)]="gender" (change)="onSelectionChanged()">
+          <option *ngFor="let gender of genders">{{ gender }}</option>
+        </select>
+      </div>
+
+    </div>
   </div>
 </div>
