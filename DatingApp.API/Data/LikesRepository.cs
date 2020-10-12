@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper.QueryableExtensions;
 using DatingApp.API.Dtos;
 using DatingApp.API.Interfaces;
 using DatingApp.API.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DatingApp.API.Data
 {
@@ -17,19 +19,44 @@ namespace DatingApp.API.Data
             _context = context;
         }
 
-        public Task<UserLike> GetUserLike(int sourceUserId, int likedUserId)
+        public async Task<UserLike> GetUserLike(int sourceUserId, int likedUserId)
         {
-            throw new NotImplementedException();
+            return await _context.Likes.FindAsync(sourceUserId, likedUserId);
         }
 
-        public Task<User> GetUserWithLikes(int userId)
+        public async Task<User> GetUserWithLikes(int userId)
         {
-            throw new NotImplementedException();
+            return await _context.Users
+                .Include(x => x.LikedUsers)
+                .FirstOrDefaultAsync(item => item.Id == userId);
         }
 
-        public Task<IEnumerable<LikeDto>> GetUserLikes(string predicate, int userId)
+        public async Task<IEnumerable<LikeDto>> GetUserLikes(string predicate, int userId)
         {
-            throw new NotImplementedException();
+            var users = _context.Users.OrderBy(u => u.Username).AsQueryable();
+            var likes = _context.Likes.AsQueryable();
+
+            if (predicate == "liked")
+            {
+                likes = likes.Where(like => like.SourceUserId == userId);
+                users = likes.Select(like => like.LikedUser);
+            }
+
+            if (predicate == "likedBy")
+            {
+                likes = likes.Where(like => like.LikedUserId == userId);
+                users = likes.Select(like => like.SourceUser);
+            }
+
+            return await users.Select(item => new LikeDto
+            {
+                Id = item.Id,
+                Username = item.Username,
+                Age = item.Age,
+                KnownAs = item.KnownAs,
+                City = item.City,
+                PhotoUrl = item.Photos.SingleOrDefault(photo => photo.IsMain).Url
+            }).ToListAsync();
         }
     }
 }

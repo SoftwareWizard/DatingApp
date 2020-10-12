@@ -34,6 +34,7 @@ namespace DatingApp.API
             services.Configure<CloudinarySettings>(cloudinarySettingsSection);
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<ILikesRepository, LikesRepository>();
             services.AddScoped<LogUserActivity>();
             services.AddScoped<IPhotoService, PhotoService>();
             services.AddControllers();
