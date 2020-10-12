@@ -7,24 +7,28 @@
 </div>
 
 <div class="row">
-  <div class="col">
-    <div class="btn-group mr-2" dropdown>
-      <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
-        aria-controls="dropdown-basic"> Items Per Page<span class="caret"></span>
-      </button>
-      <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
-        <li role="menuitem"><a class="dropdown-item" (click)="selectPageSize(5)">5</a></li>
-        <li role="menuitem"><a class="dropdown-item" (click)="selectPageSize(10)">10</a></li>
-        <li role="menuitem"><a class="dropdown-item" (click)="selectPageSize(20)">20</a></li>
-      </ul>
+  <div class="col-lg-4 col-sm-12">
+    <div class="text-nowrap text-lg-left text-sm-center">
+      <div class="btn-group mr-2" dropdown>
+        <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+          aria-controls="dropdown-basic"> Items Per Page<span class="caret"></span>
+        </button>
+        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+          <li role="menuitem"><a class="dropdown-item" (click)="selectPageSize(5)">5</a></li>
+          <li role="menuitem"><a class="dropdown-item" (click)="selectPageSize(10)">10</a></li>
+          <li role="menuitem"><a class="dropdown-item" (click)="selectPageSize(20)">20</a></li>
+        </ul>
+      </div>
+      {{ itemsPerPage }}
     </div>
-    {{ itemsPerPage }}
   </div>
-  <div class="col" *ngIf="page.pagination">
-    <pagination [boundaryLinks]="true" [totalItems]="page.pagination.totalItems" [itemsPerPage]="itemsPerPage"
-      [(ngModel)]="page.pagination.currentPage" (pageChanged)="pageChanged($event)" previousText="&#8249;"
-      nextText="&#8250;" firstText="&#8810;" lastText="&#8811;">
+  <div class="col-lg-4 col-sm-12" *ngIf="page.pagination">
+    <pagination class="text-sm-center" [boundaryLinks]="true" [totalItems]="page.pagination.totalItems"
+      [itemsPerPage]="itemsPerPage" [(ngModel)]="page.pagination.currentPage" (pageChanged)="pageChanged($event)"
+      previousText="&#8249;" nextText="&#8250;" firstText="&#8810;" lastText="&#8811;">
     </pagination>
   </div>
-
+  <div class="col-lg-4 col-sm-12 text-lg-right text-sm-center" *ngIf="page.pagination">
+    Here I like a filter
+  </div>
 </div>
