@@ -7,6 +7,11 @@ import { environment } from 'src/environments/environment';
 import { PaginatedResult } from 'src/app/core';
 import { map, min } from 'rxjs/operators';
 
+export enum likedPredicateType {
+   liked = 'liked',
+   likedBy = 'likedBy',
+}
+
 @Injectable({
    providedIn: 'root',
 })
@@ -30,15 +35,15 @@ export class MemberService {
       }
 
       if (minAge) {
-        params = params.append('minAge', minAge.toString());
+         params = params.append('minAge', minAge.toString());
       }
 
       if (maxAge) {
-        params = params.append('maxAge', maxAge.toString());
+         params = params.append('maxAge', maxAge.toString());
       }
 
       if (gender) {
-        params = params.append('gender', gender);
+         params = params.append('gender', gender);
       }
 
       return this.http
@@ -79,5 +84,19 @@ export class MemberService {
 
    setMainPhoto(id: number): Observable<any> {
       return this.http.put(`${this.baseUrl}/users/set-main-photo/${id}`, null);
+   }
+
+   addLike(username: string): Observable<any> {
+      return this.http.put(`${this.baseUrl}/likes/${username}`, {});
+   }
+
+   removeLike(username: string): Observable<any> {
+      return this.http.delete(`${this.baseUrl}/likes/${username}`);
+   }
+
+   getLikes(predicate: likedPredicateType): Observable<Member[]> {
+      let params = new HttpParams();
+      params = params.append('predicate', predicate);
+      return this.http.get<Member[]>(`${this.baseUrl}/likes`, { params });
    }
 }
