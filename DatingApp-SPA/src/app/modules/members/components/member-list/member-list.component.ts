@@ -44,8 +44,4 @@ export class MemberListComponent implements OnInit {
       this.itemsPerPage = size;
       await this.loadMembers();
    }
-
-   async onSelectionChanged(): Promise<void> {
-      await this.loadMembers();
-   }
 }

@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DatingApp.API.Controllers
 {
     [Authorize]
+    [ServiceFilter(typeof(LogUserActivity))]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -76,16 +77,13 @@ namespace DatingApp.API.Controllers
         [HttpPut]
         public async Task<ActionResult> UpdateUser(MemberUpdateDto dto)
         {
-            var idAsString = User.GetUserId();
-            var hasErrors = !int.TryParse(idAsString, out var id);
+            var userId = User.GetUserId();
 
-            if (hasErrors) return BadRequest("Failed to update");
-
-            var user = await _repository.GetUserById(id);
+            var user = await _repository.GetUserById(userId);
             _mapper.Map(dto, user);
             _repository.Update(user);
 
-            hasErrors = !await _repository.SaveAllAsync();
+           var hasErrors = !await _repository.SaveAllAsync();
 
             if (hasErrors) return BadRequest("Failed to update");
 

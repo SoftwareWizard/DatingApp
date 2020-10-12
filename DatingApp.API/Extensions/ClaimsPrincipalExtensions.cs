@@ -9,9 +9,10 @@ namespace DatingApp.API.Extensions
             return claimsPrincipal.FindFirst(ClaimTypes.Name)?.Value;
         }
 
-        public static string GetUserId(this ClaimsPrincipal claimsPrincipal)
+        public static int GetUserId(this ClaimsPrincipal claimsPrincipal)
         {
-            return claimsPrincipal.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var userIdAsString = claimsPrincipal.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0";
+            return int.Parse(userIdAsString);
         }
     }
 }

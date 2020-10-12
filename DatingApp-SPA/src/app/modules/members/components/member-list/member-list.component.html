@@ -35,21 +35,21 @@
     <div class="form-inline">
       <div class="form-inline mr-2">
         <label class="mr-1">Min Age</label>
-        <select class="form-control" name="minAge" id="minAge" [(ngModel)]="minAge" (change)="onSelectionChanged()">
+        <select class="form-control" name="minAge" id="minAge" [(ngModel)]="minAge" (change)="loadMembers()">
           <option *ngFor="let age of ages">{{ age }}</option>
         </select>
       </div>
 
       <div class="form-inline mr-2">
         <label class="mr-1">Max Age</label>
-        <select class="form-control" name="minAge" id="minAge" [(ngModel)]="maxAge" (change)="onSelectionChanged()">
+        <select class="form-control" name="minAge" id="minAge" [(ngModel)]="maxAge" (change)="loadMembers()">
           <option *ngFor="let age of ages">{{ age }}</option>
         </select>
       </div>
 
       <div class="form-inline">
         <label class="mr-1">Gender</label>
-        <select class="form-control" name="minAge" id="minAge" [(ngModel)]="gender" (change)="onSelectionChanged()">
+        <select class="form-control" name="minAge" id="minAge" [(ngModel)]="gender" (change)="loadMembers()">
           <option *ngFor="let gender of genders">{{ gender }}</option>
         </select>
       </div>
