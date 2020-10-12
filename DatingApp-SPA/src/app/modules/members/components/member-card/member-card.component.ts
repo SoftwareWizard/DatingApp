@@ -8,10 +8,13 @@ import { Component, Input, OnInit } from '@angular/core';
    styleUrls: ['./member-card.component.css'],
 })
 export class MemberCardComponent implements OnInit {
-  ROUTES = AppRouteNames;
-  @Input() member: Member;
+   ROUTES = AppRouteNames;
+   @Input() member: Member;
+   isLike: boolean;
+   constructor() {
+   }
 
-   constructor() {}
-
-   ngOnInit(): void {}
+   ngOnInit(): void {
+    this.isLike = this.member?.age < 40;
+   }
 }

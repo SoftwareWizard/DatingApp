@@ -40,3 +40,11 @@
 .animate {
   transition: all 0.3s ease-in-out;
 }
+
+.like {
+  border-color: green;
+}
+
+.like-symbol {
+  color: red;
+}
