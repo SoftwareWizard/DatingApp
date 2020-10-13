@@ -8,7 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { MembersModule } from './modules/members/members.module';
 import { ErrorsModule } from './modules/errors/errors.module';
 
-import { AppComponent, HomeComponent } from './components';
+import { AppComponent, HomeComponent, ListsComponent } from './components';
 
 import {
    ErrorInterceptor,
@@ -20,7 +20,14 @@ import {
 import { TextInputComponent } from './core/components/text-input/text-input.component';
 
 @NgModule({
-   declarations: [AppComponent, NavComponent, HomeComponent, RegisterComponent, TextInputComponent],
+   declarations: [
+      AppComponent,
+      NavComponent,
+      HomeComponent,
+      RegisterComponent,
+      TextInputComponent,
+      ListsComponent,
+   ],
    imports: [
       BrowserModule,
       BrowserAnimationsModule,

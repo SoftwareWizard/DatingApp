@@ -5,9 +5,9 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Member } from '../models/member';
 import { environment } from 'src/environments/environment';
 import { PaginatedResult } from 'src/app/core';
-import { map, min } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
-export enum likedPredicateType {
+export enum LikedPredicateType {
    liked = 'liked',
    likedBy = 'likedBy',
 }
@@ -94,7 +94,7 @@ export class MemberService {
       return this.http.delete(`${this.baseUrl}/likes/${username}`);
    }
 
-   getLikes(predicate: likedPredicateType): Observable<Member[]> {
+   getLikes(predicate: LikedPredicateType): Observable<Member[]> {
       let params = new HttpParams();
       params = params.append('predicate', predicate);
       return this.http.get<Member[]>(`${this.baseUrl}/likes`, { params });

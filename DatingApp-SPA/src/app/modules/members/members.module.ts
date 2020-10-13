@@ -17,6 +17,6 @@ import { PhotoEditorComponent } from './components/photo-editor/photo-editor.com
       PhotoEditorComponent,
    ],
    imports: [CommonModule, MembersRoutingModule, SharedModule],
-   exports: [MemberListComponent, MemberEditComponent, MembersRoutingModule],
+   exports: [MemberListComponent, MemberEditComponent, MemberCardComponent, MembersRoutingModule],
 })
 export class MembersModule {}
