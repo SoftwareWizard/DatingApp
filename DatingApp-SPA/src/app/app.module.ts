@@ -1,3 +1,4 @@
+import { MessageModule } from './modules/message/message.module';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
@@ -36,6 +37,7 @@ import { TextInputComponent } from './core/components/text-input/text-input.comp
       SharedModule,
       ErrorsModule,
       MembersModule,
+      MessageModule,
    ],
    exports: [],
    providers: [

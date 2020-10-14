@@ -14,6 +14,12 @@ const routes: Routes = [
       canActivate: [AuthGuard],
       loadChildren: './modules/members/members.module#MembersModule',
    },
+   {
+      path: AppRouteNames.MESSAGES,
+      runGuardsAndResolvers: 'always',
+      canActivate: [AuthGuard],
+      loadChildren: './modules/message/message.module#MessageModule',
+   },
    { path: AppRouteNames.LISTS, component: ListsComponent },
    { path: AppRouteNames.REGISTER, component: RegisterComponent },
    { path: AppRouteNames.TEST_ERRORS, component: TestErrorsComponent },

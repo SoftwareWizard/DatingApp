@@ -2,6 +2,7 @@
 using DatingApp.API.Dtos;
 using DatingApp.API.Helpers;
 using DatingApp.API.Models;
+using Helpers;
 
 namespace DatingApp.API.Interfaces
 {
@@ -12,7 +13,7 @@ namespace DatingApp.API.Interfaces
 
         Task<Message> GetMessage(int id);
 
-        Task<PagedList<MessageDto>> GetMessageForUser();
+        Task<PagedList<MessageDto>> GetMessageForUser(MessageParams messageParams);
 
         Task<PagedList<MessageDto>> GetMessageThread();
 

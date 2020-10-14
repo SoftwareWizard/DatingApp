@@ -1,9 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using AutoMapper;
 using DatingApp.API.Dtos;
 using DatingApp.API.Extensions;
 using DatingApp.API.Interfaces;
 using DatingApp.API.Models;
+using Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -52,6 +54,14 @@ namespace DatingApp.API.Controllers
 
             var messageDto = _mapper.Map<MessageDto>(message);
             return Ok(messageDto);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<MessageDto>>> GetMessagesForUser([FromQuery] MessageParams messageParams)
+        {
+            messageParams.Username = User.GetUsername();
+            var messages = await _messageRepository.GetMessageForUser(messageParams);
+            return Ok(messages);
         }
     }
 }
