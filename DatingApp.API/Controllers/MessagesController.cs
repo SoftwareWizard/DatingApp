@@ -56,6 +56,20 @@ namespace DatingApp.API.Controllers
             return Ok(messageDto);
         }
 
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> RemoveMessage(int id)
+        {
+            var message = await _messageRepository.GetMessage(id);
+            if (message == null)
+            {
+                return NotFound();
+            }
+
+            _messageRepository.DeleteMessage(message);
+            await _messageRepository.SaveAllAsync();
+            return NoContent();
+        }
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MessageDto>>> GetMessagesForUser([FromQuery] MessageParams messageParams)
         {

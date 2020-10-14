@@ -26,6 +26,11 @@ export class MessageListComponent implements OnInit {
       this.messages = await this.messageService.getMessages(this.container).toPromise();
    }
 
+   async deleteMessage(id: number): Promise<void> {
+      await this.messageService.deleteMessage(id).toPromise();
+      await this.loadMessages();
+   }
+
    get ContainerType(): typeof containerType {
       return containerType;
    }

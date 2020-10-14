@@ -2,7 +2,7 @@ import { PaginatedResult } from './../../../../core/models/pagination';
 import { Message } from './../../models/message';
 import { Component, Input, OnInit } from '@angular/core';
 import { containerType, MessageService } from '../../services/message.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
    selector: 'app-message-thread',
@@ -11,13 +11,10 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class MessageThreadComponent implements OnInit {
    @Input() username: string;
-   messageSendForm: FormGroup;
+   messageTextControl: FormControl = new FormControl();
    messages: PaginatedResult<Message[]> = new PaginatedResult<Message[]>();
 
-   constructor(private messageService: MessageService, private formBuilder: FormBuilder) {
-      this.messageSendForm = this.formBuilder.group({
-         messageText: ['bla'],
-      });
+   constructor(private messageService: MessageService) {
    }
 
    async ngOnInit(): Promise<void> {
@@ -41,9 +38,8 @@ export class MessageThreadComponent implements OnInit {
    }
 
    async sendMessage(): Promise<void> {
-      const messageTextControl = this.messageSendForm.get('messageText');
-      await this.messageService.sendMessage(this.username, messageTextControl.value).toPromise();
-      messageTextControl.reset();
+      await this.messageService.sendMessage(this.username, this.messageTextControl.value).toPromise();
+      this.messageTextControl.reset();
       this.loadMessages();
    }
 }

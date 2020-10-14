@@ -73,4 +73,8 @@ export class MessageService {
 
       return this.http.post(`${this.baseUrl}/messages`, message);
    }
+
+   deleteMessage(id: number): Observable<any> {
+      return this.http.delete(`${this.baseUrl}/messages/${id}`);
+   }
 }
