@@ -23,7 +23,7 @@ export class MessageListComponent implements OnInit {
    }
 
    async loadMessages(): Promise<void> {
-      this.messages = await this.messageService.getMembers(this.container).toPromise();
+      this.messages = await this.messageService.getMessages(this.container).toPromise();
    }
 
    get ContainerType(): typeof containerType {

@@ -54,9 +54,17 @@ namespace DatingApp.API.Data
             return pagedMessages;
         }
 
-        public async Task<PagedList<MessageDto>> GetMessageThread()
+        public async Task<PagedList<MessageDto>> GetMessageThread(string senderUsername, string recipientUsername)
         {
-            throw new System.NotImplementedException();
+            var query = _context.Messages
+                .Where(m => m.RecipientUsername == recipientUsername && m.SenderUsername == senderUsername
+                    || m.SenderUsername == recipientUsername && m.RecipientUsername == senderUsername)
+                .OrderBy(m => m.SentAt)
+                .AsQueryable();
+
+            var messages = query.ProjectTo<MessageDto>(_mapper.ConfigurationProvider);
+            var pagedMessages = await PagedList<MessageDto>.CreateAsync(messages, 1, 100);
+            return pagedMessages;
         }
 
         public async Task<bool> SaveAllAsync()

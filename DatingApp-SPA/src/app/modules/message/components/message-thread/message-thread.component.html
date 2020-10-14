@@ -1,0 +1,18 @@
+<p *ngIf="!messages?.result">There are no Messages.</p>
+<p *ngFor="let message of messages.result" [class.text-secondary]="isMessageRead(message)">
+  <i *ngIf="isReceiver(message)" class="fa fa-arrow-circle-up text-info"></i>
+  <i *ngIf="isSender(message)" class="fa fa-arrow-circle-down text-danger"></i>
+  {{ message?.content}}</p>
+
+<hr>
+<div>
+  <form [formGroup]="messageSendForm" (ngSubmit)="sendMessage()">
+    <div class="input-group">
+      <input type="text" class="form-control input-sm" formControlName="messageText"
+        placeholder="Send a private message">
+      <div class="input-group-append">
+        <button class="btn btn-primary" type="submit">Send</button>
+      </div>
+    </div>
+  </form>
+</div>

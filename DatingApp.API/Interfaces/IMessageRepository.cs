@@ -15,7 +15,7 @@ namespace DatingApp.API.Interfaces
 
         Task<PagedList<MessageDto>> GetMessageForUser(MessageParams messageParams);
 
-        Task<PagedList<MessageDto>> GetMessageThread();
+        Task<PagedList<MessageDto>> GetMessageThread(string senderUsername, string recipientUsername);
 
         Task<bool> SaveAllAsync();
     }

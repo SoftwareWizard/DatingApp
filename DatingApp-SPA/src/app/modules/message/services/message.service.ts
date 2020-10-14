@@ -7,9 +7,9 @@ import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 
 export enum containerType {
-  unread = 'unread',
-  inbox = 'inbox',
-  outbox = 'outbox',
+   unread = 'unread',
+   inbox = 'inbox',
+   outbox = 'outbox',
 }
 
 @Injectable({
@@ -20,7 +20,7 @@ export class MessageService {
 
    constructor(private http: HttpClient) {}
 
-   getMembers(container: containerType): Observable<PaginatedResult<Message[]>> {
+   getMessages(container: containerType): Observable<PaginatedResult<Message[]>> {
       let params = new HttpParams();
       params = params.append('container', container);
 
@@ -42,5 +42,35 @@ export class MessageService {
                };
             })
          );
+   }
+
+   getMessageThread(username: string): Observable<PaginatedResult<Message[]>> {
+      return this.http
+         .get<Message[]>(`${this.baseUrl}/messages/thread/${username}`, { observe: 'response' })
+         .pipe(
+            map(response => {
+               const result = response.body;
+               const headers = response.headers;
+               let pagination = null;
+
+               if (headers.get('Pagination') !== null) {
+                  pagination = JSON.parse(headers.get('Pagination'));
+               }
+
+               return {
+                  result,
+                  pagination,
+               };
+            })
+         );
+   }
+
+   sendMessage(username: string, messageText: string): Observable<any> {
+      const message = {
+         recipientUsername: username,
+         content: messageText,
+      } as Message;
+
+      return this.http.post(`${this.baseUrl}/messages`, message);
    }
 }

@@ -63,5 +63,13 @@ namespace DatingApp.API.Controllers
             var messages = await _messageRepository.GetMessageForUser(messageParams);
             return Ok(messages);
         }
+
+        [HttpGet("thread/{username}")]
+        public async Task<ActionResult<IEnumerable<MessageDto>>> GetMessageThread(string username)
+        {
+            var senderUsername = User.GetUsername();
+            var messages = await _messageRepository.GetMessageThread(senderUsername, username);
+            return Ok(messages);
+        }
     }
 }

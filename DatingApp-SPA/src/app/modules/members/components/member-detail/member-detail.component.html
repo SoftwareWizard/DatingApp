@@ -27,13 +27,13 @@
         </div>
         <div class="card-footer text-center">
           <div class="btn btn-primary mr-2">Like</div>
-          <div class="btn btn-success">Message</div>
+          <div class="btn btn-success" (click)="selectTab(3)">Message</div>
         </div>
       </div>
     </div>
     <div class="col-8">
       <div>
-        <tabset>
+        <tabset #memberTabs>
           <tab heading="About {{ member.knownAs }}">
             <h4>Description</h4>
             <p>{{ member.introduction}}</p>
@@ -48,7 +48,7 @@
             <ngx-gallery class="image-gallery" [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
           </tab>
           <tab heading="Messages">
-            <p>Messages...</p>
+            <app-message-thread [username]="member.username" ></app-message-thread>
           </tab>
         </tabset>
       </div>

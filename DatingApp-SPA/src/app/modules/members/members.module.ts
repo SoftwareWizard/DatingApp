@@ -1,3 +1,4 @@
+import { MessageModule } from './../message/message.module';
 import { MembersRoutingModule } from './members-routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -16,7 +17,7 @@ import { PhotoEditorComponent } from './components/photo-editor/photo-editor.com
       MemberListComponent,
       PhotoEditorComponent,
    ],
-   imports: [CommonModule, MembersRoutingModule, SharedModule],
+   imports: [CommonModule, MembersRoutingModule, MessageModule, SharedModule],
    exports: [MemberListComponent, MemberEditComponent, MemberCardComponent, MembersRoutingModule],
 })
 export class MembersModule {}
