@@ -5,15 +5,19 @@ import { CommonModule } from '@angular/common';
 
 import { AuthRoutingModule } from './auth-routing.module';
 import { RegisterComponent } from './components/register/register.component';
-
+import { StoreModule } from '@ngrx/store';
+import * as fromAuth from './ngrx/auth.reducer';
 
 @NgModule({
-  declarations: [RegisterComponent, TextInputComponent],
-  imports: [
-    CommonModule,
-    SharedModule,
-    AuthRoutingModule,
-  ],
-  exports: []
+   declarations: [RegisterComponent, TextInputComponent],
+   imports: [
+      CommonModule,
+      SharedModule,
+      AuthRoutingModule,
+      StoreModule.forFeature(fromAuth.authFeatureKey, fromAuth.reducers, {
+         metaReducers: fromAuth.metaReducers,
+      }),
+   ],
+   exports: [],
 })
-export class AuthModule { }
+export class AuthModule {}

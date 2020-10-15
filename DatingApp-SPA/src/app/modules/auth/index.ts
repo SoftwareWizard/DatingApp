@@ -1,4 +1,4 @@
-// export * from './models/user.ts';
+export * from './models/user';
 
 export * from './services/account.service';
 

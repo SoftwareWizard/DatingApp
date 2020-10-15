@@ -4,11 +4,10 @@ import { map } from 'rxjs/operators';
 
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { User } from 'src/app/core/models/user';
 
 import { AppRouteNames } from 'src/app/app-routing.names';
 import { MembersRouteNames } from 'src/app/modules/members/members-routing.names';
-import { AccountService } from 'src/app/modules/auth';
+import { AccountService, User } from 'src/app/modules/auth';
 
 @Component({
    selector: 'app-nav',

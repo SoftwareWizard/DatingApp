@@ -1,14 +1,9 @@
 import { Router } from '@angular/router';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import {
-   AbstractControl,
-   FormBuilder,
-   FormGroup,
-   ValidatorFn,
-   Validators,
-} from '@angular/forms';
-import { User } from 'src/app/core/models/user';
+import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { AppRouteNames } from 'src/app/app-routing.names';
+import { User } from '../../models/user';
+import { AccountService } from '../../services/account.service';
 
 @Component({
    selector: 'app-register',
@@ -19,12 +14,11 @@ export class RegisterComponent implements OnInit {
    @Input() user: User;
    @Output() cancelRegister = new EventEmitter();
 
-   model: any = {};
    registerForm: FormGroup;
    validationErrors: string[];
 
    constructor(
-      // private accountService: AccountService,
+      private accountService: AccountService,
       private fb: FormBuilder,
       private router: Router
    ) {}
@@ -64,7 +58,8 @@ export class RegisterComponent implements OnInit {
 
    async register(): Promise<void> {
       try {
-        //  await this.accountService.register(this.model);
+         const model = this.registerForm.value;
+         await this.accountService.register(model);
          this.router.navigateByUrl(`/${AppRouteNames.MEMBERS}`);
       } catch (error) {
          this.validationErrors = error;
@@ -72,7 +67,7 @@ export class RegisterComponent implements OnInit {
    }
 
    cancel(): void {
-     this.registerForm.reset();
-     this.initializeForm();
+      this.registerForm.reset();
+      this.initializeForm();
    }
 }

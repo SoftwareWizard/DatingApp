@@ -3,7 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
 import { take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { AccountService, User } from 'src/app/core';
+// FIXME: import { AccountService, User } from 'src/app/core';
 import { MemberService } from '../../services/member.service';
 
 @Component({
@@ -19,10 +19,12 @@ export class PhotoEditorComponent implements OnInit {
    hasAnotherDropZoneOver = false;
    baseUrl = environment.apiUrl;
    response: string;
-   user: User;
+  //  FIXME: user: User;
 
-   constructor(private accountService: AccountService, private memberService: MemberService) {
-      this.accountService.currentUser$.pipe(take(1)).subscribe(user => (this.user = user));
+   constructor(
+    // FIXME: private accountService: AccountService,
+      private memberService: MemberService) {
+    // FIXME: this.accountService.currentUser$.pipe(take(1)).subscribe(user => (this.user = user));
    }
 
    ngOnInit(): void {
@@ -32,7 +34,7 @@ export class PhotoEditorComponent implements OnInit {
    initalizeUploader(): void {
       this.uploader = new FileUploader({
          url: `${this.baseUrl}/users/add-photo`,
-         authToken: `Bearer ${this.user.token}`,
+        //  FIXME: authToken: `Bearer ${this.user.token}`,
          isHTML5: true,
          allowedFileType: ['image'],
          removeAfterUpload: true,

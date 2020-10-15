@@ -1,5 +1,3 @@
-import { AuthModule } from './modules/auth/auth.module';
-import { MessageModule } from './modules/message/message.module';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
@@ -9,28 +7,20 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { MembersModule } from './modules/members/members.module';
 import { ErrorsModule } from './modules/errors/errors.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { MessageModule } from './modules/message/message.module';
 
 import { AppComponent, HomeComponent, ListsComponent } from './components';
 
-import {
-   ErrorInterceptor,
-   JwtInterceptor,
-   LoadingInterceptor,
-   NavComponent,
-} from './core';
+import { ErrorInterceptor, JwtInterceptor, LoadingInterceptor, NavComponent } from './core';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreModule } from '@ngrx/store';
 import { RouterState, StoreRouterConnectingModule } from '@ngrx/router-store';
-import { reducers, metaReducers } from './reducers';
 import { environment } from '../environments/environment';
+import { reducers, metaReducers } from './core/ngrx/app.reducer';
 
 @NgModule({
-   declarations: [
-      AppComponent,
-      NavComponent,
-      HomeComponent,
-      ListsComponent,
-   ],
+   declarations: [AppComponent, NavComponent, HomeComponent, ListsComponent],
    imports: [
       BrowserModule,
       BrowserAnimationsModule,

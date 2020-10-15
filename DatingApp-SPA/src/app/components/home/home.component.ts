@@ -2,7 +2,8 @@ import { AuthRouteEnum } from './../../modules/auth/auth-routing.names';
 import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
-import { AccountService } from 'src/app/core';
+
+// FIXME: import { AccountService } from 'src/app/core';
 
 import { AppRouteNames } from 'src/app/app-routing.names';
 import { AuthRouteNames } from 'src/app/modules/auth';
@@ -16,10 +17,12 @@ export class HomeComponent implements OnInit {
    registerMode = false;
    loggedIn$: Observable<boolean>;
 
-   constructor(private accountService: AccountService) {}
+   constructor(
+    // FIXME: private accountService: AccountService
+    ) {}
 
    ngOnInit(): void {
-      this.loggedIn$ = this.accountService.currentUser$.pipe(map(user => !!user));
+      // FIXME: this.loggedIn$ = this.accountService.currentUser$.pipe(map(user => !!user));
    }
 
    onRegisterToggle(): void {

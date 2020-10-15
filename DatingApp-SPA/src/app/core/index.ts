@@ -10,5 +10,4 @@ export * from './components/nav/nav.component';
 
 export * from './services/busy.service';
 
-export * from './models/user';
 export * from './models/pagination';

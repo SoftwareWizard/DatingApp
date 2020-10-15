@@ -1,9 +1,7 @@
 
 import { Component, OnInit } from '@angular/core';
-import { AccountService, LOCAL_STORAGE_KEY_USER } from 'src/app/core';
-import { User } from 'src/app/core/models/user';
-
-
+import { User } from 'src/app/modules/auth';
+// FIXME: import { AccountService, LOCAL_STORAGE_KEY_USER } from 'src/app/core';
 
 @Component({
    selector: 'app-root',
@@ -12,18 +10,20 @@ import { User } from 'src/app/core/models/user';
 })
 export class AppComponent implements OnInit {
    title = 'DatingApp-SPA';
-   user: any;
+   user: User;
 
-   constructor(private accountService: AccountService) {}
+   constructor(
+    // FIXME: private accountService: AccountService
+     ) {}
 
    ngOnInit(): void {
       this.setCurrentUser();
    }
 
    setCurrentUser(): void {
-      const user: User = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY_USER));
-      if (user) {
-         this.accountService.setCurrentUser(user);
-      }
+      // FIXME: const user: User = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY_USER));
+      // if (user) {
+      //    this.accountService.setCurrentUser(user);
+      // }
    }
 }
