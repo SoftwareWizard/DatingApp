@@ -1,7 +1,8 @@
 export class AppRouteNames {
    public static ROOT = '';
    public static MEMBERS = 'members';
-   public static REGISTER = 'register';
+   //   public static REGISTER = 'register';
+   public static AUTH = 'auth';
    public static LISTS = 'lists';
    public static MESSAGES = 'messages';
    public static TEST_ERRORS = 'test-errors';

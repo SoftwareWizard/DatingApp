@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AppRouteNames } from './app-routing.names';
-import { AuthGuard, RegisterComponent } from './core';
+import { AuthGuard } from './core';
 
 import { NotFoundComponent, ServerErrorComponent, TestErrorsComponent } from './modules/errors';
 import { HomeComponent, ListsComponent } from './components';
@@ -20,8 +20,12 @@ const routes: Routes = [
       canActivate: [AuthGuard],
       loadChildren: './modules/message/message.module#MessageModule',
    },
+   {
+      path: AppRouteNames.AUTH,
+      loadChildren: './modules/auth/auth.module#AuthModule',
+   },
    { path: AppRouteNames.LISTS, component: ListsComponent },
-   { path: AppRouteNames.REGISTER, component: RegisterComponent },
+   //   { path: AppRouteNames.REGISTER, component: RegisterComponent },
    { path: AppRouteNames.TEST_ERRORS, component: TestErrorsComponent },
    { path: AppRouteNames.NOT_FOUND, component: NotFoundComponent },
    { path: AppRouteNames.SERVER_ERROR, component: ServerErrorComponent },

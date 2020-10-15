@@ -1,3 +1,4 @@
+import { AuthModule } from './modules/auth/auth.module';
 import { MessageModule } from './modules/message/message.module';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -43,6 +44,7 @@ import { environment } from '../environments/environment';
       ErrorsModule,
       MembersModule,
       MessageModule,
+      AuthModule,
       StoreDevtoolsModule.instrument({ maxAge: 25 }),
       StoreModule.forRoot({}, {}),
       StoreRouterConnectingModule.forRoot({
