@@ -19,6 +19,11 @@ import {
    RegisterComponent,
 } from './core';
 import { TextInputComponent } from './core/components/text-input/text-input.component';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { StoreModule } from '@ngrx/store';
+import { RouterState, StoreRouterConnectingModule } from '@ngrx/router-store';
+import { reducers, metaReducers } from './reducers';
+import { environment } from '../environments/environment';
 
 @NgModule({
    declarations: [
@@ -38,6 +43,14 @@ import { TextInputComponent } from './core/components/text-input/text-input.comp
       ErrorsModule,
       MembersModule,
       MessageModule,
+      StoreDevtoolsModule.instrument({ maxAge: 25 }),
+      StoreModule.forRoot({}, {}),
+      StoreRouterConnectingModule.forRoot({
+         stateKey: 'router',
+         routerState: RouterState.Minimal,
+      }),
+      StoreModule.forRoot(reducers, { metaReducers }),
+      !environment.production ? StoreDevtoolsModule.instrument() : [],
    ],
    exports: [],
    providers: [
