@@ -17,9 +17,7 @@ import {
    JwtInterceptor,
    LoadingInterceptor,
    NavComponent,
-   RegisterComponent,
 } from './core';
-import { TextInputComponent } from './core/components/text-input/text-input.component';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreModule } from '@ngrx/store';
 import { RouterState, StoreRouterConnectingModule } from '@ngrx/router-store';
@@ -31,8 +29,6 @@ import { environment } from '../environments/environment';
       AppComponent,
       NavComponent,
       HomeComponent,
-      RegisterComponent,
-      TextInputComponent,
       ListsComponent,
    ],
    imports: [

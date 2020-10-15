@@ -1,3 +1,4 @@
+import { TextInputComponent } from './components/text-input/text-input.component';
 import { SharedModule } from './../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -7,12 +8,12 @@ import { RegisterComponent } from './components/register/register.component';
 
 
 @NgModule({
-  declarations: [RegisterComponent],
+  declarations: [RegisterComponent, TextInputComponent],
   imports: [
     CommonModule,
+    SharedModule,
     AuthRoutingModule,
-    SharedModule
   ],
-  exports: [ RegisterComponent]
+  exports: []
 })
 export class AuthModule { }

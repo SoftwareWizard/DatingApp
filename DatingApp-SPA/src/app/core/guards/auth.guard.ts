@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
-import { AccountService } from '../services/account.service';
+import { AccountService } from 'src/app/modules/auth';
 
 @Injectable({
    providedIn: 'root',
