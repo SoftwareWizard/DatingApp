@@ -1,7 +1,11 @@
+import { AuthRouteEnum } from './../../modules/auth/auth-routing.names';
 import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { AccountService } from 'src/app/core';
+
+import { AppRouteNames } from 'src/app/app-routing.names';
+import { AuthRouteNames } from 'src/app/modules/auth';
 
 @Component({
    selector: 'app-home',
@@ -24,5 +28,13 @@ export class HomeComponent implements OnInit {
 
    onCancelRegister(): void {
       this.registerMode = false;
+   }
+
+   get AUTH_ROUTES(): typeof AuthRouteEnum {
+      return AuthRouteEnum;
+   }
+
+   get ROUTES(): AppRouteNames {
+      return AppRouteNames;
    }
 }
