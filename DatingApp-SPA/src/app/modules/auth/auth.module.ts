@@ -14,7 +14,7 @@ import * as fromAuth from './ngrx/auth.reducer';
       CommonModule,
       SharedModule,
       AuthRoutingModule,
-      StoreModule.forFeature(fromAuth.authFeatureKey, fromAuth.reducers, {
+      StoreModule.forFeature(fromAuth.authFeatureKey, fromAuth.reducer, {
          metaReducers: fromAuth.metaReducers,
       }),
    ],

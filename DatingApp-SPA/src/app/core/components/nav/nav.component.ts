@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 import { AppRouteNames } from 'src/app/app-routing.names';
 import { MembersRouteNames } from 'src/app/modules/members/members-routing.names';
-import { AccountService, User } from 'src/app/modules/auth';
-
+import { AuthState, LoginModel, User } from 'src/app/modules/auth';
+import { select, Store } from '@ngrx/store';
+import * as AuthActions from 'src/app/modules/auth/ngrx/auth.actions';
+import * as AuthSelectors from 'src/app/modules/auth/ngrx/auth.selectors';
 @Component({
    selector: 'app-nav',
    templateUrl: './nav.component.html',
@@ -22,34 +23,40 @@ export class NavComponent implements OnInit {
    ROUTES = AppRouteNames;
    MEMBERS_ROUTES = MembersRouteNames;
 
-   model: any = { username: 'lisa', password: 'Pa$$w0rd' };
+   loginModel: LoginModel = { username: 'lisa', password: 'Pa$$w0rd' };
    user$: Observable<User>;
    loggedIn$: Observable<boolean>;
+   loggedOut$: Observable<boolean>;
 
    constructor(
-      private accountService: AccountService,
+      private authStore: Store<AuthState>,
       private router: Router,
       private toastr: ToastrService
    ) {}
 
    ngOnInit(): void {
-      this.user$ = this.accountService.currentUser$;
-      this.loggedIn$ = this.user$.pipe(map(user => !!user));
+      this.loggedIn$ = this.authStore.pipe(select(AuthSelectors.isLoggedIn));
+      this.loggedOut$ = this.authStore.pipe(select(AuthSelectors.isLoggedOut));
+      this.user$ = this.authStore.pipe(select(AuthSelectors.user));
    }
 
-   async login(): Promise<void> {
-      try {
-         await this.accountService.login(this.model);
-         this.router.navigateByUrl(`/${this.ROUTES.MEMBERS}`);
-         this.toastr.success(this.MSG_SUCCESS, this.MSG_TITLE);
-      } catch (error) {
-         console.log(error);
-         this.toastr.error(error.message, this.MSG_TITLE);
-      }
+   login(): void {
+      this.authStore.dispatch(AuthActions.navbarLogin({ loginModel: this.loginModel }));
+      // FIXME: add toaster for success
+      // FIXME: route to members
+      // try {
+      //    await this.accountService.login(this.model);
+      //    this.router.navigateByUrl(`/${this.ROUTES.MEMBERS}`);
+      //    this.toastr.success(this.MSG_SUCCESS, this.MSG_TITLE);
+      // } catch (error) {
+      //    console.log(error);
+      //    this.toastr.error(error.message, this.MSG_TITLE);
+      // }
    }
 
    logout(): void {
-      this.accountService.logout();
-      this.router.navigateByUrl('/');
+      this.authStore.dispatch(AuthActions.navbarLogout());
+      // this.accountService.logout();
+      // this.router.navigateByUrl('/');
    }
 }

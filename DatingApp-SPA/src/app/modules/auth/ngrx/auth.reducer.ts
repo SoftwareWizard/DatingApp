@@ -1,17 +1,43 @@
+import { LoginModel } from './../models/login.model';
 import {
-  ActionReducer,
-  ActionReducerMap,
-  createFeatureSelector,
-  createSelector,
-  MetaReducer
+   ActionReducer,
+   ActionReducerMap,
+   createFeatureSelector,
+   createReducer,
+   createSelector,
+   MetaReducer,
+   on,
 } from '@ngrx/store';
 import { environment } from '../../../../environments/environment';
-import { AuthState } from './auth.state';
+import * as AuthActions from './auth.actions';
+import { User } from '../models/user';
 
 export const authFeatureKey = 'auth';
 
-export const reducers: ActionReducerMap<AuthState> = {
+export interface AuthState {
+  user: User;
+}
 
+export const initialAuthState: AuthState = {
+   user: undefined,
 };
+
+export const reducer = createReducer(
+   initialAuthState,
+
+   on(AuthActions.navbarLogin, (_, action) => {
+      return {
+         user: {
+            username: action.loginModel.username,
+         },
+      };
+   }),
+
+   on(AuthActions.navbarLogout, _ => {
+      return {
+         user: undefined,
+      };
+   })
+);
 
 export const metaReducers: MetaReducer<AuthState>[] = !environment.production ? [] : [];
