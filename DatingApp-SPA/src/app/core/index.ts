@@ -8,5 +8,6 @@ export * from './interceptors/loading.interceptor';
 export * from './components/nav/nav.component';
 
 export * from './services/busy.service';
+export * from './services/localStorage.service';
 
 export * from './models/pagination';
