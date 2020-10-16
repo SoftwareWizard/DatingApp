@@ -1,10 +1,11 @@
 import { AccountService } from './../services/account.service';
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, Effect, EffectConfig, ofType } from '@ngrx/effects';
 import * as AuthActions from './auth.actions';
-import { map, tap } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { AuthState } from './auth.reducer';
+import { of } from 'rxjs';
 
 @Injectable({
    providedIn: 'root',
@@ -12,25 +13,23 @@ import { AuthState } from './auth.reducer';
 export class AuthEffects {
    constructor(
       private actions$: Actions,
-      private authStore: Store<AuthState>,
-      private accountService: AccountService
+      private accountService: AccountService,
+      private authStore: Store<AuthState>
    ) {}
 
    navbarLogin$ = createEffect(
       () => {
          return this.actions$.pipe(
             ofType(AuthActions.navbarLogin),
-            tap(action => {
-               console.log(action);
-               this.accountService.login(action.loginModel).subscribe(
-                  user => {
-                     this.authStore.dispatch(AuthActions.loginSuccess({ user }));
-                  },
-                  error => {
-                     this.authStore.dispatch(AuthActions.loginFailed({ error }));
-                  }
-               );
-            })
+            map(action =>
+               this.accountService
+                  .login(action.loginModel)
+                  .pipe(
+                     map(user => this.authStore.dispatch(AuthActions.loginSuccess({ user }))),
+                     catchError(error => of(AuthActions.loginFailed({ error })))
+                  )
+                  .subscribe()
+            )
          );
       },
       { dispatch: false }
@@ -46,7 +45,7 @@ export class AuthEffects {
       { dispatch: false }
    );
 
-   loginFailure$ = createEffect(
+   loginFailed$ = createEffect(
       () => {
          return this.actions$.pipe(
             ofType(AuthActions.loginFailed),
@@ -55,15 +54,4 @@ export class AuthEffects {
       },
       { dispatch: false }
    );
-
-   //  effectName$ = createEffect(() => {
-   //    return this.actions$.pipe(
-   //        ofType(FeatureActions.action),
-   //        tap(() =>
-   //          apiSource.pipe(
-   //            map(data => FeatureActions.actionSuccess({ data })),
-   //            catchError(error => of(FeatureActions.actionFailure({ error }))))
-   //          ),
-   //    );
-   //  });
 }
