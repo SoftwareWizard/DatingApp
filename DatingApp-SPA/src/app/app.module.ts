@@ -18,6 +18,7 @@ import { StoreModule } from '@ngrx/store';
 import { RouterState, StoreRouterConnectingModule } from '@ngrx/router-store';
 import { environment } from '../environments/environment';
 import { reducers, metaReducers } from './core/ngrx/app.reducer';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
    declarations: [AppComponent, NavComponent, HomeComponent, ListsComponent],
@@ -39,6 +40,7 @@ import { reducers, metaReducers } from './core/ngrx/app.reducer';
       }),
       StoreModule.forRoot(reducers, { metaReducers }),
       !environment.production ? StoreDevtoolsModule.instrument() : [],
+      EffectsModule.forRoot([]),
    ],
    exports: [],
    providers: [

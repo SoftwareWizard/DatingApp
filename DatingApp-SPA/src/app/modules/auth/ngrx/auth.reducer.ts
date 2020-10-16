@@ -25,11 +25,9 @@ export const initialAuthState: AuthState = {
 export const reducer = createReducer(
    initialAuthState,
 
-   on(AuthActions.navbarLogin, (_, action) => {
+   on(AuthActions.loginSuccess, (_, action) => {
       return {
-         user: {
-            username: action.loginModel.username,
-         },
+         user: action.user,
       };
    }),
 
