@@ -5,3 +5,5 @@ export * from './services/account.service';
 
 export * from './auth-routing.names';
 export * from './ngrx/auth.reducer';
+
+export * from './guards/auth.guard';

@@ -1,3 +1,4 @@
+import { AuthGuard } from './guards/auth.guard';
 import { TextInputComponent } from './components/text-input/text-input.component';
 import { SharedModule } from './../shared/shared.module';
 import { NgModule } from '@angular/core';

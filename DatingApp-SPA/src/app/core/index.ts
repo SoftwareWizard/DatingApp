@@ -1,4 +1,3 @@
-export * from './guards/auth.guard';
 export * from './guards/prevent-unsaved-changes.guard';
 export * from './components/nav/nav.component';
 
