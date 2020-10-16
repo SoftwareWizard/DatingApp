@@ -1,3 +1,4 @@
+import { RegisterModel } from './../../models/register.model';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { User } from '../../models/user';
@@ -56,8 +57,8 @@ export class RegisterComponent implements OnInit {
    }
 
    register(): void {
-    const model = this.registerForm.value;
-    this.authStore.dispatch(AuthActions.register(model));
+    const registerModel = this.registerForm.value as RegisterModel;
+    this.authStore.dispatch(AuthActions.register({ registerModel }));
    }
 
    cancel(): void {

@@ -67,7 +67,7 @@ export class AuthEffects {
       return this.actions$.pipe(
          ofType(AuthActions.register),
          exhaustMap(action =>
-            this.accountService.register(action.model).pipe(
+            this.accountService.register(action.registerModel).pipe(
                map(user => AuthActions.registerSuccess()),
                catchError(error => of(AuthActions.registerFailure({ error })))
             )
