@@ -15,7 +15,7 @@ import { User } from '../models/user';
 export const authFeatureKey = 'auth';
 
 export interface AuthState {
-  user: User;
+   user: User;
 }
 
 export const initialAuthState: AuthState = {

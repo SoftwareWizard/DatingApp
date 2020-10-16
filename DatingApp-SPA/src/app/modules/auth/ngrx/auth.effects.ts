@@ -16,7 +16,8 @@ export class AuthEffects {
    ROUTES = AppRouteNames;
    MSG_SUCCESS = 'Success';
    MSG_ERROR = 'Error';
-   MSG_TITLE = 'LOGIN';
+   MSG_TITLE_LOGIN = 'LOGIN';
+   MSG_TITLE_REGISTER = 'REGISTRATION';
 
    constructor(
       private actions$: Actions,
@@ -43,7 +44,7 @@ export class AuthEffects {
          return this.actions$.pipe(
             ofType(AuthActions.loginSuccess),
             tap(action => {
-               this.toastr.success(this.MSG_SUCCESS, this.MSG_TITLE);
+               this.toastr.success(this.MSG_SUCCESS, this.MSG_TITLE_LOGIN);
                this.router.navigateByUrl(`${this.ROUTES.MEMBERS}`);
                this.localStorageService.setUser(action.user);
             })
@@ -56,7 +57,42 @@ export class AuthEffects {
       () => {
          return this.actions$.pipe(
             ofType(AuthActions.loginFailure),
-            tap(_ => this.toastr.error(this.MSG_ERROR, this.MSG_TITLE))
+            tap(_ => this.toastr.error(this.MSG_ERROR, this.MSG_TITLE_LOGIN))
+         );
+      },
+      { dispatch: false }
+   );
+
+   registerPageRegisterUser$ = createEffect(() => {
+      return this.actions$.pipe(
+         ofType(AuthActions.register),
+         exhaustMap(action =>
+            this.accountService.register(action.model).pipe(
+               map(user => AuthActions.registerSuccess()),
+               catchError(error => of(AuthActions.registerFailure({ error })))
+            )
+         )
+      );
+   });
+
+   registerSuccess$ = createEffect(
+      () => {
+         return this.actions$.pipe(
+            ofType(AuthActions.registerSuccess),
+            tap(_ => {
+               this.toastr.success(this.MSG_SUCCESS, this.MSG_TITLE_REGISTER);
+               this.router.navigateByUrl('/');
+            })
+         );
+      },
+      { dispatch: false }
+   );
+
+   registerFailure$ = createEffect(
+      () => {
+         return this.actions$.pipe(
+            ofType(AuthActions.registerFailure),
+            tap(_ => this.toastr.error(this.MSG_ERROR, this.MSG_TITLE_REGISTER))
          );
       },
       { dispatch: false }

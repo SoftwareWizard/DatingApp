@@ -1,9 +1,9 @@
-import { Router } from '@angular/router';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { AppRouteNames } from 'src/app/app-routing.names';
 import { User } from '../../models/user';
-import { AccountService } from '../../services/account.service';
+import { Store } from '@ngrx/store';
+import { AuthState } from '../../ngrx/auth.reducer';
+import * as AuthActions from './../../ngrx/auth.actions';
 
 @Component({
    selector: 'app-register',
@@ -18,9 +18,8 @@ export class RegisterComponent implements OnInit {
    validationErrors: string[];
 
    constructor(
-      private accountService: AccountService,
       private fb: FormBuilder,
-      private router: Router
+      private authStore: Store<AuthState>
    ) {}
 
    ngOnInit(): void {
@@ -56,14 +55,9 @@ export class RegisterComponent implements OnInit {
       };
    }
 
-   async register(): Promise<void> {
-      try {
-         const model = this.registerForm.value;
-         await this.accountService.register(model);
-         this.router.navigateByUrl(`/${AppRouteNames.MEMBERS}`);
-      } catch (error) {
-         this.validationErrors = error;
-      }
+   register(): void {
+    const model = this.registerForm.value;
+    this.authStore.dispatch(AuthActions.register(model));
    }
 
    cancel(): void {
