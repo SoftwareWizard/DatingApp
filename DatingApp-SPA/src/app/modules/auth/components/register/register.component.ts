@@ -1,10 +1,8 @@
+import { AuthFacade } from './../../ngrx/auth.facade';
 import { RegisterModel } from './../../models/register.model';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { User } from '../../models/user';
-import { Store } from '@ngrx/store';
-import { AuthState } from '../../ngrx/auth.reducer';
-import * as AuthActions from './../../ngrx/auth.actions';
 
 @Component({
    selector: 'app-register',
@@ -18,10 +16,7 @@ export class RegisterComponent implements OnInit {
    registerForm: FormGroup;
    validationErrors: string[];
 
-   constructor(
-      private fb: FormBuilder,
-      private authStore: Store<AuthState>
-   ) {}
+   constructor(private fb: FormBuilder, private authFacade: AuthFacade) {}
 
    ngOnInit(): void {
       this.initializeForm();
@@ -57,8 +52,8 @@ export class RegisterComponent implements OnInit {
    }
 
    register(): void {
-    const registerModel = this.registerForm.value as RegisterModel;
-    this.authStore.dispatch(AuthActions.register({ registerModel }));
+      const registerModel = this.registerForm.value as RegisterModel;
+      this.authFacade.register.dispatch(registerModel);
    }
 
    cancel(): void {

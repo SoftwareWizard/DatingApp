@@ -1,9 +1,7 @@
 export * from './models/user';
 export * from './models/login.model';
 
-export * from './services/account.service';
+export * from './ngrx/auth.facade';
 
 export * from './auth-routing.names';
-export * from './ngrx/auth.reducer';
-
 export * from './guards/auth.guard';

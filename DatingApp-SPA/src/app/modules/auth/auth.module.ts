@@ -8,16 +8,15 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { RegisterComponent } from './components/register/register.component';
 import { TextInputComponent } from './components/text-input/text-input.component';
 import { AuthEffects } from './ngrx/auth.effects';
-import * as fromAuth from './ngrx/auth.reducer';
-
+import * as authFacade from './ngrx/auth.facade';
 @NgModule({
    declarations: [RegisterComponent, TextInputComponent],
    imports: [
       CommonModule,
       SharedModule,
       AuthRoutingModule,
-      StoreModule.forFeature(fromAuth.authFeatureKey, fromAuth.reducer, {
-         metaReducers: fromAuth.metaReducers,
+      StoreModule.forFeature(authFacade.featureKey, authFacade.reducer, {
+         metaReducers: authFacade.metaReducers,
       }),
       EffectsModule.forFeature([AuthEffects]),
    ],

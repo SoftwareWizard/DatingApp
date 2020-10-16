@@ -1,13 +1,19 @@
-import { AppRouteNames } from './../../../app-routing.names';
-import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-import { AccountService } from './../services/account.service';
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import * as AuthActions from './auth.actions';
 import { catchError, exhaustMap, map, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
+
+import { Router } from '@angular/router';
+import { AppRouteNames } from './../../../app-routing.names';
+
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+
 import { LocalStorageService } from 'src/app/core';
+import { ToastrService } from 'ngx-toastr';
+import { AccountService } from './../services/account.service';
+import { getActions } from '@ngrx-ducks/core';
+import { AuthFacade } from './auth.facade';
+
+const actions = getActions(AuthFacade);
 
 @Injectable({
    providedIn: 'root',
@@ -23,17 +29,17 @@ export class AuthEffects {
       private actions$: Actions,
       private toastr: ToastrService,
       private accountService: AccountService,
-      private router: Router,
-      private localStorageService: LocalStorageService
+      private localStorageService: LocalStorageService,
+      private router: Router
    ) {}
 
    navbarLogin$ = createEffect(() => {
       return this.actions$.pipe(
-         ofType(AuthActions.navbarLogin),
+         ofType(actions.navbarLogin),
          exhaustMap(action =>
-            this.accountService.login(action.loginModel).pipe(
-               map(user => AuthActions.loginSuccess({ user })),
-               catchError(error => of(AuthActions.loginFailure({ error })))
+            this.accountService.login(action.payload).pipe(
+               map(user => actions.loginSuccess(user)),
+               catchError(error => of(actions.loginFailure(error)))
             )
          )
       );
@@ -42,11 +48,11 @@ export class AuthEffects {
    loginSuccess$ = createEffect(
       () => {
          return this.actions$.pipe(
-            ofType(AuthActions.loginSuccess),
+            ofType(actions.loginSuccess),
             tap(action => {
                this.toastr.success(this.MSG_SUCCESS, this.MSG_TITLE_LOGIN);
                this.router.navigateByUrl(`${this.ROUTES.MEMBERS}`);
-               this.localStorageService.setUser(action.user);
+               this.localStorageService.setUser(action.payload);
             })
          );
       },
@@ -56,7 +62,7 @@ export class AuthEffects {
    loginFailure$ = createEffect(
       () => {
          return this.actions$.pipe(
-            ofType(AuthActions.loginFailure),
+            ofType(actions.loginFailure),
             tap(_ => this.toastr.error(this.MSG_ERROR, this.MSG_TITLE_LOGIN))
          );
       },
@@ -65,11 +71,11 @@ export class AuthEffects {
 
    registerPageRegisterUser$ = createEffect(() => {
       return this.actions$.pipe(
-         ofType(AuthActions.register),
+         ofType(actions.register),
          exhaustMap(action =>
-            this.accountService.register(action.registerModel).pipe(
-               map(user => AuthActions.registerSuccess()),
-               catchError(error => of(AuthActions.registerFailure({ error })))
+            this.accountService.register(action.payload).pipe(
+               map(_ => actions.registerSuccess()),
+               catchError(error => of(actions.registerFailure(error)))
             )
          )
       );
@@ -78,7 +84,7 @@ export class AuthEffects {
    registerSuccess$ = createEffect(
       () => {
          return this.actions$.pipe(
-            ofType(AuthActions.registerSuccess),
+            ofType(actions.registerSuccess),
             tap(_ => {
                this.toastr.success(this.MSG_SUCCESS, this.MSG_TITLE_REGISTER);
                this.router.navigateByUrl('/');
@@ -91,7 +97,7 @@ export class AuthEffects {
    registerFailure$ = createEffect(
       () => {
          return this.actions$.pipe(
-            ofType(AuthActions.registerFailure),
+            ofType(actions.registerFailure),
             tap(_ => this.toastr.error(this.MSG_ERROR, this.MSG_TITLE_REGISTER))
          );
       },
@@ -101,7 +107,7 @@ export class AuthEffects {
    navbarLogout$ = createEffect(
       () => {
          return this.actions$.pipe(
-            ofType(AuthActions.navbarLogout),
+            ofType(actions.navbarLogout),
             tap(() => {
                this.localStorageService.removeUser();
                this.router.navigateByUrl('/');
