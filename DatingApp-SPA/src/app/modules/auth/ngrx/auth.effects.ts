@@ -50,9 +50,9 @@ export class AuthEffects {
          return this.actions$.pipe(
             ofType(actions.loginSuccess),
             tap(action => {
-               this.toastr.success(this.MSG_SUCCESS, this.MSG_TITLE_LOGIN);
-               this.router.navigateByUrl(`${this.ROUTES.MEMBERS}`);
                this.localStorageService.setUser(action.payload);
+               this.router.navigateByUrl(`${this.ROUTES.MEMBERS}`);
+               this.toastr.success(this.MSG_SUCCESS, this.MSG_TITLE_LOGIN);
             })
          );
       },

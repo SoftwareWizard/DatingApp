@@ -26,7 +26,7 @@ export class MemberService {
       minAge?: number,
       maxAge?: number,
       gender?: string
-   ): Observable<PaginatedResult<Member[]>> {
+   ): Observable<Member[]> {
       let params = new HttpParams();
 
       if (page !== null && itemsPerPage !== null) {
@@ -58,10 +58,7 @@ export class MemberService {
                   pagination = JSON.parse(headers.get('Pagination'));
                }
 
-               return {
-                  result,
-                  pagination,
-               };
+               return result;
             })
          );
    }
