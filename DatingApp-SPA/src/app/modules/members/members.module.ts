@@ -12,6 +12,7 @@ import { PhotoEditorComponent } from './components/photo-editor/photo-editor.com
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import * as membersFacade from './ngrx/members.facade';
+import { MemberFilterComponent } from './components/member-filter/member-filter.component';
 
 @NgModule({
    declarations: [
@@ -20,6 +21,7 @@ import * as membersFacade from './ngrx/members.facade';
       MemberEditComponent,
       MemberListComponent,
       PhotoEditorComponent,
+      MemberFilterComponent,
    ],
    imports: [
       CommonModule,
