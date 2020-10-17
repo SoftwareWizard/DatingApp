@@ -22,8 +22,8 @@ export class MembersEffects {
    loadMembers$ = createEffect(() => {
       return this.actions$.pipe(
          ofType(actions.loadMembers),
-         exhaustMap(action =>
-            this.memberService.getMembers(1, 1000, 1, 99, action.payload.gender).pipe(
+         exhaustMap(({ payload }) =>
+            this.memberService.getMembers(1, 1000, 1, 99, payload.gender).pipe(
                map(data => actions.loadMembersSuccess(data)),
                catchError(error => of(actions.loadMembersFailure({ error })))
             )
