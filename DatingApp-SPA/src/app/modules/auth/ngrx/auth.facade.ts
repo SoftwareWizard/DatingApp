@@ -5,7 +5,7 @@ import {
    getReducer,
    StoreFacade,
 } from '@ngrx-ducks/core';
-import * as AuthSelectors from './auth.selectors';
+import * as authSelectors from './auth.selectors';
 import { LoginModel } from '../models/login.model';
 import { User } from '../models/user';
 import { RegisterModel } from '../models/register.model';
@@ -15,7 +15,7 @@ import { environment } from 'src/environments/environment';
 
 @StoreFacade()
 export class AuthFacade {
-   select = bindSelectors(AuthSelectors);
+   select = bindSelectors(authSelectors);
 
    navbarLogin = createDuck('[Navbar] User Login', dispatch<LoginModel>());
 

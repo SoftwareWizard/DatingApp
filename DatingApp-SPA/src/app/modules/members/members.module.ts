@@ -1,3 +1,4 @@
+import { MembersEffects } from './ngrx/members.effects';
 import { MessageModule } from './../message/message.module';
 import { MembersRoutingModule } from './members-routing.module';
 import { NgModule } from '@angular/core';
@@ -8,6 +9,9 @@ import { MemberDetailComponent } from './components/member-detail/member-detail.
 import { MemberEditComponent } from './components/member-edit/member-edit.component';
 import { MemberListComponent } from './components/member-list/member-list.component';
 import { PhotoEditorComponent } from './components/photo-editor/photo-editor.component';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import * as membersFacade from './ngrx/members.facade';
 
 @NgModule({
    declarations: [
@@ -17,7 +21,16 @@ import { PhotoEditorComponent } from './components/photo-editor/photo-editor.com
       MemberListComponent,
       PhotoEditorComponent,
    ],
-   imports: [CommonModule, MembersRoutingModule, MessageModule, SharedModule],
+   imports: [
+      CommonModule,
+      MembersRoutingModule,
+      MessageModule,
+      SharedModule,
+      StoreModule.forFeature(membersFacade.featureKey, membersFacade.reducer, {
+         metaReducers: membersFacade.metaReducers,
+      }),
+      EffectsModule.forFeature([MembersEffects]),
+   ],
    exports: [MemberListComponent, MemberEditComponent, MemberCardComponent, MembersRoutingModule],
 })
 export class MembersModule {}
