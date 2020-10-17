@@ -1,4 +1,14 @@
 <h2>Members</h2>
+<div class="row">
+  <div class="col-6">
+    <app-member-paginator [totalItems]="totalItems$ | async" [currentPage]="currentPage$ | async"
+      [itemsPerPage]="itemsPerPage$ | async"></app-member-paginator>
+  </div>
+
+  <div class="col-6">
+    <app-member-filter [minAge]="minAge$ | async" [maxAge]="maxAge$ | async"></app-member-filter>
+  </div>
+</div>
 <div class="row" *ngIf="(members$ | async)?.length > 0;else noResult">
   <div class="col-2" *ngFor="let member of members$ |async">
     <app-member-card [member]="member"></app-member-card>
@@ -9,26 +19,3 @@
   <p class="text-center text-danger">No Result</p>
 </ng-template>
 
-<app-member-filter [minAge]="minAge$ | async" [maxAge]="maxAge$ | async"></app-member-filter>
-
-<!-- <div class="col-lg-4 col-sm-12">
-    <div class="text-nowrap text-lg-left text-sm-center">
-      <div class="btn-group mr-2" dropdown>
-        <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
-          aria-controls="dropdown-basic"> Items Per Page<span class="caret"></span>
-        </button>
-        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
-          <li role="menuitem"><a class="dropdown-item" (click)="selectPageSize(5)">5</a></li>
-          <li role="menuitem"><a class="dropdown-item" (click)="selectPageSize(10)">10</a></li>
-          <li role="menuitem"><a class="dropdown-item" (click)="selectPageSize(20)">20</a></li>
-        </ul>
-      </div>
-      {{ itemsPerPage }}
-    </div>
-  </div>
-  <div class="col-lg-3 col-sm-12" *ngIf="page.pagination">
-    <pagination class="text-sm-center" [boundaryLinks]="true" [totalItems]="page.pagination.totalItems"
-      [itemsPerPage]="itemsPerPage" [(ngModel)]="page.pagination.currentPage" (pageChanged)="pageChanged($event)"
-      previousText="&#8249;" nextText="&#8250;" firstText="&#8810;" lastText="&#8811;">
-    </pagination>
-  </div> -->

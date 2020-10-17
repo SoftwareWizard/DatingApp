@@ -35,13 +35,20 @@ export class MembersFacade {
 
    changeFilter = createDuck(
       '[Member Filter] Change Filter',
-      (state: MembersState, payload: { minAge?: number; maxAge?: number }) => {
-         return {
-            ...state,
-            minAge: payload.minAge,
-            maxAge: payload.maxAge,
-         };
-      }
+      (state: MembersState, payload: { minAge?: number; maxAge?: number }) => ({
+         ...state,
+         minAge: payload.minAge,
+         maxAge: payload.maxAge,
+      })
+   );
+
+   changePagination = createDuck(
+      '[Member Paginator] Change Pagination',
+      (state: MembersState, payload: { itemsPerPage: number; currentPage: number }) => ({
+         ...state,
+         itemsPerPage: payload.itemsPerPage,
+         currentPage: payload.currentPage,
+      })
    );
 }
 

@@ -19,3 +19,28 @@ export const filteredMembers = createSelector(
       );
    }
 );
+
+export const totalItems = createSelector(filteredMembers, members => members.length);
+export const currentPage = createSelector(selectMembersState, state => state.currentPage);
+export const itemsPerPage = createSelector(selectMembersState, state => state.itemsPerPage);
+
+export const paginatedMembers = createSelector(
+   filteredMembers,
+   totalItems,
+   currentPage,
+   itemsPerPage,
+   (
+      members: Member[],
+      selectedTotalItems: number,
+      selectedCurrentPage: number,
+      selectedItemsPerPage
+   ) => {
+      const startIndex = (selectedCurrentPage - 1) * selectedItemsPerPage;
+      let endIndex = startIndex + selectedItemsPerPage;
+      if (endIndex >= selectedTotalItems) {
+         endIndex = selectedTotalItems;
+      }
+
+      return members.slice(startIndex, endIndex);
+   }
+);

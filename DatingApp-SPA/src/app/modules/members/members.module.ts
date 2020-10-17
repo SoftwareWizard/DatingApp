@@ -13,6 +13,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import * as membersFacade from './ngrx/members.facade';
 import { MemberFilterComponent } from './components/member-filter/member-filter.component';
+import { MemberPaginatorComponent } from './components/member-paginator/member-paginator.component';
 
 @NgModule({
    declarations: [
@@ -22,6 +23,7 @@ import { MemberFilterComponent } from './components/member-filter/member-filter.
       MemberListComponent,
       PhotoEditorComponent,
       MemberFilterComponent,
+      MemberPaginatorComponent,
    ],
    imports: [
       CommonModule,
