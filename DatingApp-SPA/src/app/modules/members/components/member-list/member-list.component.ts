@@ -33,6 +33,7 @@ export class MemberListComponent implements OnInit {
 
    async ngOnInit(): Promise<void> {
       this.gender = await this.authFacade.select.gender.pipe(take(1)).toPromise();
+      this.gender = this.gender === 'male' ? 'female' : 'male';
       this.membersFacade.loadMembers.dispatch({ gender: this.gender });
    }
 }
