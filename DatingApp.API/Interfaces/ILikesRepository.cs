@@ -14,6 +14,8 @@ namespace DatingApp.API.Interfaces
 
         Task<IEnumerable<LikeDto>> GetUserLikes(string predicate, int userId);
 
-        public Task<IEnumerable<UserLikeDto>> GetUserLikes(int userId);
+        Task<IEnumerable<UserLikeDto>> GetUserLikes(int userId);
+        Task AddUserLike(int sourceUserId, int id);
+        Task RemoveUserLike(int sourceUserId, int id);
     }
 }

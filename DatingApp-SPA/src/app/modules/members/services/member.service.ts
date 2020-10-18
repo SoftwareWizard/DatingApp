@@ -92,6 +92,14 @@ export class MemberService {
       return this.http.delete(`${this.baseUrl}/likes/${username}`);
    }
 
+   addLikeId(likedId: number): Observable<any> {
+      return this.http.put(`${this.baseUrl}/likes/ids/${likedId}`, {});
+   }
+
+   removeLikeId(likedId: number): Observable<any> {
+      return this.http.delete(`${this.baseUrl}/likes/ids/${likedId}`);
+   }
+
    getLikes(predicate: LikedPredicateType): Observable<Member[]> {
       let params = new HttpParams();
       params = params.append('predicate', predicate);

@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { AppRouteNames } from 'src/app/app-routing.names';
 import { Member } from '../../models/member';
 import { Component, Input, OnInit } from '@angular/core';
+import { take } from 'rxjs/operators';
 
 @Component({
    selector: 'app-member-card',
@@ -25,11 +26,14 @@ export class MemberCardComponent implements OnInit {
       });
    }
 
-   async onChangeLike(username: string): Promise<void> {
-      // if (this.isLike) {
-      //     await this.memberService.addLike(username).toPromise();
-      //   } else {
-      //     await this.memberService.removeLike(username).toPromise();
-      //   }
+   async onChangeLike(): Promise<void> {
+      const currentIsLike = await this.isLike$.pipe(take(1)).toPromise();
+      const payload = { userId: this.userId, memberId: this.member.id };
+
+      if (currentIsLike) {
+         this.memberFacade.unsetLike.dispatch(payload);
+      } else {
+         this.memberFacade.setLike.dispatch(payload);
+      }
    }
 }

@@ -15,14 +15,7 @@ import { membersAdapter } from './members.entity';
 import { Update } from '@ngrx/entity';
 import { Like } from '../models/like';
 import { likesAdapter } from './likes.entity';
-
-export const isLike = createSelector(
-   memberSelectors.allLikeIds,
-   (likes: string[], props: { userId: number; memberId: number }) => {
-      const key = `${props.userId}-${props.memberId}`;
-      return likes.includes(key);
-   }
-);
+import { USER_PROVIDED_EFFECTS } from '@ngrx/effects';
 
 @StoreFacade()
 export class MemberFacade {
@@ -95,8 +88,43 @@ export class MemberFacade {
    );
 
    loadLikesFailure = createDuck('[Effect] Load Likes Failure', dispatch<{ error: any }>());
+
+   setLike = createDuck('[Member Card] Set Like', dispatch<{ userId: number; memberId: number }>());
+
+   setLikeSuccess = createDuck(
+      '[Effect] Set Like Success',
+      (state: MemberState, payload: Like[]) => ({
+         ...state,
+         likes: likesAdapter.setAll(payload, state.likes),
+      })
+   );
+
+   setLikeFailure = createDuck('[Effect] Set Like Failure', dispatch<{ error: any }>());
+
+   unsetLike = createDuck(
+      '[Member Card] Unset Like',
+      dispatch<{ userId: number; memberId: number }>()
+   );
+
+   unsetLikeSuccess = createDuck(
+      '[Effect] UnsSet Like Success',
+      (state: MemberState, payload: Like[]) => ({
+         ...state,
+         likes: likesAdapter.setAll(payload, state.likes),
+      })
+   );
+
+   unsetLikeFailure = createDuck('[Effect] Unset Like Failure', dispatch<{ error: any }>());
 }
 
 export const featureKey = memberFeatureKey;
 export const metaReducers: MetaReducer<MemberState>[] = !environment.production ? [] : [];
 export const reducer = getReducer(initialMemberState, MemberFacade);
+
+export const isLike = createSelector(
+   memberSelectors.allLikeIds,
+   (likes: string[], props: { userId: number; memberId: number }) => {
+      const key = `${props.userId}-${props.memberId}`;
+      return likes.includes(key);
+   }
+);

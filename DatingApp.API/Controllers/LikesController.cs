@@ -89,6 +89,24 @@ namespace DatingApp.API.Controllers
             return Ok();
         }
 
+        [HttpPut("ids/{id}")]
+        public async Task<ActionResult> AddLike(int id)
+        {
+            var sourceUserId = User.GetUserId();
+            await _likesRepository.AddUserLike(sourceUserId, id);
+            var userLikes = await _likesRepository.GetUserLikes(sourceUserId);
+            return Ok(userLikes);
+        }
+
+        [HttpDelete("ids/{id}")]
+        public async Task<ActionResult> RemoveLike(int id)
+        {
+            var sourceUserId = User.GetUserId();
+            await _likesRepository.RemoveUserLike(sourceUserId, id);
+            var userLikes = await _likesRepository.GetUserLikes(sourceUserId);
+            return Ok(userLikes);
+        }
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<LikeDto>>> GetUserLikes([FromQuery] string predicate)
         {

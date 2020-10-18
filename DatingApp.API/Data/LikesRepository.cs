@@ -70,5 +70,24 @@ namespace DatingApp.API.Data
             likes = likes.Where(like => like.SourceUserId == userId || like.LikedUserId == userId);
             return await likes.ProjectTo<UserLikeDto>(_mapper.ConfigurationProvider).ToListAsync();
         }
+
+        public async Task AddUserLike(int sourceUserId, int id)
+        {
+            var userLike = new UserLike
+            {
+                SourceUserId = sourceUserId,
+                LikedUserId = id
+            };
+
+            _context.Likes.Add(userLike);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task RemoveUserLike(int sourceUserId, int id)
+        {
+            var userLike = _context.Likes.Single(item => item.SourceUserId == sourceUserId && item.LikedUserId == id);
+            _context.Likes.Remove(userLike);
+            await _context.SaveChangesAsync();
+        }
     }
 }
