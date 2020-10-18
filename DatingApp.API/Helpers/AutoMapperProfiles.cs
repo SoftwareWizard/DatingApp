@@ -2,6 +2,7 @@
 using AutoMapper;
 using DatingApp.API.Dtos;
 using DatingApp.API.Models;
+using Dtos;
 
 namespace DatingApp.API.Helpers
 {
@@ -19,6 +20,7 @@ namespace DatingApp.API.Helpers
             CreateMap<Photo, PhotoDto>();
             CreateMap<MemberUpdateDto, User>();
             CreateMap<UserForRegisterDto, User>();
+            CreateMap<UserLike, UserLikeDto>();
             CreateMap<Message, MessageDto>()
                 .ForMember(dest => dest.SenderPhotoUrl,
                     expression => expression.MapFrom(

@@ -5,6 +5,7 @@ using DatingApp.API.Dtos;
 using DatingApp.API.Extensions;
 using DatingApp.API.Interfaces;
 using DatingApp.API.Models;
+using Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -47,7 +48,7 @@ namespace DatingApp.API.Controllers
             {
                 return BadRequest("You already liked this user");
             }
-            
+
             userLike = new UserLike()
             {
                 SourceUserId = sourceUserId,
@@ -93,6 +94,14 @@ namespace DatingApp.API.Controllers
         {
             var sourceUserId = User.GetUserId();
             var users = await _likesRepository.GetUserLikes(predicate, sourceUserId);
+            return Ok(users);
+        }
+
+        [HttpGet("ids")]
+        public async Task<ActionResult<IEnumerable<UserLikeDto>>> GetUserLikeIds()
+        {
+            var userId = User.GetUserId();
+            var users = await _likesRepository.GetUserLikes(userId);
             return Ok(users);
         }
     }

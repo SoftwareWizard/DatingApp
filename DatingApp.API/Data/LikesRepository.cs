@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using DatingApp.API.Dtos;
 using DatingApp.API.Interfaces;
 using DatingApp.API.Models;
+using Dtos;
 using Microsoft.EntityFrameworkCore;
 
 namespace DatingApp.API.Data
@@ -13,10 +15,12 @@ namespace DatingApp.API.Data
     public class LikesRepository : ILikesRepository
     {
         private readonly DataContext _context;
+        private readonly IMapper _mapper;
 
-        public LikesRepository(DataContext context)
+        public LikesRepository(DataContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public async Task<UserLike> GetUserLike(int sourceUserId, int likedUserId)
@@ -57,6 +61,14 @@ namespace DatingApp.API.Data
                 City = item.City,
                 PhotoUrl = item.Photos.SingleOrDefault(photo => photo.IsMain).Url
             }).ToListAsync();
+        }
+        public async Task<IEnumerable<UserLikeDto>> GetUserLikes(int userId)
+        {
+            var users = _context.Users.OrderBy(u => u.Username).AsQueryable();
+            var likes = _context.Likes.AsQueryable();
+
+            likes = likes.Where(like => like.SourceUserId == userId || like.LikedUserId == userId);
+            return await likes.ProjectTo<UserLikeDto>(_mapper.ConfigurationProvider).ToListAsync();
         }
     }
 }

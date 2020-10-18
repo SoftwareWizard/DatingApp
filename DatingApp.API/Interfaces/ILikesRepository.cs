@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using DatingApp.API.Dtos;
 using DatingApp.API.Models;
+using Dtos;
 
 namespace DatingApp.API.Interfaces
 {
@@ -12,5 +13,7 @@ namespace DatingApp.API.Interfaces
         Task<User> GetUserWithLikes(int userId);
 
         Task<IEnumerable<LikeDto>> GetUserLikes(string predicate, int userId);
+
+        public Task<IEnumerable<UserLikeDto>> GetUserLikes(int userId);
     }
 }

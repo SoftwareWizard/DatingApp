@@ -6,6 +6,7 @@ import { Member } from '../models/member';
 import { environment } from 'src/environments/environment';
 import { PaginatedResult } from 'src/app/core';
 import { map } from 'rxjs/operators';
+import { Like } from '../models/like';
 
 export enum LikedPredicateType {
    liked = 'liked',
@@ -95,5 +96,9 @@ export class MemberService {
       let params = new HttpParams();
       params = params.append('predicate', predicate);
       return this.http.get<Member[]>(`${this.baseUrl}/likes`, { params });
+   }
+
+   getAllLikes(): Observable<Like[]> {
+      return this.http.get<Like[]>(`${this}/likes`);
    }
 }
