@@ -1,4 +1,3 @@
-import { Like } from './../models/like';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { selectMemberAll, selectMemberTotal } from './members.entity';
 import { memberFeatureKey, MemberState } from './member.state';
