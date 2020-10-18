@@ -6,6 +6,8 @@ import * as memberSelectors from './member.selectors';
 import { Member } from '../models/member';
 import { membersAdapter } from './members.entity';
 import { Update } from '@ngrx/entity';
+import { Like } from '../models/like';
+import { likesAdapter } from './likes.entity';
 
 @StoreFacade()
 export class MemberFacade {
@@ -65,6 +67,18 @@ export class MemberFacade {
          },
       })
    );
+
+   loadLikes = createDuck('[Member List Page] Load Likes');
+
+   loadLikesSuccess = createDuck(
+      '[Effect] Load Likes Success',
+      (state: MemberState, payload: Like[]) => ({
+         ...state,
+         likes: likesAdapter.setAll(payload, state.likes),
+      })
+   );
+
+   loadLikesFailure = createDuck('[Effect] Load Likes Failure', dispatch<{ error: any }>());
 }
 
 export const featureKey = memberFeatureKey;

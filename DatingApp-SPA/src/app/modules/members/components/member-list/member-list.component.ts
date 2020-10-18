@@ -35,5 +35,6 @@ export class MemberListComponent implements OnInit {
       this.gender = await this.authFacade.select.gender.pipe(take(1)).toPromise();
       this.gender = this.gender === 'male' ? 'female' : 'male';
       this.membersFacade.loadMembers.dispatch({ gender: this.gender });
+      this.membersFacade.loadLikes.dispatch();
    }
 }

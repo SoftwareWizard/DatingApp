@@ -1,4 +1,4 @@
 export interface Like {
-   sourceId: number;
-   targetId: number;
+   sourceUserId: number;
+   likedUserId: number;
 }

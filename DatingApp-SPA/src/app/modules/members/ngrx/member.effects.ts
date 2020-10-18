@@ -30,4 +30,16 @@ export class MemberEffects {
          )
       );
    });
+
+   loadLikes$ = createEffect(() => {
+      return this.actions$.pipe(
+         ofType(actions.loadLikes),
+         exhaustMap(_ =>
+            this.memberService.getAllLikeIds().pipe(
+               map(data => actions.loadLikesSuccess(data)),
+               catchError(error => of(actions.loadLikesFailure({ error })))
+            )
+         )
+      );
+   });
 }

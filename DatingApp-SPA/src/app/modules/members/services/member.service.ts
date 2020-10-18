@@ -98,7 +98,7 @@ export class MemberService {
       return this.http.get<Member[]>(`${this.baseUrl}/likes`, { params });
    }
 
-   getAllLikes(): Observable<Like[]> {
-      return this.http.get<Like[]>(`${this}/likes`);
+   getAllLikeIds(): Observable<Like[]> {
+      return this.http.get<Like[]>(`${this.baseUrl}/likes/ids`);
    }
 }

@@ -1,13 +1,13 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { selectAll, selectTotal } from './members.entity';
+import { selectMemberAll, selectMemberTotal } from './members.entity';
 import { memberFeatureKey, MemberState } from './member.state';
 import { Member } from '../models/member';
 
 export const selectMemberState = createFeatureSelector<MemberState>(memberFeatureKey);
 export const selectMembersState = createSelector(selectMemberState, state => state.members);
 
-export const allMembers = createSelector(selectMembersState, selectAll);
-export const numOfMembers = createSelector(selectMembersState, selectTotal);
+export const allMembers = createSelector(selectMembersState, selectMemberAll);
+export const numOfMembers = createSelector(selectMembersState, selectMemberTotal);
 export const minAge = createSelector(selectMembersState, state => state.minAge);
 export const maxAge = createSelector(selectMembersState, state => state.maxAge);
 
