@@ -17,7 +17,7 @@ export class MemberCardComponent implements OnInit {
    isLike$: Observable<boolean>;
 
    constructor(private memberFacade: MemberFacade) {
-     this.isLike$ = this.memberFacade.select.isLike;
+    //  this.isLike$ = this.memberFacade.
    }
 
    ngOnInit(): void {}

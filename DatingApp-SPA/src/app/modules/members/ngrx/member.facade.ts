@@ -1,5 +1,5 @@
-import { bindSelectors, createDuck, dispatch, getReducer, StoreFacade } from '@ngrx-ducks/core';
-import { MetaReducer } from '@ngrx/store';
+import { bindSelectors, createDuck, dispatch, getReducer, StoreFacade, usePick } from '@ngrx-ducks/core';
+import { createSelector, MetaReducer } from '@ngrx/store';
 import { environment } from 'src/environments/environment';
 import { MemberState, memberFeatureKey, initialMemberState } from './member.state';
 import * as memberSelectors from './member.selectors';
@@ -9,9 +9,18 @@ import { Update } from '@ngrx/entity';
 import { Like } from '../models/like';
 import { likesAdapter } from './likes.entity';
 
+export const isLike = createSelector(
+  memberSelectors.allLikeIds,
+  (likes: string[], props: { userId: number; memberId: number }) => {
+     const key = `${props.userId}-${props.memberId}`;
+     return likes.includes(key);
+  }
+);
+
 @StoreFacade()
 export class MemberFacade {
    select = bindSelectors(memberSelectors);
+   pick = usePick();
 
    loadMembers = createDuck(
       '[Member List] Load Members',
