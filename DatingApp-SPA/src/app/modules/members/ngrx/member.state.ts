@@ -1,11 +1,10 @@
-import { EntityState } from '@ngrx/entity/src';
-import { Member } from '../models/member';
+import { MembersState, initialMembersState } from './members.entity';
 
 export const memberFeatureKey = 'member';
 
-export interface MemberState extends EntityState<Member> {
-   minAge: number;
-   maxAge: number;
-   currentPage: number;
-   itemsPerPage: number;
+export interface MemberState {
+   members: MembersState;
+   likes: any;
 }
+
+export const initialMemberState = { members: initialMembersState, likes: null };

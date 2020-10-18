@@ -1,6 +1,14 @@
 import { itemsPerPage, currentPage } from './member.selectors';
-import { createEntityAdapter } from '@ngrx/entity';
+import { createEntityAdapter, EntityState } from '@ngrx/entity';
 import { Member } from '../models/member';
+
+
+export interface MembersState extends EntityState<Member> {
+  minAge: number;
+  maxAge: number;
+  currentPage: number;
+  itemsPerPage: number;
+}
 
 export const membersAdapter = createEntityAdapter<Member>();
 

@@ -3,7 +3,9 @@ import { selectAll, selectTotal } from './members.entity';
 import { memberFeatureKey, MemberState } from './member.state';
 import { Member } from '../models/member';
 
-export const selectMembersState = createFeatureSelector<MemberState>(memberFeatureKey);
+export const selectMemberState = createFeatureSelector<MemberState>(memberFeatureKey);
+export const selectMembersState = createSelector(selectMemberState, state => state.members);
+
 export const allMembers = createSelector(selectMembersState, selectAll);
 export const numOfMembers = createSelector(selectMembersState, selectTotal);
 export const minAge = createSelector(selectMembersState, state => state.minAge);
