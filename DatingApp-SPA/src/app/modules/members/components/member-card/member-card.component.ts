@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { MemberService } from './../../services/member.service';
 import { AppRouteNames } from 'src/app/app-routing.names';
 import { Member } from '../../models/member';
@@ -11,17 +12,19 @@ import { Component, Input, OnInit } from '@angular/core';
 export class MemberCardComponent implements OnInit {
    ROUTES = AppRouteNames;
    @Input() member: Member;
-   isLike: boolean;
+   @Input() userId: number;
+
+   isLike$: Observable<boolean>;
 
    constructor(private memberService: MemberService) {}
 
    ngOnInit(): void {}
 
    async onChangeLike(username: string): Promise<void> {
-      if (this.isLike) {
-        await this.memberService.addLike(username).toPromise();
-      } else {
-        await this.memberService.removeLike(username).toPromise();
-      }
+      // if (this.isLike) {
+      //     await this.memberService.addLike(username).toPromise();
+      //   } else {
+      //     await this.memberService.removeLike(username).toPromise();
+      //   }
    }
 }

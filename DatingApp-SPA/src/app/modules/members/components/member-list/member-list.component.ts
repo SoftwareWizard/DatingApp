@@ -3,7 +3,7 @@ import { Observable, Subscription } from 'rxjs';
 import { MemberFacade } from '../../ngrx/member.facade';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Member } from '../../models/member';
-import { last, take } from 'rxjs/operators';
+import { last, take, map } from 'rxjs/operators';
 import { collectExternalReferences } from '@angular/compiler';
 
 @Component({
@@ -21,8 +21,10 @@ export class MemberListComponent implements OnInit {
    itemsPerPage$: Observable<number>;
    currentPage$: Observable<number>;
    totalItems$: Observable<number>;
+   userId$: Observable<number>;
 
    constructor(private membersFacade: MemberFacade, private authFacade: AuthFacade) {
+      this.userId$ = this.authFacade.select.user.pipe(map(user => user.id));
       this.members$ = this.membersFacade.select.paginatedMembers;
       this.minAge$ = this.membersFacade.select.minAge;
       this.maxAge$ = this.membersFacade.select.maxAge;

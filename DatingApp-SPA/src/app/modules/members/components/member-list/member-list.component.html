@@ -11,7 +11,7 @@
 </div>
 <div class="row" *ngIf="(members$ | async)?.length > 0;else noResult">
   <div class="col-2" *ngFor="let member of members$ |async">
-    <app-member-card [member]="member"></app-member-card>
+    <app-member-card [member]="member" [userId]="userId$ | async"></app-member-card>
   </div>
 </div>
 
