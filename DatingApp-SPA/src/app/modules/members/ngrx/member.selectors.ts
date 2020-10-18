@@ -1,7 +1,9 @@
+import { Like } from './../models/like';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { selectMemberAll, selectMemberTotal } from './members.entity';
 import { memberFeatureKey, MemberState } from './member.state';
 import { Member } from '../models/member';
+import { selectLikeAll } from './likes.entity';
 
 export const selectMemberState = createFeatureSelector<MemberState>(memberFeatureKey);
 export const selectMembersState = createSelector(selectMemberState, state => state.members);
@@ -44,5 +46,16 @@ export const paginatedMembers = createSelector(
       }
 
       return members.slice(startIndex, endIndex);
+   }
+);
+
+export const selectLikesState = createSelector(selectMemberState, state => state.likes);
+export const allLikes = createSelector(selectLikesState, selectLikeAll);
+
+export const isLike = createSelector(
+   paginatedMembers,
+   allLikes,
+   (members: Member[], likes: Like[]) => {
+      return true;
    }
 );

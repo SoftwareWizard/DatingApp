@@ -18,8 +18,8 @@ export const initialLikesState = {
 };
 
 export const {
-   selectIds,
-   selectEntities,
-   selectAll,
-   selectTotal,
+   selectIds: selectLikeIds,
+   selectEntities: selectLikeEntities,
+   selectAll: selectLikeAll,
+   selectTotal: selectLikeTotal,
 } = likesAdapter.getSelectors();

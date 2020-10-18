@@ -1,5 +1,5 @@
+import { MemberFacade } from './../../ngrx/member.facade';
 import { Observable } from 'rxjs';
-import { MemberService } from './../../services/member.service';
 import { AppRouteNames } from 'src/app/app-routing.names';
 import { Member } from '../../models/member';
 import { Component, Input, OnInit } from '@angular/core';
@@ -16,7 +16,9 @@ export class MemberCardComponent implements OnInit {
 
    isLike$: Observable<boolean>;
 
-   constructor(private memberService: MemberService) {}
+   constructor(private memberFacade: MemberFacade) {
+     this.isLike$ = this.memberFacade.select.isLike;
+   }
 
    ngOnInit(): void {}
 
