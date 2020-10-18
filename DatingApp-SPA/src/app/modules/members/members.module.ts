@@ -1,4 +1,4 @@
-import { MembersEffects } from './ngrx/members.effects';
+import { MemberEffects } from './ngrx/member.effects';
 import { MessageModule } from './../message/message.module';
 import { MembersRoutingModule } from './members-routing.module';
 import { NgModule } from '@angular/core';
@@ -11,7 +11,7 @@ import { MemberListComponent } from './components/member-list/member-list.compon
 import { PhotoEditorComponent } from './components/photo-editor/photo-editor.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import * as membersFacade from './ngrx/members.facade';
+import * as memberFacade from './ngrx/member.facade';
 import { MemberFilterComponent } from './components/member-filter/member-filter.component';
 import { MemberPaginatorComponent } from './components/member-paginator/member-paginator.component';
 
@@ -30,10 +30,10 @@ import { MemberPaginatorComponent } from './components/member-paginator/member-p
       MembersRoutingModule,
       MessageModule,
       SharedModule,
-      StoreModule.forFeature(membersFacade.featureKey, membersFacade.reducer, {
-         metaReducers: membersFacade.metaReducers,
+      StoreModule.forFeature(memberFacade.featureKey, memberFacade.reducer, {
+         metaReducers: memberFacade.metaReducers,
       }),
-      EffectsModule.forFeature([MembersEffects]),
+      EffectsModule.forFeature([MemberEffects]),
    ],
    exports: [MemberListComponent, MemberEditComponent, MemberCardComponent, MembersRoutingModule],
 })

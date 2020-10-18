@@ -1,4 +1,4 @@
-import { MembersFacade } from './../../ngrx/members.facade';
+import { MemberFacade } from '../../ngrx/member.facade';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
@@ -13,7 +13,7 @@ export class MemberFilterComponent implements OnInit {
    private items = Array.from({ length: 16 }, (v, k) => 20 + k * 5);
    ages: number[] = [18];
 
-   constructor(private membersFacade: MembersFacade) {
+   constructor(private membersFacade: MemberFacade) {
       this.ages.push(...this.items);
    }
 

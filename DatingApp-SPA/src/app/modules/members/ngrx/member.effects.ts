@@ -1,20 +1,20 @@
 import { catchError, exhaustMap, map } from 'rxjs/operators';
-import { MemberService } from './../services/member.service';
+import { MemberService } from '../services/member.service';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { getActions } from '@ngrx-ducks/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { ToastrService } from 'ngx-toastr';
 import { AppRouteNames } from 'src/app/app-routing.names';
-import { MembersFacade } from './members.facade';
+import { MemberFacade } from './member.facade';
 import { of } from 'rxjs';
 
-const actions = getActions(MembersFacade);
+const actions = getActions(MemberFacade);
 
 @Injectable({
    providedIn: 'root',
 })
-export class MembersEffects {
+export class MemberEffects {
    ROUTES = AppRouteNames;
 
    constructor(private actions$: Actions, private memberService: MemberService) {}
