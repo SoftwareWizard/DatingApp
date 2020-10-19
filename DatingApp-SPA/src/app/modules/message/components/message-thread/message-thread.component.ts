@@ -3,6 +3,7 @@ import { Message } from './../../models/message';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MessageFacade } from '../../ngrx/message.facade';
+import { Observable } from 'rxjs';
 
 @Component({
    selector: 'app-message-thread',
@@ -12,16 +13,12 @@ import { MessageFacade } from '../../ngrx/message.facade';
 export class MessageThreadComponent implements OnInit {
    @Input() username: string;
    messageTextControl: FormControl = new FormControl();
-   messages: PaginatedResult<Message[]> = new PaginatedResult<Message[]>();
+   messages$: Observable<Message[]>;
 
-   constructor(private messageService: MessageFacade) {}
+   constructor(private messageFacade: MessageFacade) {}
 
-   async ngOnInit(): Promise<void> {
-      await this.loadMessages();
-   }
-
-   async loadMessages(): Promise<void> {
-      // FIXME: this.messages = await this.messageService.getMessageThread(this.username).toPromise();
+   ngOnInit(): void {
+    this.messages$ = this.messageFacade.getAll();
    }
 
    isSender(message: Message): boolean {
@@ -39,6 +36,5 @@ export class MessageThreadComponent implements OnInit {
    async sendMessage(): Promise<void> {
       // FIXME: await this.messageService.sendMessage(this.username, this.messageTextControl.value).toPromise();
       this.messageTextControl.reset();
-      this.loadMessages();
    }
 }
