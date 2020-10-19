@@ -4,8 +4,8 @@ import { Component, OnInit } from '@angular/core';
 import { Member } from '../../models/member';
 import { take, map } from 'rxjs/operators';
 import { AuthFacade } from './../../../auth/ngrx/auth.facade';
-import { MembersFacade } from '../../ngrx/members.facade';
-import { LikesFacade } from './../../ngrx/likes.facade';
+import { MembersFacade } from '../../ngrx/members/members.facade';
+import { LikesFacade } from '../../ngrx/likes/likes.facade';
 
 @Component({
    selector: 'app-member-list',

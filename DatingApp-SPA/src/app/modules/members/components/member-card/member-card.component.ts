@@ -1,4 +1,4 @@
-import { isLike, LikesFacade } from './../../ngrx/likes.facade';
+import { isLike, LikesFacade } from '../../ngrx/likes/likes.facade';
 import { Observable } from 'rxjs';
 import { AppRouteNames } from 'src/app/app-routing.names';
 import { Member } from '../../models/member';

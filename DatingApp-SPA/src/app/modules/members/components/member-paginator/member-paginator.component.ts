@@ -1,4 +1,4 @@
-import { MembersFacade } from '../../ngrx/members.facade';
+import { MembersFacade } from '../../ngrx/members/members.facade';
 import { Component, Input, OnInit } from '@angular/core';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 

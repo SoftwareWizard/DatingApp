@@ -5,7 +5,7 @@ import { getActions } from '@ngrx-ducks/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { AppRouteNames } from 'src/app/app-routing.names';
 import { of } from 'rxjs';
-import { MembersFacade } from '../members.facade';
+import { MembersFacade } from './members.facade';
 
 const actions = getActions(MembersFacade);
 

@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { getActions } from '@ngrx-ducks/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { LikesFacade } from '../likes.facade';
+import { LikesFacade } from './likes.facade';
 
 const actions = getActions(LikesFacade);
 

@@ -6,10 +6,9 @@ import {
    StoreFacade,
    usePick,
 } from '@ngrx-ducks/core';
-import { MemberState } from './member.state';
-import * as likesSelectors from './likes/likes.selectors';
-import { Like } from '../models/like';
-import { initialLikesState, likesAdapter } from './likes/likes.entity';
+import * as likesSelectors from './likes.selectors';
+import { Like } from '../../models/like';
+import { initialLikesState, likesAdapter, LikesState } from './likes.entity';
 
 @StoreFacade()
 export class LikesFacade {
@@ -20,22 +19,15 @@ export class LikesFacade {
 
    loadLikesSuccess = createDuck(
       '[Effect] Load Likes Success',
-      (state: MemberState, payload: Like[]) => ({
-         ...state,
-         likes: likesAdapter.setAll(payload, state.likes),
-      })
+      (state: LikesState, payload: Like[]) => likesAdapter.setAll(payload, state)
    );
 
    loadLikesFailure = createDuck('[Effect] Load Likes Failure', dispatch<{ error: any }>());
 
    setLike = createDuck('[Member Card] Set Like', dispatch<{ userId: number; memberId: number }>());
 
-   setLikeSuccess = createDuck(
-      '[Effect] Set Like Success',
-      (state: MemberState, payload: Like[]) => ({
-         ...state,
-         likes: likesAdapter.setAll(payload, state.likes),
-      })
+   setLikeSuccess = createDuck('[Effect] Set Like Success', (state: LikesState, payload: Like[]) =>
+      likesAdapter.setAll(payload, state)
    );
 
    setLikeFailure = createDuck('[Effect] Set Like Failure', dispatch<{ error: any }>());
@@ -47,14 +39,11 @@ export class LikesFacade {
 
    unsetLikeSuccess = createDuck(
       '[Effect] UnsSet Like Success',
-      (state: MemberState, payload: Like[]) => ({
-         ...state,
-         likes: likesAdapter.setAll(payload, state.likes),
-      })
+      (state: LikesState, payload: Like[]) => likesAdapter.setAll(payload, state)
    );
 
    unsetLikeFailure = createDuck('[Effect] Unset Like Failure', dispatch<{ error: any }>());
 }
 
 export const likesReducer = getReducer(initialLikesState, LikesFacade);
-export * from './likes/likes-pick.selectors';
+export * from './likes-pick.selectors';
