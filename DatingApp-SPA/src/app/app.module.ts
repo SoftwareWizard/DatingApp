@@ -20,7 +20,6 @@ import { environment } from '../environments/environment';
 import { reducers, metaReducers } from './core/ngrx/app.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { EntityDataModule } from '@ngrx/data';
-import { entityConfig } from './entity-metadata';
 
 @NgModule({
    declarations: [AppComponent, NavComponent, HomeComponent, ListsComponent],
@@ -43,7 +42,7 @@ import { entityConfig } from './entity-metadata';
       StoreModule.forRoot(reducers, { metaReducers }),
       !environment.production ? StoreDevtoolsModule.instrument() : [],
       EffectsModule.forRoot([]),
-      EntityDataModule.forRoot(entityConfig),
+      EntityDataModule.forRoot({}),
    ],
    exports: [],
    providers: [
