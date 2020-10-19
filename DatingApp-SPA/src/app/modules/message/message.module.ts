@@ -1,3 +1,4 @@
+import { MessageFacade } from './ngrx/message.facade';
 import { SharedModule } from './../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -12,7 +13,7 @@ import { messageEntityMetadata } from './ngrx/message.entity-metadata';
    declarations: [MessageListComponent, MessageThreadComponent],
    imports: [CommonModule, MessageRoutingModule, SharedModule],
    exports: [MessageRoutingModule, MessageListComponent, MessageThreadComponent],
-   providers: [],
+   providers: [MessageFacade],
 })
 export class MessageModule {
    constructor(private eds: EntityDefinitionService) {

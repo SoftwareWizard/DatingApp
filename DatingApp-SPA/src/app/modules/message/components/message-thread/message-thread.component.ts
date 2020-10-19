@@ -2,6 +2,7 @@ import { PaginatedResult } from './../../../../core/models/pagination';
 import { Message } from './../../models/message';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MessageFacade } from '../../ngrx/message.facade';
 
 @Component({
    selector: 'app-message-thread',
@@ -13,10 +14,7 @@ export class MessageThreadComponent implements OnInit {
    messageTextControl: FormControl = new FormControl();
    messages: PaginatedResult<Message[]> = new PaginatedResult<Message[]>();
 
-   constructor(
-    //  private messageService: MessageService
-     ) {
-   }
+   constructor(private messageService: MessageFacade) {}
 
    async ngOnInit(): Promise<void> {
       await this.loadMessages();

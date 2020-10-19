@@ -3,6 +3,7 @@ import { AppRouteNames } from 'src/app/app-routing.names';
 import { Component, OnInit } from '@angular/core';
 import { Message } from '../../models/message';
 import { ContainerType } from '../../models/container.type';
+import { MessageFacade } from '../../ngrx/message.facade';
 
 @Component({
    selector: 'app-message-list',
@@ -17,7 +18,7 @@ export class MessageListComponent implements OnInit {
    container: ContainerType = ContainerType.outbox;
 
    constructor(
-    //  private messageService: MessageService
+      private messageFacade: MessageFacade
      ) {}
 
    async ngOnInit(): Promise<void> {
