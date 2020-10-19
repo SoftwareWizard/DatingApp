@@ -24,7 +24,7 @@ export class MemberListComponent implements OnInit {
    userId$: Observable<number>;
 
    constructor(private membersFacade: MemberFacade, private authFacade: AuthFacade) {
-      this.userId$ = this.authFacade.select.user.pipe(map(user => user.id));
+      this.userId$ = this.authFacade.select.user.pipe(map(user => user?.id));
       this.members$ = this.membersFacade.select.paginatedMembers;
       this.minAge$ = this.membersFacade.select.minAge;
       this.maxAge$ = this.membersFacade.select.maxAge;
