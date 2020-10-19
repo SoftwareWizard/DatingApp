@@ -1,6 +1,5 @@
 import { AuthFacade } from './../../../auth/ngrx/auth.facade';
 import { Observable } from 'rxjs';
-import { PaginatedResult } from './../../../../core/models/pagination';
 import { AppRouteNames } from 'src/app/app-routing.names';
 import { Component, OnInit } from '@angular/core';
 import { Message } from '../../models/message';

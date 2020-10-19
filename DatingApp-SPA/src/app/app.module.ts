@@ -19,7 +19,8 @@ import { RouterState, StoreRouterConnectingModule } from '@ngrx/router-store';
 import { environment } from '../environments/environment';
 import { reducers, metaReducers } from './core/ngrx/app.reducer';
 import { EffectsModule } from '@ngrx/effects';
-import { EntityDataModule } from '@ngrx/data';
+import { EntityDataModule, HttpUrlGenerator } from '@ngrx/data';
+import { MessageApiUrlGenerator } from './modules/message/ngrx/message-api.url-generator';
 
 @NgModule({
    declarations: [AppComponent, NavComponent, HomeComponent, ListsComponent],
@@ -50,6 +51,10 @@ import { EntityDataModule } from '@ngrx/data';
       { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
       { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
       { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
+      {
+         provide: HttpUrlGenerator,
+         useClass: MessageApiUrlGenerator,
+      },
    ],
    bootstrap: [AppComponent],
 })

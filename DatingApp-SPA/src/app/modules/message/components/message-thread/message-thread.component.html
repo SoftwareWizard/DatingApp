@@ -12,7 +12,7 @@
         <input type="text" class="form-control input-sm" [formControl]="messageTextControl"
           placeholder="Send a private message">
         <div class="input-group-append">
-          <button class="btn btn-primary" type="submit">Send</button>
+          <button class="btn btn-primary" type="submit" (click)="sendMessage()">Send</button>
         </div>
       </div>
     </form>

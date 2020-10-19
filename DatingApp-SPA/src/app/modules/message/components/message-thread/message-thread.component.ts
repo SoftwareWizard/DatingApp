@@ -18,7 +18,7 @@ export class MessageThreadComponent implements OnInit {
    constructor(private messageFacade: MessageFacade) {}
 
    ngOnInit(): void {
-    this.messages$ = this.messageFacade.getAll();
+      this.messages$ = this.messageFacade.getAll();
    }
 
    isSender(message: Message): boolean {
@@ -34,7 +34,13 @@ export class MessageThreadComponent implements OnInit {
    }
 
    async sendMessage(): Promise<void> {
-      // FIXME: await this.messageService.sendMessage(this.username, this.messageTextControl.value).toPromise();
+      const content = this.messageTextControl.value;
+      const message = {
+         content,
+         recipientUsername: this.username,
+      } as Message;
+
+      await this.messageFacade.add(message).toPromise();
       this.messageTextControl.reset();
    }
 }
