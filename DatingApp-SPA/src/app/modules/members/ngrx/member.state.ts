@@ -1,5 +1,5 @@
-import { LikesState, initialLikesState } from './likes.entity';
-import { MembersState, initialMembersState } from './members.entity';
+import { LikesState, initialLikesState } from './likes/likes.entity';
+import { MembersState, initialMembersState } from './members/members.entity';
 
 export const memberFeatureKey = 'member';
 

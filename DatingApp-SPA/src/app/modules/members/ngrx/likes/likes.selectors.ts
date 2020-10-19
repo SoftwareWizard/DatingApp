@@ -1,6 +1,6 @@
 import { selectLikeAll, selectLikeIds } from './likes.entity';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { memberFeatureKey, MemberState } from './member.state';
+import { memberFeatureKey, MemberState } from '../member.state';
 
 const selectMemberState = createFeatureSelector<MemberState>(memberFeatureKey);
 export const selectLikesState = createSelector(selectMemberState, state => state.likes);

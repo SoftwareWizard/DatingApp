@@ -1,6 +1,6 @@
 import { createEntityAdapter, EntityState } from '@ngrx/entity';
-import { Like } from '../models/like';
-import { LikedPredicateType } from '../services/member.service';
+import { Like } from '../../models/like';
+import { LikedPredicateType } from '../../services/member.service';
 
 export interface LikesState extends EntityState<Like> {
    likeFilter: LikedPredicateType;

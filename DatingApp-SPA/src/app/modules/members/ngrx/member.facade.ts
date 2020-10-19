@@ -6,15 +6,15 @@ import {
    StoreFacade,
    usePick,
 } from '@ngrx-ducks/core';
-import { createSelector, MetaReducer } from '@ngrx/store';
+import { MetaReducer } from '@ngrx/store';
 import { environment } from 'src/environments/environment';
 import { MemberState, memberFeatureKey, initialMemberState } from './member.state';
 import * as memberSelectors from './member.selectors';
 import { Member } from '../models/member';
-import { membersAdapter } from './members.entity';
+import { membersAdapter } from './members/members.entity';
 import { Update } from '@ngrx/entity';
 import { Like } from '../models/like';
-import { likesAdapter } from './likes.entity';
+import { likesAdapter } from './likes/likes.entity';
 
 @StoreFacade()
 export class MemberFacade {
@@ -116,14 +116,8 @@ export class MemberFacade {
    unsetLikeFailure = createDuck('[Effect] Unset Like Failure', dispatch<{ error: any }>());
 }
 
-export const isLike = createSelector(
-   memberSelectors.allLikeIds,
-   (likes: string[], props: { userId: number; memberId: number }) => {
-      const key = `${props.userId}-${props.memberId}`;
-      return likes.includes(key);
-   }
-);
-
 export const featureKey = memberFeatureKey;
 export const metaReducers: MetaReducer<MemberState>[] = !environment.production ? [] : [];
 export const reducer = getReducer(initialMemberState, MemberFacade);
+
+export * from './likes/likes-pick.selectors';

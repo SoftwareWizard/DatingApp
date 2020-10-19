@@ -1,2 +1,2 @@
-export * from './members.selectors';
-export * from './likes.selectors';
+export * from './members/members.selectors';
+export * from './likes/likes.selectors';

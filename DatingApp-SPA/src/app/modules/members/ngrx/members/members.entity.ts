@@ -1,5 +1,5 @@
 import { createEntityAdapter, EntityState } from '@ngrx/entity';
-import { Member } from '../models/member';
+import { Member } from '../../models/member';
 
 export interface MembersState extends EntityState<Member> {
    minAge: number;

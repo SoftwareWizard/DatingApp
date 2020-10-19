@@ -1,5 +1,5 @@
-import { LikesEffects } from './ngrx/likes.effects';
-import { MembersEffects } from './ngrx/members.effects';
+import { LikesEffects } from './ngrx/likes/likes.effects';
+import { MembersEffects } from './ngrx/members/members.effects';
 import { MessageModule } from './../message/message.module';
 import { MembersRoutingModule } from './members-routing.module';
 import { NgModule } from '@angular/core';

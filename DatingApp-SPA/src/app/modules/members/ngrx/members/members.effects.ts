@@ -1,10 +1,10 @@
 import { catchError, exhaustMap, map } from 'rxjs/operators';
-import { MemberService } from '../services/member.service';
+import { MemberService } from '../../services/member.service';
 import { Injectable } from '@angular/core';
 import { getActions } from '@ngrx-ducks/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { AppRouteNames } from 'src/app/app-routing.names';
-import { MemberFacade } from './member.facade';
+import { MemberFacade } from '../member.facade';
 import { of } from 'rxjs';
 
 const actions = getActions(MemberFacade);
