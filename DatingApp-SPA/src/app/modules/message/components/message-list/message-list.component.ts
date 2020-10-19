@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { PaginatedResult } from './../../../../core/models/pagination';
 import { AppRouteNames } from 'src/app/app-routing.names';
 import { Component, OnInit } from '@angular/core';
@@ -14,6 +15,7 @@ export class MessageListComponent implements OnInit {
    ROUTES = AppRouteNames;
 
    messages: PaginatedResult<Message[]>;
+   messages$: Observable<Message[]>;
 
    container: ContainerType = ContainerType.outbox;
 
@@ -22,16 +24,18 @@ export class MessageListComponent implements OnInit {
      ) {}
 
    async ngOnInit(): Promise<void> {
-      await this.loadMessages();
+    this.messages$ = this.messageFacade.getAll();
+    // await this.loadMessages();
    }
 
    async loadMessages(): Promise<void> {
+
       // FIXME: this.messages = await this.messageService.getMessages(this.container).toPromise();
    }
 
    async deleteMessage(id: number): Promise<void> {
       // FIXME: await this.messageService.deleteMessage(id).toPromise();
-      await this.loadMessages();
+      // await this.loadMessages();
    }
 
    get ContainerType(): typeof ContainerType {
