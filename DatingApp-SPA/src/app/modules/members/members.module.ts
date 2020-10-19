@@ -13,6 +13,7 @@ import { PhotoEditorComponent } from './components/photo-editor/photo-editor.com
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import * as memberFacade from './ngrx/member.facade';
+import { metaReducers } from './ngrx/member.state';
 import { MemberFilterComponent } from './components/member-filter/member-filter.component';
 import { MemberPaginatorComponent } from './components/member-paginator/member-paginator.component';
 
@@ -31,8 +32,8 @@ import { MemberPaginatorComponent } from './components/member-paginator/member-p
       MembersRoutingModule,
       MessageModule,
       SharedModule,
-      StoreModule.forFeature(memberFacade.featureKey, memberFacade.reducer, {
-         metaReducers: memberFacade.metaReducers,
+      StoreModule.forFeature(memberFacade.featureKey, memberFacade.reducers, {
+         metaReducers,
       }),
       EffectsModule.forFeature([MembersEffects, LikesEffects]),
    ],

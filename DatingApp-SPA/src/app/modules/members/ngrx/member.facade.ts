@@ -1,3 +1,4 @@
+import { ActionReducerMap } from '@ngrx/store';
 import {
    bindSelectors,
    createDuck,
@@ -6,8 +7,6 @@ import {
    StoreFacade,
    usePick,
 } from '@ngrx-ducks/core';
-import { MetaReducer } from '@ngrx/store';
-import { environment } from 'src/environments/environment';
 import { MemberState, memberFeatureKey, initialMemberState } from './member.state';
 import * as memberSelectors from './member.selectors';
 import { Member } from '../models/member';
@@ -117,7 +116,11 @@ export class MemberFacade {
 }
 
 export const featureKey = memberFeatureKey;
-export const metaReducers: MetaReducer<MemberState>[] = !environment.production ? [] : [];
-export const reducer = getReducer(initialMemberState, MemberFacade);
+
+const memberReducer = getReducer(initialMemberState, MemberFacade);
+export const reducers: ActionReducerMap<MemberState> = {
+   members: null,
+   likes: null
+};
 
 export * from './likes/likes-pick.selectors';
