@@ -1,4 +1,4 @@
-import { MemberFacade } from '../../ngrx/member.facade';
+import { MembersFacade } from '../../ngrx/members.facade';
 import { Component, Input, OnInit } from '@angular/core';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 
@@ -12,7 +12,7 @@ export class MemberPaginatorComponent implements OnInit {
    @Input() currentPage: number;
    @Input() itemsPerPage = 5;
 
-   constructor(private membersFacade: MemberFacade) {}
+   constructor(private membersFacade: MembersFacade) {}
 
    ngOnInit(): void {}
 

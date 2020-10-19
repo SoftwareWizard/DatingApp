@@ -3,16 +3,28 @@ import { MemberService } from '../../services/member.service';
 import { Injectable } from '@angular/core';
 import { getActions } from '@ngrx-ducks/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { MemberFacade } from '../member.facade';
 import { of } from 'rxjs';
+import { LikesFacade } from '../likes.facade';
 
-const actions = getActions(MemberFacade);
+const actions = getActions(LikesFacade);
 
 @Injectable({
    providedIn: 'root',
 })
 export class LikesEffects {
    constructor(private actions$: Actions, private memberService: MemberService) {}
+
+   loadLikes$ = createEffect(() => {
+      return this.actions$.pipe(
+         ofType(actions.loadLikes),
+         exhaustMap(_ =>
+            this.memberService.getAllLikeIds().pipe(
+               map(data => actions.loadLikesSuccess(data)),
+               catchError(error => of(actions.loadLikesFailure({ error })))
+            )
+         )
+      );
+   });
 
    setLike$ = createEffect(() => {
       return this.actions$.pipe(

@@ -1,4 +1,4 @@
-import { isLike, MemberFacade } from './../../ngrx/member.facade';
+import { isLike, LikesFacade } from './../../ngrx/likes.facade';
 import { Observable } from 'rxjs';
 import { AppRouteNames } from 'src/app/app-routing.names';
 import { Member } from '../../models/member';
@@ -17,10 +17,10 @@ export class MemberCardComponent implements OnInit {
 
    isLike$: Observable<boolean>;
 
-   constructor(private memberFacade: MemberFacade) {}
+   constructor(private likesFacade: LikesFacade) {}
 
    ngOnInit(): void {
-      this.isLike$ = this.memberFacade.pick(isLike, {
+      this.isLike$ = this.likesFacade.pick(isLike, {
          userId: this.userId,
          memberId: this.member?.id,
       });
@@ -31,9 +31,9 @@ export class MemberCardComponent implements OnInit {
       const payload = { userId: this.userId, memberId: this.member.id };
 
       if (currentIsLike) {
-         this.memberFacade.unsetLike.dispatch(payload);
+         this.likesFacade.unsetLike.dispatch(payload);
       } else {
-         this.memberFacade.setLike.dispatch(payload);
+         this.likesFacade.setLike.dispatch(payload);
       }
    }
 }

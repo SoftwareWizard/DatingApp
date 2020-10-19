@@ -4,10 +4,10 @@ import { Injectable } from '@angular/core';
 import { getActions } from '@ngrx-ducks/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { AppRouteNames } from 'src/app/app-routing.names';
-import { MemberFacade } from '../member.facade';
 import { of } from 'rxjs';
+import { MembersFacade } from '../members.facade';
 
-const actions = getActions(MemberFacade);
+const actions = getActions(MembersFacade);
 
 @Injectable({
    providedIn: 'root',
@@ -24,18 +24,6 @@ export class MembersEffects {
             this.memberService.getMembers(1, 1000, 1, 99, payload.gender).pipe(
                map(data => actions.loadMembersSuccess(data)),
                catchError(error => of(actions.loadMembersFailure({ error })))
-            )
-         )
-      );
-   });
-
-   loadLikes$ = createEffect(() => {
-      return this.actions$.pipe(
-         ofType(actions.loadLikes),
-         exhaustMap(_ =>
-            this.memberService.getAllLikeIds().pipe(
-               map(data => actions.loadLikesSuccess(data)),
-               catchError(error => of(actions.loadLikesFailure({ error })))
             )
          )
       );

@@ -2,7 +2,8 @@ export * from './models/member';
 export * from './models/photo';
 
 export * from './services/member.service'; // TODO: remove
-export * from './ngrx/member.facade';
+export * from './ngrx/members.facade';
+export * from './ngrx/likes.facade';
 
 export * from './components/member-card/member-card.component';
 export * from './components/member-detail/member-detail.component';

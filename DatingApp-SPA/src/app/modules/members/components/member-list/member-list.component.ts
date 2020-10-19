@@ -1,10 +1,11 @@
-import { AuthFacade } from './../../../auth/ngrx/auth.facade';
+
 import { Observable, Subscription } from 'rxjs';
-import { MemberFacade } from '../../ngrx/member.facade';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Member } from '../../models/member';
-import { last, take, map } from 'rxjs/operators';
-import { collectExternalReferences } from '@angular/compiler';
+import { take, map } from 'rxjs/operators';
+import { AuthFacade } from './../../../auth/ngrx/auth.facade';
+import { MembersFacade } from '../../ngrx/members.facade';
+import { LikesFacade } from './../../ngrx/likes.facade';
 
 @Component({
    selector: 'app-member-list',
@@ -23,7 +24,11 @@ export class MemberListComponent implements OnInit {
    totalItems$: Observable<number>;
    userId$: Observable<number>;
 
-   constructor(private membersFacade: MemberFacade, private authFacade: AuthFacade) {
+   constructor(
+      private authFacade: AuthFacade,
+      private membersFacade: MembersFacade,
+      private likesFacade: LikesFacade
+   ) {
       this.userId$ = this.authFacade.select.user.pipe(map(user => user?.id));
       this.members$ = this.membersFacade.select.paginatedMembers;
       this.minAge$ = this.membersFacade.select.minAge;
@@ -37,6 +42,5 @@ export class MemberListComponent implements OnInit {
       this.gender = await this.authFacade.select.gender.pipe(take(1)).toPromise();
       this.gender = this.gender === 'male' ? 'female' : 'male';
       this.membersFacade.loadMembers.dispatch({ gender: this.gender });
-      this.membersFacade.loadLikes.dispatch();
-   }
+      this.likesFacade.loadLikes.dispatch();   }
 }
