@@ -5,12 +5,7 @@ import { Observable } from 'rxjs';
 import { PaginatedResult } from 'src/app/core';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
-
-export enum containerType {
-   unread = 'unread',
-   inbox = 'inbox',
-   outbox = 'outbox',
-}
+import { ContainerType } from '../models/container.type';
 
 @Injectable({
    providedIn: 'root',
@@ -20,7 +15,7 @@ export class MessageService {
 
    constructor(private http: HttpClient) {}
 
-   getMessages(container: containerType): Observable<PaginatedResult<Message[]>> {
+   getMessages(container: ContainerType): Observable<PaginatedResult<Message[]>> {
       let params = new HttpParams();
       params = params.append('container', container);
 

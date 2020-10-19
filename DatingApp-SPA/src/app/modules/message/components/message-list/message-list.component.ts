@@ -2,7 +2,8 @@ import { PaginatedResult } from './../../../../core/models/pagination';
 import { AppRouteNames } from 'src/app/app-routing.names';
 import { Component, OnInit } from '@angular/core';
 import { Message } from '../../models/message';
-import { containerType, MessageService } from '../../services/message.service';
+import { MessageService } from '../../services/message.service';
+import { ContainerType } from '../../models/container.type';
 
 @Component({
    selector: 'app-message-list',
@@ -14,7 +15,7 @@ export class MessageListComponent implements OnInit {
 
    messages: PaginatedResult<Message[]>;
 
-   container: containerType = containerType.outbox;
+   container: ContainerType = ContainerType.outbox;
 
    constructor(private messageService: MessageService) {}
 
@@ -31,7 +32,7 @@ export class MessageListComponent implements OnInit {
       await this.loadMessages();
    }
 
-   get ContainerType(): typeof containerType {
-      return containerType;
+   get ContainerType(): typeof ContainerType {
+      return ContainerType;
    }
 }

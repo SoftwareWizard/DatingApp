@@ -1,7 +1,7 @@
 import { PaginatedResult } from './../../../../core/models/pagination';
 import { Message } from './../../models/message';
 import { Component, Input, OnInit } from '@angular/core';
-import { containerType, MessageService } from '../../services/message.service';
+import { MessageService } from '../../services/message.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
