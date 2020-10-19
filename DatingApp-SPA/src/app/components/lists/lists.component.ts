@@ -1,6 +1,6 @@
-import { MemberService } from './../../modules/members/services/member.service';
 import { Component, OnInit } from '@angular/core';
-import { LikedPredicateType, Member } from 'src/app/modules/members';
+import { LikeService, Member } from 'src/app/modules/members';
+import { LikedPredicateType } from 'src/app/modules/members/models/likedPredicate.type';
 
 @Component({
    selector: 'app-lists',
@@ -15,7 +15,8 @@ export class ListsComponent implements OnInit {
       [LikedPredicateType.likedBy, 'Members who like me'],
    ]);
 
-   constructor(private memberService: MemberService) {
+   constructor(
+     private likeService: LikeService) {
    }
 
    async ngOnInit(): Promise<void> {
@@ -23,7 +24,7 @@ export class ListsComponent implements OnInit {
    }
 
    async loadLikes(): Promise<void> {
-      this.members = await this.memberService.getLikes(this.predicate).toPromise();
+      this.members = await this.likeService.getLikes(this.predicate).toPromise();
    }
 
    get LikedPredicateType(): typeof LikedPredicateType {

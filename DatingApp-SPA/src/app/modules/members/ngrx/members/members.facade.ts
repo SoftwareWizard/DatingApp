@@ -3,7 +3,6 @@ import { Member } from '../../models/member';
 import * as membersSelectors from './members.selectors';
 import { initialMembersState, membersAdapter, MembersState } from './members.entity';
 import { Update } from '@ngrx/entity';
-import { MemberState } from '../member.state';
 
 @StoreFacade()
 export class MembersFacade {

@@ -4,14 +4,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Member } from '../models/member';
 import { environment } from 'src/environments/environment';
-import { PaginatedResult } from 'src/app/core';
 import { map } from 'rxjs/operators';
-import { Like } from '../models/like';
-
-export enum LikedPredicateType {
-   liked = 'liked',
-   likedBy = 'likedBy',
-}
 
 @Injectable({
    providedIn: 'root',
@@ -82,31 +75,5 @@ export class MemberService {
 
    setMainPhoto(id: number): Observable<any> {
       return this.http.put(`${this.baseUrl}/users/set-main-photo/${id}`, null);
-   }
-
-   addLike(username: string): Observable<any> {
-      return this.http.put(`${this.baseUrl}/likes/${username}`, {});
-   }
-
-   removeLike(username: string): Observable<any> {
-      return this.http.delete(`${this.baseUrl}/likes/${username}`);
-   }
-
-   addLikeId(likedId: number): Observable<any> {
-      return this.http.put(`${this.baseUrl}/likes/ids/${likedId}`, {});
-   }
-
-   removeLikeId(likedId: number): Observable<any> {
-      return this.http.delete(`${this.baseUrl}/likes/ids/${likedId}`);
-   }
-
-   getLikes(predicate: LikedPredicateType): Observable<Member[]> {
-      let params = new HttpParams();
-      params = params.append('predicate', predicate);
-      return this.http.get<Member[]>(`${this.baseUrl}/likes`, { params });
-   }
-
-   getAllLikeIds(): Observable<Like[]> {
-      return this.http.get<Like[]>(`${this.baseUrl}/likes/ids`);
    }
 }
