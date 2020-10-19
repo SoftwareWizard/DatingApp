@@ -15,7 +15,6 @@ import { membersAdapter } from './members.entity';
 import { Update } from '@ngrx/entity';
 import { Like } from '../models/like';
 import { likesAdapter } from './likes.entity';
-import { USER_PROVIDED_EFFECTS } from '@ngrx/effects';
 
 @StoreFacade()
 export class MemberFacade {
@@ -117,10 +116,6 @@ export class MemberFacade {
    unsetLikeFailure = createDuck('[Effect] Unset Like Failure', dispatch<{ error: any }>());
 }
 
-export const featureKey = memberFeatureKey;
-export const metaReducers: MetaReducer<MemberState>[] = !environment.production ? [] : [];
-export const reducer = getReducer(initialMemberState, MemberFacade);
-
 export const isLike = createSelector(
    memberSelectors.allLikeIds,
    (likes: string[], props: { userId: number; memberId: number }) => {
@@ -128,3 +123,7 @@ export const isLike = createSelector(
       return likes.includes(key);
    }
 );
+
+export const featureKey = memberFeatureKey;
+export const metaReducers: MetaReducer<MemberState>[] = !environment.production ? [] : [];
+export const reducer = getReducer(initialMemberState, MemberFacade);

@@ -1,4 +1,5 @@
-import { MemberEffects } from './ngrx/member.effects';
+import { LikesEffects } from './ngrx/likes.effects';
+import { MembersEffects } from './ngrx/members.effects';
 import { MessageModule } from './../message/message.module';
 import { MembersRoutingModule } from './members-routing.module';
 import { NgModule } from '@angular/core';
@@ -33,7 +34,7 @@ import { MemberPaginatorComponent } from './components/member-paginator/member-p
       StoreModule.forFeature(memberFacade.featureKey, memberFacade.reducer, {
          metaReducers: memberFacade.metaReducers,
       }),
-      EffectsModule.forFeature([MemberEffects]),
+      EffectsModule.forFeature([MembersEffects, LikesEffects]),
    ],
    exports: [MemberListComponent, MemberEditComponent, MemberCardComponent, MembersRoutingModule],
 })

@@ -6,10 +6,8 @@ export interface LikesState extends EntityState<Like> {
    likeFilter: LikedPredicateType;
 }
 
-
-
 export const likesAdapter = createEntityAdapter<Like>({
-   selectId: like => `${like.sourceUserId}-${like.likedUserId}`
+   selectId: like => `${like.sourceUserId}-${like.likedUserId}`,
 });
 
 export const initialLikesState = {
