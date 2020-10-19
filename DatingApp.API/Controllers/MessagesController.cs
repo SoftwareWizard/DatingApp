@@ -71,17 +71,10 @@ namespace DatingApp.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MessageDto>>> GetMessagesForUser(
-            // FIXME: [FromQuery] MessageParams messageParams
-            )
+        public async Task<ActionResult<IEnumerable<MessageDto>>> GetMessagesForUser()
         {
-            var messageParams = new MessageParams()
-            {
-                Username = User.GetUsername(),
-                Container = "unread"
-            };
-
-            var messages = await _messageRepository.GetMessageForUser(messageParams);
+            var userId = User.GetUserId();
+            var messages = await _messageRepository.GetMessageForUser(userId);
             return Ok(messages);
         }
 

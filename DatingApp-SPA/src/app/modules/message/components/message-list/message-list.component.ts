@@ -25,17 +25,10 @@ export class MessageListComponent implements OnInit {
 
    async ngOnInit(): Promise<void> {
     this.messages$ = this.messageFacade.getAll();
-    // await this.loadMessages();
-   }
-
-   async loadMessages(): Promise<void> {
-
-      // FIXME: this.messages = await this.messageService.getMessages(this.container).toPromise();
    }
 
    async deleteMessage(id: number): Promise<void> {
       // FIXME: await this.messageService.deleteMessage(id).toPromise();
-      // await this.loadMessages();
    }
 
    get ContainerType(): typeof ContainerType {

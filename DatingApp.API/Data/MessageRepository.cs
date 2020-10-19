@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -7,6 +8,7 @@ using DatingApp.API.Helpers;
 using DatingApp.API.Interfaces;
 using DatingApp.API.Models;
 using Helpers;
+using Microsoft.EntityFrameworkCore;
 
 namespace DatingApp.API.Data
 {
@@ -36,22 +38,15 @@ namespace DatingApp.API.Data
             return await _context.Messages.FindAsync(id);
         }
 
-        public async Task<PagedList<MessageDto>> GetMessageForUser(MessageParams messageParams)
+        public async Task<IEnumerable<MessageDto>> GetMessageForUser(int userId)
         {
             var query = _context.Messages
+            .Where(item => item.SenderId == userId || item.RecipientId == userId)
             .OrderBy(m => m.SentAt)
             .AsQueryable();
 
-            query = messageParams.Container switch
-            {
-                "inbox" => query.Where(u => u.Recipient.Username == messageParams.Username),
-                "outbox" => query.Where(u => u.Sender.Username == messageParams.Username),
-                _ => query.Where(u => u.Recipient.Username == messageParams.Username && u.ReadAt == null)
-            };
-
-            var messages = query.ProjectTo<MessageDto>(_mapper.ConfigurationProvider);
-            var pagedMessages = await PagedList<MessageDto>.CreateAsync(messages, 1, 5);
-            return pagedMessages;
+            var messages = await query.ProjectTo<MessageDto>(_mapper.ConfigurationProvider).ToListAsync();
+            return messages;
         }
 
         public async Task<PagedList<MessageDto>> GetMessageThread(string senderUsername, string recipientUsername)
