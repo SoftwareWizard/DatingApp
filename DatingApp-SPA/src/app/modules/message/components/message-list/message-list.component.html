@@ -1,11 +1,11 @@
 <div class="row mb-4">
   <div class="btn-group" name="container">
     <button class="btn btn-secondary" btnRadio="{{ ContainerType.unread }}" [(ngModel)]="container"
-      (click)="loadMessages()"><i class="fa fa-envelope"> Unread</i></button>
+      (click)="changeFilter()"><i class="fa fa-envelope"> Unread</i></button>
     <button class="btn btn-secondary" btnRadio="{{ ContainerType.inbox }}" [(ngModel)]="container"
-      (click)="loadMessages()"><i class="fa fa-envelope-open"> Inbox</i></button>
+      (click)="changeFilter()"><i class="fa fa-envelope-open"> Inbox</i></button>
     <button class="btn btn-secondary" btnRadio="{{ ContainerType.outbox }}" [(ngModel)]="container"
-      (click)="loadMessages()"><i class="fa fa-paper-plane"> Outbox</i></button>
+      (click)="changeFilter()"><i class="fa fa-paper-plane"> Outbox</i></button>
   </div>
 </div>
 
@@ -19,26 +19,21 @@
       <tr>
         <th style="width: 40%">Message</th>
         <th style="width: 20%">From / To</th>
-        <th style="width: 20%">Sent / Received</th>
+        <th style="width: 20%">Sent</th>
+        <th style="width: 20%">Received</th>
         <th style="width: 20%">Action</th>
       </tr>
       <tr *ngFor="let message of messages">
         <td>{{ message.content }}</td>
         <td>
-          <div *ngIf="container === ContainerType.unread">
-            <img class="img-circle mr-2" src="{{ message.senderPhotoUrl }}" alt="{{ message.senderUsername}}">
-            <strong>{{ message.senderUsername | titlecase}}</strong>
-          </div>
-          <div *ngIf="container === ContainerType.outbox">
-            <img class="img-circle mr-2" src="{{ message.recipientPhotoUrl }}" alt="{{ message.recipientUsername}}">
-            <strong>{{ message.recipientUsername | titlecase}}</strong>
-          </div>
-          <div *ngIf="container === ContainerType.inbox">
-            <img class="img-circle mr-2" src="{{ message.senderPhotoUrl }}" alt="{{ message.senderUsername}}">
-            <strong>{{ message.senderUsername | titlecase}}</strong>
-          </div>
+          <!-- <div *ngIf="container === ContainerType.unread"> -->
+          <strong>{{ message.senderUsername | titlecase}}</strong>
+          <img class="img-circle ml-2" src="{{ message.senderPhotoUrl }}" alt="{{ message.senderUsername}}">
+          <img class="img-circle mr-2" src="{{ message.recipientPhotoUrl }}" alt="{{ message.recipientUsername}}">
+          <strong>{{ message.recipientUsername | titlecase}}</strong>
         </td>
         <td>{{ message.sentAt | timeago }}</td>
+        <td>{{ message.readAt | timeago }}</td>
         <td><button class="btn btn-danger" (click)="deleteMessage(message.id)"><i class="fa fa-trash"></i></button></td>
       </tr>
     </table>

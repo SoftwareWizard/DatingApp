@@ -1,3 +1,4 @@
+import { AuthFacade } from './../../../auth/ngrx/auth.facade';
 import { Observable } from 'rxjs';
 import { PaginatedResult } from './../../../../core/models/pagination';
 import { AppRouteNames } from 'src/app/app-routing.names';
@@ -5,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
 import { Message } from '../../models/message';
 import { ContainerType } from '../../models/container.type';
 import { MessageFacade } from '../../ngrx/message.facade';
+import { map, take } from 'rxjs/operators';
 
 @Component({
    selector: 'app-message-list',
@@ -13,22 +15,30 @@ import { MessageFacade } from '../../ngrx/message.facade';
 })
 export class MessageListComponent implements OnInit {
    ROUTES = AppRouteNames;
-
-   messages: PaginatedResult<Message[]>;
    messages$: Observable<Message[]>;
+   container: ContainerType = ContainerType.unread;
+   userId: number;
 
-   container: ContainerType = ContainerType.outbox;
-
-   constructor(
-      private messageFacade: MessageFacade
-     ) {}
+   constructor(private authFacade: AuthFacade, private messageFacade: MessageFacade) {}
 
    async ngOnInit(): Promise<void> {
-    this.messages$ = this.messageFacade.getAll();
+      this.userId = await this.authFacade.select.user
+         .pipe(
+            map(user => user?.id),
+            take(1)
+         )
+         .toPromise();
+      this.messageFacade.getAll();
+      this.messages$ = this.messageFacade.filteredEntities$;
+      this.messageFacade.setFilter({ userId: this.userId, containerType: this.container });
    }
 
    async deleteMessage(id: number): Promise<void> {
       // FIXME: await this.messageService.deleteMessage(id).toPromise();
+   }
+
+   changeFilter(): void {
+      this.messageFacade.setFilter({ userId: this.userId, containerType: this.container });
    }
 
    get ContainerType(): typeof ContainerType {
