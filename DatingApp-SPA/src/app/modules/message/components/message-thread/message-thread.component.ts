@@ -1,8 +1,7 @@
 import { PaginatedResult } from './../../../../core/models/pagination';
 import { Message } from './../../models/message';
 import { Component, Input, OnInit } from '@angular/core';
-import { MessageService } from '../../services/message.service';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 
 @Component({
    selector: 'app-message-thread',
@@ -14,7 +13,9 @@ export class MessageThreadComponent implements OnInit {
    messageTextControl: FormControl = new FormControl();
    messages: PaginatedResult<Message[]> = new PaginatedResult<Message[]>();
 
-   constructor(private messageService: MessageService) {
+   constructor(
+    //  private messageService: MessageService
+     ) {
    }
 
    async ngOnInit(): Promise<void> {
@@ -22,7 +23,7 @@ export class MessageThreadComponent implements OnInit {
    }
 
    async loadMessages(): Promise<void> {
-      this.messages = await this.messageService.getMessageThread(this.username).toPromise();
+      // FIXME: this.messages = await this.messageService.getMessageThread(this.username).toPromise();
    }
 
    isSender(message: Message): boolean {
@@ -38,7 +39,7 @@ export class MessageThreadComponent implements OnInit {
    }
 
    async sendMessage(): Promise<void> {
-      await this.messageService.sendMessage(this.username, this.messageTextControl.value).toPromise();
+      // FIXME: await this.messageService.sendMessage(this.username, this.messageTextControl.value).toPromise();
       this.messageTextControl.reset();
       this.loadMessages();
    }

@@ -2,7 +2,6 @@ import { PaginatedResult } from './../../../../core/models/pagination';
 import { AppRouteNames } from 'src/app/app-routing.names';
 import { Component, OnInit } from '@angular/core';
 import { Message } from '../../models/message';
-import { MessageService } from '../../services/message.service';
 import { ContainerType } from '../../models/container.type';
 
 @Component({
@@ -17,18 +16,20 @@ export class MessageListComponent implements OnInit {
 
    container: ContainerType = ContainerType.outbox;
 
-   constructor(private messageService: MessageService) {}
+   constructor(
+    //  private messageService: MessageService
+     ) {}
 
    async ngOnInit(): Promise<void> {
       await this.loadMessages();
    }
 
    async loadMessages(): Promise<void> {
-      this.messages = await this.messageService.getMessages(this.container).toPromise();
+      // FIXME: this.messages = await this.messageService.getMessages(this.container).toPromise();
    }
 
    async deleteMessage(id: number): Promise<void> {
-      await this.messageService.deleteMessage(id).toPromise();
+      // FIXME: await this.messageService.deleteMessage(id).toPromise();
       await this.loadMessages();
    }
 
