@@ -1,10 +1,11 @@
+import { AuthFacade } from './../../../auth/ngrx/auth.facade';
 import { Member } from '../../models/member';
 import { Component, Input, OnInit } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
 import { take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-// FIXME: import { AccountService, User } from 'src/app/core';
 import { MemberService } from '../../services/member.service';
+import { User } from 'src/app/modules/auth';
 
 @Component({
    selector: 'app-photo-editor',
@@ -19,22 +20,19 @@ export class PhotoEditorComponent implements OnInit {
    hasAnotherDropZoneOver = false;
    baseUrl = environment.apiUrl;
    response: string;
-  //  FIXME: user: User;
+   user: User;
 
-   constructor(
-    // FIXME: private accountService: AccountService,
-      private memberService: MemberService) {
-    // FIXME: this.accountService.currentUser$.pipe(take(1)).subscribe(user => (this.user = user));
-   }
+   constructor(private authFacade: AuthFacade, private memberService: MemberService) {}
 
-   ngOnInit(): void {
+   async ngOnInit(): Promise<void> {
+      this.user = await this.authFacade.select.user.pipe(take(1)).toPromise();
       this.initalizeUploader();
    }
 
    initalizeUploader(): void {
       this.uploader = new FileUploader({
          url: `${this.baseUrl}/users/add-photo`,
-        //  FIXME: authToken: `Bearer ${this.user.token}`,
+         authToken: `Bearer ${this.user.token}`,
          isHTML5: true,
          allowedFileType: ['image'],
          removeAfterUpload: true,
@@ -59,7 +57,11 @@ export class PhotoEditorComponent implements OnInit {
    }
 
    async onSetMain(id: number): Promise<void> {
-      await this.memberService.setMainPhoto(id).toPromise();
+      await this.memberService.setMainPhoto(id).pipe(take(1)).toPromise();
+      this.member.photos.forEach(item => (item.isMain = false));
+      const photo = this.member.photos.find(item => item.id === id);
+      photo.isMain = true;
+      this.authFacade.changePhoto.dispatch(photo.url);
    }
 
    public fileOverBase(e: any): void {

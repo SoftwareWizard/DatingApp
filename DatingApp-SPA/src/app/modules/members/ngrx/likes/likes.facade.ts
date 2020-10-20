@@ -38,7 +38,7 @@ export class LikesFacade {
    );
 
    unsetLikeSuccess = createDuck(
-      '[Effect] UnsSet Like Success',
+      '[Effect] Unset Like Success',
       (state: LikesState, payload: Like[]) => likesAdapter.setAll(payload, state)
    );
 

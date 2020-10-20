@@ -39,6 +39,17 @@ export class AuthFacade {
    registerSuccess = createDuck('[AuthEffect] User Register Success');
 
    registerFailure = createDuck('[AuthEffect] User Register Failure', dispatch<{ error: any }>());
+
+   changePhoto = createDuck(
+      '[Photo Editor] Change User Photo',
+      (state: AuthState, payload: string) => ({
+         ...state,
+         user: {
+            ...state.user,
+            photoUrl: payload,
+         },
+      })
+   );
 }
 
 export const featureKey = authFeatureKey;
