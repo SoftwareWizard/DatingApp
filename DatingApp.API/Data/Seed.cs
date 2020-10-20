@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using DatingApp.API.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace DatingApp.API.Data
@@ -13,9 +14,10 @@ namespace DatingApp.API.Data
     {
         private const string FILE_PATH = "Data/UserSeedData.json";
 
-        public static async Task SeedUsers(DataContext context)
+        public static async Task SeedUsers(UserManager<AppUser> userManager)
         {
-            var hasUsers = await context.Users.AnyAsync();
+            
+            var hasUsers = await userManager.Users.AnyAsync();
 
             if (hasUsers)
             {
@@ -27,14 +29,10 @@ namespace DatingApp.API.Data
 
             foreach (var user in users)
             {
-                using var hmac = new HMACSHA512();
-                user.UserName = user.UserName.ToLower();
-                // FIXME:  user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("Pa$$w0rd"));
-                // user.PasswordSalt = hmac.Key;
-            }
 
-            await context.Users.AddRangeAsync(users);
-            await context.SaveChangesAsync();
+                user.UserName = user.UserName.ToLower();
+                await userManager.CreateAsync(user, "Pa$$w0rd");
+            }
         }
     }
 }
