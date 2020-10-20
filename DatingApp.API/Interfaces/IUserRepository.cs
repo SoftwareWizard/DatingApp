@@ -7,15 +7,15 @@ namespace DatingApp.API.Interfaces
 {
     public interface IUserRepository
     {
-        public void Update(User user);
+        public void Update(AppUser user);
 
         public Task<bool> SaveAllAsync();
 
         public Task<PagedList<MemberDto>> GetUsersAsync(UserParams userParams);
 
-        public Task<User> GetUserById(int id);
+        public Task<AppUser> GetUserById(int id);
 
-        public Task<User> GetUserByUsernameAsync(string username);
-        public void DeletePhoto(User user, in Photo photo);
+        public Task<AppUser> GetUserByUsernameAsync(string username);
+        public void DeletePhoto(AppUser user, in Photo photo);
     }
 }

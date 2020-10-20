@@ -39,7 +39,7 @@ namespace DatingApp.API.Controllers
         public ActionResult<string> GetNullReferenceException()
         {
             var user = _context.Users.Find(-1);
-            return user.Username;
+            return user.UserName;
         }
 
         [HttpGet("bad-request")]

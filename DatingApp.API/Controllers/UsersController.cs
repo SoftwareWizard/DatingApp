@@ -115,7 +115,7 @@ namespace DatingApp.API.Controllers
             if (hasErrors) return BadRequest("Photo could not be stored");
 
             var photoDto = _mapper.Map<PhotoDto>(photo);
-            return CreatedAtRoute("GetUser", new {user.Username}, photoDto);
+            return CreatedAtRoute("GetUser", new {user.UserName}, photoDto);
         }
 
         [HttpPut("set-main-photo/{photoId}")]

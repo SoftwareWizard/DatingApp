@@ -10,7 +10,7 @@ namespace DatingApp.API.Helpers
     {
         public AutoMapperProfiles()
         {
-            CreateMap<User, MemberDto>()
+            CreateMap<AppUser, MemberDto>()
                 .ForMember(dest => dest.PhotoUrl,
                     expression => expression.MapFrom(
                         item => item.Photos
@@ -18,8 +18,8 @@ namespace DatingApp.API.Helpers
                             .Url));
 
             CreateMap<Photo, PhotoDto>();
-            CreateMap<MemberUpdateDto, User>();
-            CreateMap<UserForRegisterDto, User>();
+            CreateMap<MemberUpdateDto, AppUser>();
+            CreateMap<UserForRegisterDto, AppUser>();
             CreateMap<UserLike, UserLikeDto>();
             CreateMap<Message, MessageDto>()
                 .ForMember(dest => dest.SenderPhotoUrl,

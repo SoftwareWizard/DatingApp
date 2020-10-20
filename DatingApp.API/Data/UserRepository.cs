@@ -24,7 +24,7 @@ namespace DatingApp.API.Data
             _mapper = mapper;
         }
 
-        public void Update(User user)
+        public void Update(AppUser user)
         {
             _context.Entry(user)
                 .State = EntityState.Modified;
@@ -49,7 +49,7 @@ namespace DatingApp.API.Data
             var query = _context.Users
                 .Include(item => item.Photos)
                 .Where(item => item.Gender == userParams.Gender)
-                .Where(item => item.Username != userParams.CurrentUsername)
+                .Where(item => item.UserName != userParams.CurrentUsername)
                 .Where(item => item.DateOfBirth >= minDob && item.DateOfBirth <= maxDob)
                 .ProjectTo<MemberDto>(_mapper.ConfigurationProvider)
                 .AsNoTracking()
@@ -58,7 +58,7 @@ namespace DatingApp.API.Data
             return await PagedList<MemberDto>.CreateAsync(query, userParams.PageNumber, userParams.PageSize);
         }
 
-        public async Task<User> GetUserById(int id)
+        public async Task<AppUser> GetUserById(int id)
         {
             return await _context
                 .Users
@@ -66,15 +66,15 @@ namespace DatingApp.API.Data
                 .FirstOrDefaultAsync(item => item.Id == id);
         }
 
-        public async Task<User> GetUserByUsernameAsync(string username)
+        public async Task<AppUser> GetUserByUsernameAsync(string username)
         {
             return await _context
                 .Users
                 .Include(item => item.Photos)
-                .SingleOrDefaultAsync(item => item.Username == username);
+                .SingleOrDefaultAsync(item => item.UserName == username);
         }
 
-        public void DeletePhoto(User user, in Photo photo)
+        public void DeletePhoto(AppUser user, in Photo photo)
         {
             user.Photos.Remove(photo);
         }

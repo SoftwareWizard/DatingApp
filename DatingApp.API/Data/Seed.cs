@@ -23,14 +23,14 @@ namespace DatingApp.API.Data
             }
 
             var userData = await File.ReadAllTextAsync(FILE_PATH);
-            var users = JsonSerializer.Deserialize<List<User>>(userData);
+            var users = JsonSerializer.Deserialize<List<AppUser>>(userData);
 
             foreach (var user in users)
             {
                 using var hmac = new HMACSHA512();
-                user.Username = user.Username.ToLower();
-                user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("Pa$$w0rd"));
-                user.PasswordSalt = hmac.Key;
+                user.UserName = user.UserName.ToLower();
+                // FIXME:  user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("Pa$$w0rd"));
+                // user.PasswordSalt = hmac.Key;
             }
 
             await context.Users.AddRangeAsync(users);

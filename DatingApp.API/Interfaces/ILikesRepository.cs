@@ -10,7 +10,7 @@ namespace DatingApp.API.Interfaces
     {
         Task<UserLike> GetUserLike(int sourceUserId, int likedUserId);
 
-        Task<User> GetUserWithLikes(int userId);
+        Task<AppUser> GetUserWithLikes(int userId);
 
         Task<IEnumerable<LikeDto>> GetUserLikes(string predicate, int userId);
 

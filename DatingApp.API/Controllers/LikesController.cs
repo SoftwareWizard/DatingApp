@@ -37,7 +37,7 @@ namespace DatingApp.API.Controllers
                 return NotFound();
             }
 
-            if (sourceUser.Username == username)
+            if (sourceUser.UserName == username)
             {
                 return BadRequest("You cannot like yourself");
             }
@@ -72,7 +72,7 @@ namespace DatingApp.API.Controllers
                 return NotFound();
             }
 
-            if (sourceUser.Username == username)
+            if (sourceUser.UserName == username)
             {
                 return BadRequest("You cannot dislike yourself");
             }

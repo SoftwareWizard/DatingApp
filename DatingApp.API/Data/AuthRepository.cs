@@ -18,40 +18,39 @@ namespace DatingApp.API.Data
             _context = context;
         }
 
-        public async Task<User> Register(User user, string password)
+        public async Task<AppUser> Register(AppUser user, string password)
         {
             var (passwordHash, passwordSalt) = CreatePasswordHash(password);
 
-            user.PasswordHash = passwordHash;
-            user.PasswordSalt = passwordSalt;
-            await _context.Users.AddAsync(user);
+            // FIXME: Set Password and Salt
+            // FIXME: await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
 
             return user;
         }
 
-        public async Task<User> Login(string username, string password)
+        public async Task<AppUser> Login(string username, string password)
         {
             var user = await _context
                 .Users
                 .Include(item => item.Photos)
-                .FirstOrDefaultAsync(item => item.Username == username);
+                .FirstOrDefaultAsync(item => item.UserName == username);
 
             if (user == null)
             {
                 return null;
             }
 
-            var isPasswordValid = VerifyPassword(password, user.PasswordHash, user.PasswordSalt);
+            var isPasswordValid = true; // FIXME: VerifyPassword(password, user.PasswordHash, user.PasswordSalt);
 
-            return isPasswordValid 
-                ? user 
+            return isPasswordValid
+                ? user
                 : null;
         }
 
         public async Task<bool> UserExists(string username)
         {
-            return await _context.Users.AnyAsync(item => item.Username == username);
+            return await _context.Users.AnyAsync(item => item.UserName == username);
         }
 
         private (byte[] passwordHash, byte[] passwordSalt) CreatePasswordHash(string password)

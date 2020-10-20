@@ -1,18 +1,16 @@
 using DatingApp.API.Models;
 using Microsoft.EntityFrameworkCore;
-using Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace DatingApp.API.Data
 {
-    public class DataContext : DbContext
+    public class DataContext : IdentityDbContext<AppUser, AppRole, int, IdentityUserClaim<int>, AppUserRole, 
+    IdentityUserLogin<int>, IdentityRoleClaim<int>, IdentityUserToken<int>>
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
         }
-
-        public DbSet<Value> Values { get; set; }
-
-        public DbSet<User> Users { get; set; }
 
         public DbSet<Photo> Photos { get; set; }
 

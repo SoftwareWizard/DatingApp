@@ -43,7 +43,7 @@ namespace DatingApp.API.Controllers
                 return BadRequest("Username already exists");
             }
 
-            var userToCreate = _mapper.Map<User>(userForRegisterDto);
+            var userToCreate = _mapper.Map<AppUser>(userForRegisterDto);
 
             var createdUser = await _authRepository.Register(userToCreate, password);
             return Created("url", null);
@@ -63,7 +63,7 @@ namespace DatingApp.API.Controllers
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
-                new Claim(ClaimTypes.Name, userFromRepo.Username),
+                new Claim(ClaimTypes.Name, userFromRepo.UserName),
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value));
@@ -84,7 +84,7 @@ namespace DatingApp.API.Controllers
             return Ok(new
             {
                 id,
-                userFromRepo.Username,
+                userFromRepo.UserName,
                 Token = token,
                 PhotoUrl = photoUrl,
                 userFromRepo.Gender

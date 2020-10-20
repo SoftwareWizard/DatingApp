@@ -28,7 +28,7 @@ namespace DatingApp.API.Data
             return await _context.Likes.FindAsync(sourceUserId, likedUserId);
         }
 
-        public async Task<User> GetUserWithLikes(int userId)
+        public async Task<AppUser> GetUserWithLikes(int userId)
         {
             return await _context.Users
                 .Include(x => x.LikedUsers)
@@ -37,7 +37,7 @@ namespace DatingApp.API.Data
 
         public async Task<IEnumerable<LikeDto>> GetUserLikes(string predicate, int userId)
         {
-            var users = _context.Users.OrderBy(u => u.Username).AsQueryable();
+            var users = _context.Users.OrderBy(u => u.UserName).AsQueryable();
             var likes = _context.Likes.AsQueryable();
 
             if (predicate == "liked")
@@ -55,7 +55,7 @@ namespace DatingApp.API.Data
             return await users.Select(item => new LikeDto
             {
                 Id = item.Id,
-                Username = item.Username,
+                Username = item.UserName,
                 Age = item.Age,
                 KnownAs = item.KnownAs,
                 City = item.City,
@@ -64,7 +64,7 @@ namespace DatingApp.API.Data
         }
         public async Task<IEnumerable<UserLikeDto>> GetUserLikes(int userId)
         {
-            var users = _context.Users.OrderBy(u => u.Username).AsQueryable();
+            var users = _context.Users.OrderBy(u => u.UserName).AsQueryable();
             var likes = _context.Likes.AsQueryable();
 
             likes = likes.Where(like => like.SourceUserId == userId || like.LikedUserId == userId);
