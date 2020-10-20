@@ -20,7 +20,7 @@
         <th style="width: 40%">Message</th>
         <th style="width: 20%">From / To</th>
         <th style="width: 20%">Sent</th>
-        <th style="width: 20%">Received</th>
+        <!-- <th style="width: 20%">Received</th> -->
         <th style="width: 20%">Action</th>
       </tr>
       <tr *ngFor="let message of messages">
@@ -32,8 +32,8 @@
           <img class="img-circle mr-2" src="{{ message.recipientPhotoUrl }}" alt="{{ message.recipientUsername}}">
           <strong>{{ message.recipientUsername | titlecase}}</strong>
         </td>
-        <td>{{ message.sentAt | timeago }}</td>
-        <td>{{ message.readAt | timeago }}</td>
+        <td>{{ message?.sentAt | timeago }}</td>
+        <!-- <td>{{ message?.readAt | timeago }}</td> -->
         <td><button class="btn btn-danger" (click)="deleteMessage(message.id)"><i class="fa fa-trash"></i></button></td>
       </tr>
     </table>

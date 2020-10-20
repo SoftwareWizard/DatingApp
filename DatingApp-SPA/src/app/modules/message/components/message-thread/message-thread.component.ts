@@ -1,9 +1,9 @@
-import { PaginatedResult } from './../../../../core/models/pagination';
 import { Message } from './../../models/message';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MessageFacade } from '../../ngrx/message.facade';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
    selector: 'app-message-thread',
@@ -18,7 +18,9 @@ export class MessageThreadComponent implements OnInit {
    constructor(private messageFacade: MessageFacade) {}
 
    ngOnInit(): void {
-      this.messages$ = this.messageFacade.getAll();
+      this.messages$ = this.messageFacade.entities$.pipe(
+         map(messages => messages.filter(item => item.recipientUsername === this.username))
+      );
    }
 
    isSender(message: Message): boolean {
@@ -40,7 +42,7 @@ export class MessageThreadComponent implements OnInit {
          recipientUsername: this.username,
       } as Message;
 
-      await this.messageFacade.add(message).toPromise();
+      this.messageFacade.add(message);
       this.messageTextControl.reset();
    }
 }

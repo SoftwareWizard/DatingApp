@@ -27,13 +27,14 @@ export class MessageListComponent implements OnInit {
             take(1)
          )
          .toPromise();
+
       this.messageFacade.getAll();
       this.messages$ = this.messageFacade.filteredEntities$;
       this.messageFacade.setFilter({ userId: this.userId, containerType: this.container });
    }
 
    async deleteMessage(id: number): Promise<void> {
-      // FIXME: await this.messageService.deleteMessage(id).toPromise();
+      await this.messageFacade.delete(id).toPromise();
    }
 
    changeFilter(): void {

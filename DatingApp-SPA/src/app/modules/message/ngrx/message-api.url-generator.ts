@@ -16,6 +16,7 @@ export class MessageApiUrlGenerator extends DefaultHttpUrlGenerator {
             entityResourceUrl: url,
             collectionResourceUrl: url,
          };
+
          this.registerHttpResourceUrls({ [entityName]: resourceUrls });
       }
       return resourceUrls;

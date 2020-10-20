@@ -8,7 +8,6 @@ import { MessageListComponent } from './components/message-list/message-list.com
 import { MessageThreadComponent } from './components/message-thread/message-thread.component';
 import { EntityDefinitionService, DefaultDataServiceConfig, HttpUrlGenerator } from '@ngrx/data';
 import { defaultDataServiceConfig, messageEntityMetadata } from './ngrx/message.entity-metadata';
-import { MessageApiUrlGenerator } from './ngrx/message-api.url-generator';
 
 @NgModule({
    declarations: [MessageListComponent, MessageThreadComponent],

@@ -1,20 +1,20 @@
+<div>
+  <form>
+    <div class="input-group">
+      <input type="text" class="form-control input-sm" [formControl]="messageTextControl"
+        placeholder="Send a private message">
+      <div class="input-group-append">
+        <button class="btn btn-primary" type="submit" (click)="sendMessage()">Send</button>
+      </div>
+    </div>
+  </form>
+</div>
+<hr>
 <ng-container *ngIf="messages$ | async as messages">
-  <p *ngIf="messages" >There are no Messages.</p>
+  <p *ngIf="messages.length === 0">There are no Messages.</p>
   <p *ngFor="let message of messages" [class.text-secondary]="isMessageRead(message)">
     <i *ngIf="isReceiver(message)" class="fa fa-arrow-circle-up text-info"></i>
     <i *ngIf="isSender(message)" class="fa fa-arrow-circle-down text-danger"></i>
     {{ message?.content}}</p>
 
-  <hr>
-  <div>
-    <form>
-      <div class="input-group">
-        <input type="text" class="form-control input-sm" [formControl]="messageTextControl"
-          placeholder="Send a private message">
-        <div class="input-group-append">
-          <button class="btn btn-primary" type="submit" (click)="sendMessage()">Send</button>
-        </div>
-      </div>
-    </form>
-  </div>
 </ng-container>
