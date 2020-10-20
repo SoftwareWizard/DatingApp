@@ -1,10 +1,4 @@
-import {
-   bindSelectors,
-   createDuck,
-   dispatch,
-   getReducer,
-   StoreFacade,
-} from '@ngrx-ducks/core';
+import { bindSelectors, createDuck, dispatch, getReducer, StoreFacade } from '@ngrx-ducks/core';
 import * as authSelectors from './auth.selectors';
 import { LoginModel } from '../models/login.model';
 import { User } from '../models/user';
@@ -16,6 +10,15 @@ import { environment } from 'src/environments/environment';
 @StoreFacade()
 export class AuthFacade {
    select = bindSelectors(authSelectors);
+
+   appLogin = createDuck('[App] User Login');
+
+   appLoginSuccess = createDuck(
+      '[AuthEffect] App User Login Success',
+      (state: AuthState, payload: User) => ({ ...state, user: payload })
+   );
+
+   appLoginFailure = createDuck('[AuthEffect] App User Login Failure');
 
    navbarLogin = createDuck('[Navbar] User Login', dispatch<LoginModel>());
 

@@ -1,7 +1,8 @@
+import { dispatch } from '@ngrx-ducks/core';
+import { AuthFacade } from './../../modules/auth/ngrx/auth.facade';
 
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/modules/auth';
-// FIXME: import { AccountService, LOCAL_STORAGE_KEY_USER } from 'src/app/core';
 
 @Component({
    selector: 'app-root',
@@ -10,20 +11,14 @@ import { User } from 'src/app/modules/auth';
 })
 export class AppComponent implements OnInit {
    title = 'DatingApp-SPA';
-   user: User;
 
-   constructor(
-    // FIXME: private accountService: AccountService
-     ) {}
+   constructor(private authFacade: AuthFacade) {}
 
    ngOnInit(): void {
-      this.setCurrentUser();
+      this.tryLogin();
    }
 
-   setCurrentUser(): void {
-      // FIXME: const user: User = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY_USER));
-      // if (user) {
-      //    this.accountService.setCurrentUser(user);
-      // }
+   tryLogin(): void {
+      this.authFacade.appLogin.dispatch();
    }
 }

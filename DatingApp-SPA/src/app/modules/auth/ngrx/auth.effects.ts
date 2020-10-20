@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { catchError, exhaustMap, map, tap } from 'rxjs/operators';
+import { catchError, concatMap, exhaustMap, map, switchMap, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 import { Router } from '@angular/router';
@@ -10,7 +10,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { LocalStorageService } from 'src/app/core';
 import { ToastrService } from 'ngx-toastr';
 import { AccountService } from './../services/account.service';
-import { getActions } from '@ngrx-ducks/core';
+import { getActions, dispatch } from '@ngrx-ducks/core';
 import { AuthFacade } from './auth.facade';
 
 const actions = getActions(AuthFacade);
@@ -32,6 +32,21 @@ export class AuthEffects {
       private localStorageService: LocalStorageService,
       private router: Router
    ) {}
+
+   appLoginName$ = createEffect(() => {
+      return this.actions$.pipe(
+         ofType(actions.appLogin),
+         switchMap(_ => {
+            const user = this.localStorageService.getUser();
+            if (user) {
+               this.router.navigateByUrl(`${this.ROUTES.MEMBERS}`);
+               return of(actions.appLoginSuccess(user));
+            } else {
+               return of(actions.appLoginFailure());
+            }
+         })
+      );
+   });
 
    navbarLogin$ = createEffect(() => {
       return this.actions$.pipe(

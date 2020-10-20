@@ -1,12 +1,8 @@
+import { AuthFacade } from './../../modules/auth/ngrx/auth.facade';
 import { AuthRouteEnum } from './../../modules/auth/auth-routing.names';
 import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
-import { map } from 'rxjs/operators';
-
-// FIXME: import { AccountService } from 'src/app/core';
-
 import { AppRouteNames } from 'src/app/app-routing.names';
-import { AuthRouteNames } from 'src/app/modules/auth';
 
 @Component({
    selector: 'app-home',
@@ -17,13 +13,11 @@ export class HomeComponent implements OnInit {
    registerMode = false;
    loggedIn$: Observable<boolean>;
 
-   constructor(
-    // FIXME: private accountService: AccountService
-    ) {}
-
-   ngOnInit(): void {
-      // FIXME: this.loggedIn$ = this.accountService.currentUser$.pipe(map(user => !!user));
+   constructor(private authFacade: AuthFacade) {
+      this.loggedIn$ = this.authFacade.select.isLoggedIn;
    }
+
+   ngOnInit(): void {}
 
    onRegisterToggle(): void {
       this.registerMode = !this.registerMode;
