@@ -9,7 +9,6 @@
                 "build",
                 "${workspaceFolder}/DatingApp.API.csproj",
                 "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
             ],
             "problemMatcher": "$msCompile"
         },
