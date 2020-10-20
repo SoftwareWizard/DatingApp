@@ -1,8 +1,8 @@
 export * from './models/member';
 export * from './models/photo';
 
-export * from './services/member.service'; // TODO: remove
-export * from './services/like.service'; // TODO: remove
+export * from './services/member.service';
+export * from './services/like.service';
 export * from './ngrx/members/members.facade';
 export * from './ngrx/likes/likes.facade';
 

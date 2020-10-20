@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
    providedIn: 'root',
@@ -11,11 +12,12 @@ export class AuthGuard implements CanActivate {
    constructor(private authFacade: AuthFacade, private toastr: ToastrService) {}
 
    canActivate(): Observable<boolean> {
-      // this.authStore.pipe(
-      //    select(AuthSelectors.isLoggedOut),
-      //    tap(_ => this.toastr.error('You are not allowed to navigate to this page.'))
-      // );
-      // FIXME: show toaster if not logged in
-      return this.authFacade.select.isLoggedIn;
+      return this.authFacade.select.isLoggedIn.pipe(
+         tap(isLoggedIn => {
+            if (!isLoggedIn) {
+               this.toastr.error('You are not allowed to navigate to this page.', 'Forbidden');
+            }
+         })
+      );
    }
 }
