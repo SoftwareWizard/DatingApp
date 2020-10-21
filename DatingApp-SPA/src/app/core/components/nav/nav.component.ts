@@ -14,7 +14,7 @@ export class NavComponent implements OnInit {
    ROUTES = AppRouteNames;
    MEMBERS_ROUTES = MembersRouteNames;
 
-   loginModel: LoginModel = { username: 'lisa', password: 'Pa$$w0rd' };
+   loginModel: LoginModel = { username: 'admin', password: 'Pa$$w0rd' };
    user$: Observable<User>;
    loggedIn$: Observable<boolean>;
    loggedOut$: Observable<boolean>;
@@ -30,7 +30,10 @@ export class NavComponent implements OnInit {
    }
 
    login(): void {
-      this.authFacade.navbarLogin.dispatch(this.loginModel);
+      this.authFacade.navbarLogin.dispatch({
+         username: this.loginModel.username,
+         password: this.loginModel.password,
+      });
    }
 
    logout(): void {
