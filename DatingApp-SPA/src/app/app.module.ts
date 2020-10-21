@@ -1,3 +1,4 @@
+import { AdminModule } from './modules/admin/admin.module';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
@@ -44,6 +45,7 @@ import { MessageApiUrlGenerator } from './modules/message/ngrx/message-api.url-g
       !environment.production ? StoreDevtoolsModule.instrument() : [],
       EffectsModule.forRoot([]),
       EntityDataModule.forRoot({}),
+      AdminModule
    ],
    exports: [],
    providers: [
