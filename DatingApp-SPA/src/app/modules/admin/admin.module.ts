@@ -1,3 +1,4 @@
+import { TabsModule } from 'ngx-bootstrap/tabs';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -9,7 +10,7 @@ import { PhotoManagementComponent } from './components/photo-management/photo-ma
 
 @NgModule({
    declarations: [AdminPanelComponent, HasRoleDirective, UserManagementComponent, PhotoManagementComponent],
-   imports: [CommonModule, AdminRoutingModule],
+   imports: [CommonModule, AdminRoutingModule, TabsModule],
    exports: [HasRoleDirective]
 })
 export class AdminModule {}
