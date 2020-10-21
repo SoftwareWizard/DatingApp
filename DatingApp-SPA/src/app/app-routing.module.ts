@@ -1,3 +1,4 @@
+import { AdminGuard } from './modules/admin/guards/admin.guard';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AppRouteNames } from './app-routing.names';
@@ -28,7 +29,11 @@ const routes: Routes = [
    { path: AppRouteNames.TEST_ERRORS, component: TestErrorsComponent },
    { path: AppRouteNames.NOT_FOUND, component: NotFoundComponent },
    { path: AppRouteNames.SERVER_ERROR, component: ServerErrorComponent },
-   { path: AppRouteNames.ADMIN, loadChildren: () => import('./modules/admin/admin.module').then(m => m.AdminModule) },
+   {
+      path: AppRouteNames.ADMIN,
+      canActivate: [AdminGuard],
+      loadChildren: () => import('./modules/admin/admin.module').then(m => m.AdminModule),
+   },
    { path: '**', component: HomeComponent, pathMatch: 'full' },
 ];
 

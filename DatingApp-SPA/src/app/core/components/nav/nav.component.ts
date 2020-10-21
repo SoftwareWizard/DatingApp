@@ -18,6 +18,7 @@ export class NavComponent implements OnInit {
    user$: Observable<User>;
    loggedIn$: Observable<boolean>;
    loggedOut$: Observable<boolean>;
+   isAdmin$: Observable<boolean>;
 
    constructor(private authFacade: AuthFacade) {}
 
@@ -25,6 +26,7 @@ export class NavComponent implements OnInit {
       this.loggedIn$ = this.authFacade.select.isLoggedIn;
       this.loggedOut$ = this.authFacade.select.isLoggedOut;
       this.user$ = this.authFacade.select.user;
+      this.isAdmin$ = this.authFacade.select.isAdminRole;
    }
 
    login(): void {
