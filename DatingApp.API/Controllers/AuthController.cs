@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -26,14 +27,17 @@ namespace DatingApp.API.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
 
+        private readonly RoleManager<AppRole> _roleManager;
+
         public AuthController(IAuthRepository authRepository, IConfiguration configuration,
-            IMapper mapper, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+            IMapper mapper, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<AppRole> roleManager)
         {
             _authRepository = authRepository;
             _configuration = configuration;
             _mapper = mapper;
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
         }
 
         [HttpPost("register")]
@@ -83,11 +87,15 @@ namespace DatingApp.API.Controllers
                 return Unauthorized();
             }
 
-            var claims = new[]
+            var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.UserName),
             };
+
+            var roles = await _userManager.GetRolesAsync(user);
+
+            claims.AddRange(roles.Select(item => new Claim(ClaimTypes.Role, item)));
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value));
 
