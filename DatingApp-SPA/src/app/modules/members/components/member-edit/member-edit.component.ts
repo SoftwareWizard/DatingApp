@@ -1,8 +1,10 @@
+import { AuthFacade } from './../../../auth/ngrx/auth.facade';
 import { Member } from '../../models/member';
 import { ToastrService } from 'ngx-toastr';
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MemberService } from '../../services/member.service';
 import { NgForm } from '@angular/forms';
+import { take } from 'rxjs/operators';
 
 @Component({
    selector: 'app-member-edit',
@@ -12,14 +14,17 @@ import { NgForm } from '@angular/forms';
 export class MemberEditComponent implements OnInit {
    @ViewChild('editForm') editForm: NgForm;
    member: Member;
-   username: string;
    @HostListener('window:beforeunload', ['$event']) _ = ($event: any) => this.onUnload($event);
 
-   constructor(private memberService: MemberService, private toastr: ToastrService) {}
+   constructor(
+      private memberService: MemberService,
+      private authFacade: AuthFacade,
+      private toastr: ToastrService
+   ) {}
 
    async ngOnInit(): Promise<void> {
-      this.username = JSON.parse(localStorage.getItem('user'))?.username;
-      this.member = await this.memberService.getMemberByUsername(this.username).toPromise();
+      const user = await this.authFacade.select.user.pipe(take(1)).toPromise();
+      this.member = await this.memberService.getMemberByUsername(user?.userName).toPromise();
    }
 
    async updateMember(): Promise<void> {
