@@ -30,7 +30,7 @@ namespace Controllers
             .Select(item => new
             {
                 item.Id,
-                Username = item.UserName,
+                UserName = item.UserName,
                 Roles = item.UserRoles.Select(r => r.Role.Name).ToList()
             }).ToListAsync();
 
