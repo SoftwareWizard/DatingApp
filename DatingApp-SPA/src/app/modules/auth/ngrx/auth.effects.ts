@@ -1,3 +1,4 @@
+import { PresenceService } from './../../../core/services/presence.service';
 import { Injectable } from '@angular/core';
 import { catchError, concatMap, exhaustMap, map, switchMap, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -30,6 +31,7 @@ export class AuthEffects {
       private toastr: ToastrService,
       private accountService: AccountService,
       private localStorageService: LocalStorageService,
+      private presenceService: PresenceService,
       private router: Router
    ) {}
 
@@ -66,6 +68,7 @@ export class AuthEffects {
             ofType(actions.loginSuccess),
             tap(action => {
                this.localStorageService.setUser(action.payload);
+               this.presenceService.createHubConnection(action.payload);
                this.router.navigateByUrl(`${this.ROUTES.MEMBERS}`);
                this.toastr.success(this.MSG_SUCCESS, this.MSG_TITLE_LOGIN);
             })
@@ -124,6 +127,7 @@ export class AuthEffects {
          return this.actions$.pipe(
             ofType(actions.navbarLogout),
             tap(() => {
+               this.presenceService.stopHubConnection();
                this.localStorageService.removeUser();
                this.router.navigateByUrl('/');
             })

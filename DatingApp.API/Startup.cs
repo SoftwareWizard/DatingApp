@@ -100,7 +100,7 @@ namespace DatingApp.API
             app.UseRouting();
 
             app.UseCors(x => x
-                .AllowAnyOrigin()
+                .WithOrigins(new string[] {"http://localhost:4200"})
                 .AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials());

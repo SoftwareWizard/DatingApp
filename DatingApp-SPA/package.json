@@ -21,6 +21,7 @@
     "@angular/platform-browser-dynamic": "~10.1.4",
     "@angular/router": "~10.1.4",
     "@kolkov/ngx-gallery": "^1.2.3",
+    "@microsoft/signalr": "^3.1.9",
     "@ngrx-ducks/core": "^10.1.1",
     "@ngrx-ducks/schematics": "^10.0.1",
     "@ngrx/data": "^10.0.1",
