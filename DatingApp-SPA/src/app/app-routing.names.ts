@@ -7,4 +7,5 @@ export class AppRouteNames {
    public static TEST_ERRORS = 'test-errors';
    public static NOT_FOUND = 'not-found';
    public static SERVER_ERROR = 'server-error';
+   public static ADMIN = 'admin';
 }

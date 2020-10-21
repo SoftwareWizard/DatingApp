@@ -28,6 +28,7 @@ const routes: Routes = [
    { path: AppRouteNames.TEST_ERRORS, component: TestErrorsComponent },
    { path: AppRouteNames.NOT_FOUND, component: NotFoundComponent },
    { path: AppRouteNames.SERVER_ERROR, component: ServerErrorComponent },
+   { path: AppRouteNames.ADMIN, loadChildren: () => import('./modules/admin/admin.module').then(m => m.AdminModule) },
    { path: '**', component: HomeComponent, pathMatch: 'full' },
 ];
 
