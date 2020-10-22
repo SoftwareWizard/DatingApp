@@ -11,7 +11,7 @@
 </div>
 <hr>
 <ng-container *ngIf="messages$ | async as messages">
-  <p *ngIf="messages.length === 0">There are no Messages.</p>
+  <p *ngIf="messages?.length === 0">There are no Messages.</p>
   <p *ngFor="let message of messages" [class.text-secondary]="isMessageRead(message)">
     <i *ngIf="isReceiver(message)" class="fa fa-arrow-circle-up text-info"></i>
     <i *ngIf="isSender(message)" class="fa fa-arrow-circle-down text-danger"></i>

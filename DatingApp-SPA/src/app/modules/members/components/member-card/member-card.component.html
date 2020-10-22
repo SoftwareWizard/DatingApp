@@ -1,5 +1,5 @@
 <div class="card mb-4" [class.like]="isLike$ | async">
-  <div *ngIf="isOnline$ | async" ><i class="fa fa-wifi wifi-symbol"></i></div>
+  <div *ngIf="isOnline$ | async" ><i class="fa fa-wifi wifi-symbol fa-blink"></i></div>
   <div class="card-img-wrapper">
     <img src="{{ member.photoUrl }}" alt="{{ member.knownAs }}" class="card-img-top">
     <ul class="list-inline member-icons animate text-center">

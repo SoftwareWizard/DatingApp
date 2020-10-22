@@ -1,24 +1,36 @@
+import { AuthFacade } from './../../../auth/ngrx/auth.facade';
+import { MessageThreadFacade } from './../../ngrx/message-thread/message-thread.facade';
 import { Message } from './../../models/message';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 @Component({
    selector: 'app-message-thread',
    templateUrl: './message-thread.component.html',
    styleUrls: ['./message-thread.component.css'],
 })
-export class MessageThreadComponent implements OnInit {
+export class MessageThreadComponent implements OnInit, OnDestroy {
    @Input() username: string;
    messageTextControl: FormControl = new FormControl();
    messages$: Observable<Message[]>;
 
-   constructor(
-    //  FIXME: private messageThreadFacade: MessageThreadFacade
-     ) {}
+   constructor(private authFacade: AuthFacade, private messageThreadFacade: MessageThreadFacade) {}
 
-   ngOnInit(): void {
-      // FIXME: this.messages$ = this.messageThreadFacade.select.messages;
+   async ngOnInit(): Promise<void> {
+      const user = await this.authFacade.select.user.pipe(take(1)).toPromise();
+
+      this.messageThreadFacade.startMessageThreadHub.dispatch({
+         user,
+         otherUsername: this.username,
+      });
+
+      this.messages$ = this.messageThreadFacade.select.messages;
+   }
+
+   ngOnDestroy(): void {
+      this.messageThreadFacade.stopMessageThreadHub.dispatch();
    }
 
    isSender(message: Message): boolean {
@@ -40,7 +52,7 @@ export class MessageThreadComponent implements OnInit {
          recipientUsername: this.username,
       } as Message;
 
-      // FIXME: this.messageThreadFacade.send.dispatch(message);
+      this.messageThreadFacade.sendMessage.dispatch({ message });
       this.messageTextControl.reset();
    }
 }

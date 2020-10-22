@@ -1,3 +1,6 @@
+import { isOnline } from './../../ngrx/online/online-pick.selectors';
+import { Observable } from 'rxjs';
+import { OnlineFacade } from './../../ngrx/online/online.facade';
 import { Member } from '../../models/member';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -18,11 +21,17 @@ export class MemberDetailComponent implements OnInit {
    galleryOptions: NgxGalleryOptions[];
    galleryImages: NgxGalleryImage[];
    activeTab: TabDirective;
+   isOnline$: Observable<boolean>;
 
-   constructor(private memberService: MemberService, private route: ActivatedRoute) {}
+   constructor(
+      private memberService: MemberService,
+      private route: ActivatedRoute,
+      private onlineFacade: OnlineFacade
+   ) {}
 
    async ngOnInit(): Promise<void> {
       this.member = await this.loadMember();
+      this.isOnline$ = this.onlineFacade.pick(isOnline, { username: this.member.username });
 
       this.galleryOptions = [
          {

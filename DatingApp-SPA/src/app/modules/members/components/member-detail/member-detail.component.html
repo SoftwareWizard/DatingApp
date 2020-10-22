@@ -9,6 +9,9 @@
           class="card-img-top img-thumbnail">
         <div class="card-body">
           <div>
+            <p *ngIf="isOnline$ | async"><i class="fa fa-wifi online-symbol mr-3"></i>Online</p>
+          </div>
+          <div>
             <strong>Location:</strong>
             <p>{{ member.city }},{{ member.country }}</p>
           </div>

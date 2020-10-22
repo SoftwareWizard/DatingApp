@@ -33,29 +33,49 @@
 }
 
 .card-img-wrapper:hover .member-icons {
-  bottom: 0;
-  opacity: 1;
+   bottom: 0;
+   opacity: 1;
 }
 
 .animate {
-  transition: all 0.3s ease-in-out;
+   transition: all 0.3s ease-in-out;
 }
 
 .like {
-  border-color: green;
+   border-color: green;
 }
 
 .like-symbol {
-  color: red;
+   color: red;
 }
 
 .wifi-symbol {
-  color: blue;
-  position: absolute;
-  right: 5px;
-  top: 5px;
-  width: 20px;
-  height: 20px;
-  z-index: +1;
-  animation: blink 1.5s linear;
+   color: green;
+   position: absolute;
+   right: 5px;
+   top: 5px;
+   width: 20px;
+   height: 20px;
+   z-index: +1;
+   animation: blink 1.5s linear;
+}
+
+@keyframes fa-blink {
+   0% {
+      opacity: 0;
+   }
+   50% {
+      opacity: 0.5;
+   }
+   100% {
+      opacity: 1;
+   }
+}
+
+.fa-blink {
+   -webkit-animation: fa-blink 1s linear infinite;
+   -moz-animation: fa-blink 1s linear infinite;
+   -ms-animation: fa-blink 1s linear infinite;
+   -o-animation: fa-blink 1s linear infinite;
+   animation: fa-blink 1s linear infinite;
 }
