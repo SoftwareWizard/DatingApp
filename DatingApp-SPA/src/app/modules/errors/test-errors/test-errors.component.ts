@@ -2,6 +2,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Component({
    selector: 'app-test-errors',
@@ -9,7 +10,7 @@ import { map } from 'rxjs/operators';
    styleUrls: ['./test-errors.component.css'],
 })
 export class TestErrorsComponent implements OnInit {
-   baseUrl = 'http://localhost:5000/api';
+   baseUrl = environment.apiUrl;
 
    private sub: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
    validationErrors$ = this.sub.asObservable();
