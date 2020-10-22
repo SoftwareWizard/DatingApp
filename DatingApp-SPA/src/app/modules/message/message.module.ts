@@ -1,4 +1,4 @@
-import { MessageThreadEffects } from './ngrx/messageThread/messageThread.effects';
+import { MessageThreadEffects } from './ngrx/messageThread/message-thread.effects';
 import { SharedModule } from './../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -14,8 +14,8 @@ import {
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { MessageFacade } from './ngrx/message/message.facade';
-import * as messageThreadFacade from './ngrx/messageThread/messageThread.state';
-import { messageThreadReducer } from './ngrx/messageThread/messageThread.facade';
+import * as messageThreadFacade from './ngrx/messageThread/message-thread.state';
+import { messageThreadReducer } from './ngrx/messageThread/message-thread.facade';
 
 @NgModule({
    declarations: [MessageListComponent, MessageThreadComponent],

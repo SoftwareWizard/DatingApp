@@ -1,6 +1,6 @@
 import { bindSelectors, createDuck, getReducer, StoreFacade, usePick } from '@ngrx-ducks/core';
 import { Message } from '../../models/message';
-import { initialMessageThreadState, MessageThreadState } from './messageThread.state';
+import { initialMessageThreadState, MessageThreadState } from './message-thread.state';
 
 @StoreFacade()
 export class MemberThreadFacade {
