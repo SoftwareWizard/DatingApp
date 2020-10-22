@@ -1,9 +1,7 @@
 import { Message } from './../../models/message';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MessageFacade } from '../../ngrx/message.facade';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Component({
    selector: 'app-message-thread',
@@ -15,12 +13,12 @@ export class MessageThreadComponent implements OnInit {
    messageTextControl: FormControl = new FormControl();
    messages$: Observable<Message[]>;
 
-   constructor(private messageFacade: MessageFacade) {}
+   constructor(
+    //  FIXME: private messageThreadFacade: MessageThreadFacade
+     ) {}
 
    ngOnInit(): void {
-      this.messages$ = this.messageFacade.entities$.pipe(
-         map(messages => messages.filter(item => item.recipientUsername === this.username))
-      );
+      // FIXME: this.messages$ = this.messageThreadFacade.select.messages;
    }
 
    isSender(message: Message): boolean {
@@ -42,7 +40,7 @@ export class MessageThreadComponent implements OnInit {
          recipientUsername: this.username,
       } as Message;
 
-      this.messageFacade.add(message);
+      // FIXME: this.messageThreadFacade.send.dispatch(message);
       this.messageTextControl.reset();
    }
 }

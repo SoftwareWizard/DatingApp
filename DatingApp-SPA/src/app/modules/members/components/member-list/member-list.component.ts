@@ -1,5 +1,3 @@
-import { MessageFacade } from './../../../message/ngrx/message.facade';
-
 import { Observable, Subscription } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { Member } from '../../models/member';
@@ -28,7 +26,6 @@ export class MemberListComponent implements OnInit {
    constructor(
       private authFacade: AuthFacade,
       private membersFacade: MembersFacade,
-      private messageFacade: MessageFacade,
       private likesFacade: LikesFacade
    ) {
       this.userId$ = this.authFacade.select.user.pipe(map(user => user?.id));
@@ -45,6 +42,5 @@ export class MemberListComponent implements OnInit {
       this.gender = this.gender === 'male' ? 'female' : 'male';
       this.membersFacade.loadMembers.dispatch({ gender: this.gender });
       this.likesFacade.loadLikes.dispatch();
-      this.messageFacade.getAll();
    }
 }
