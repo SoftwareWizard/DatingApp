@@ -19,6 +19,6 @@ export class AppComponent implements OnInit {
    }
 
    tryLogin(): void {
-      this.authFacade.appLogin.dispatch();
+      // FIXME: this.authFacade.appLogin.dispatch();
    }
 }

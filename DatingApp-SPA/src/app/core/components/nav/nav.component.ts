@@ -14,7 +14,7 @@ export class NavComponent implements OnInit {
    ROUTES = AppRouteNames;
    MEMBERS_ROUTES = MembersRouteNames;
 
-   loginModel: LoginModel = { username: 'admin', password: 'Pa$$w0rd' };
+   loginModel: LoginModel = { username: null, password: null};
    user$: Observable<User>;
    loggedIn$: Observable<boolean>;
    loggedOut$: Observable<boolean>;
