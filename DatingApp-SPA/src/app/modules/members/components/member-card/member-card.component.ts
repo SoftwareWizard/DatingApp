@@ -1,5 +1,7 @@
+import { isOnline } from './../../ngrx/online/online-pick.selectors';
+import { OnlineFacade } from './../../ngrx/online/online.facade';
 import { isLike, LikesFacade } from '../../ngrx/likes/likes.facade';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { AppRouteNames } from 'src/app/app-routing.names';
 import { Member } from '../../models/member';
 import { Component, Input, OnInit } from '@angular/core';
@@ -16,14 +18,17 @@ export class MemberCardComponent implements OnInit {
    @Input() userId: number;
 
    isLike$: Observable<boolean>;
+   isOnline$: Observable<boolean>;
 
-   constructor(private likesFacade: LikesFacade) {}
+   constructor(private likesFacade: LikesFacade, private onlineFacade: OnlineFacade) {}
 
    ngOnInit(): void {
       this.isLike$ = this.likesFacade.pick(isLike, {
          userId: this.userId,
          memberId: this.member?.id,
       });
+
+      this.isOnline$ = this.onlineFacade.pick(isOnline, { username: this.member.username });
    }
 
    async onChangeLike(): Promise<void> {

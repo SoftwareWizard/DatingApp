@@ -5,6 +5,7 @@ export * from './services/member.service';
 export * from './services/like.service';
 export * from './ngrx/members/members.facade';
 export * from './ngrx/likes/likes.facade';
+export * from './ngrx/online/online.facade';
 
 export * from './components/member-card/member-card.component';
 export * from './components/member-detail/member-detail.component';

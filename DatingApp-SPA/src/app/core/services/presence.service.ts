@@ -1,3 +1,5 @@
+import { dispatch } from '@ngrx-ducks/core';
+import { OnlineFacade } from './../../modules/members/ngrx/online/online.facade';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
 import { Injectable } from '@angular/core';
@@ -11,7 +13,7 @@ export class PresenceService {
    hubUrl = environment.hubUrl;
    private hubConnection: HubConnection;
 
-   constructor(private toastr: ToastrService) {}
+   constructor(private toastr: ToastrService, private onlineFacade: OnlineFacade) {}
 
    createHubConnection(user: User): void {
       this.hubConnection = new HubConnectionBuilder()
@@ -29,6 +31,10 @@ export class PresenceService {
 
       this.hubConnection.on('UserIsOffline', username => {
          this.toastr.info(`${username} has disconnected.`);
+      });
+
+      this.hubConnection.on('GetOnlineUsers', (usernames: string[]) => {
+         this.onlineFacade.updateOnlineUsers.dispatch(usernames);
       });
    }
 
