@@ -1,27 +1,87 @@
-# DatingAppSPA
+# DatingApp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.4.
+This is the result of the Udemy Course "Build an app with ASPNET Core and Angular from scratch".
 
-## Development server
+![image info](DatingApp.png)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Changes
 
-## Code scaffolding
+- different folder structure.
+- angular modules.
+- integration of ngrx and ngrx/ducks.
+- sketchy bootstrap theme.
+- Sql Server (running in Container)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Material Icon Settings
+```json
+"material-icon-theme.files.associations": {
+        "*.state.ts": "Ngrx-state",
+        "*.selectors.ts": "Ngrx-reducer",
+        "*.reducer.ts": "Ngrx-reducer",
+        "*.facade.ts": "Ngrx-actions",
+        "*.effects.ts": "Ngrx-effects",
+        "*.entity.ts": "Ngrx-entity",
+        "*.entity-metadata.ts": "Ngrx-entity",
+    },
+    "material-icon-theme.folders.associations": {
+        "ngrx": "Ngrx-store"
+    }
+```
 
-## Build
+## VS Code Extensions
+### Angular
+  - Angular 10 Snippets
+  - Angular Essentials
+  - Angular Files
+  - Angular Snipptes
+  - Angular Support
+  - angular2-inline
+  - angular2-switcher
+  - vscode-angular-html
+  - rxjs-snippets
+  - Nx Console
+  
+### Bootstrap
+  - Bootstrap 4, Font awesome
+  - Bootstrap v4 Snippets
+### C#
+  - C#
+  - C# Extensions
+### Debugger
+- Debugger for Chrome
+- Debugger for Microsoft Edge
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+### Nuger
+- NuGet Gallery
+- NuGet Package Manager
+  
+### CSS / Sass
+- CSS Peek
+- Sass
+- Sass Formatter
+- Sass Lint
+- HTML CSS Support
+- Intellisense for CSS
 
-## Running unit tests
+### Typescript
+- TSLint
+- JSON to TS
+- ESLint
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Todo
+- TODO Highlight
+- Todo Tree
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+### Miscellaneous
+- Material Icon Theme
+- Bracket Pair Colorizer 2
+- Path Intellisense
+- Prettier
+- Turbo Console Log
+- Auto Import
+- Auto Rename Tag
+- Peacock
+- Color Info
+- EditorConfig for VS Config
+- GitLens
+- npm
