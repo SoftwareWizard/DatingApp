@@ -1,7 +1,7 @@
-import { ContainerType } from './../models/container.type';
+import { ContainerType } from '../../models/container.type';
 import { DefaultDataServiceConfig, EntityDataModuleConfig, EntityMetadataMap } from '@ngrx/data';
 import { environment } from 'src/environments/environment';
-import { Message } from '../models/message';
+import { Message } from '../../models/message';
 
 function containerFilter(
    entities: Message[],

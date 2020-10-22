@@ -21,7 +21,7 @@ import { environment } from '../environments/environment';
 import { reducers, metaReducers } from './core/ngrx/app.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { EntityDataModule, HttpUrlGenerator } from '@ngrx/data';
-import { MessageApiUrlGenerator } from './modules/message/ngrx/message-api.url-generator';
+import { MessageApiUrlGenerator } from './modules/message/ngrx/message/message-api.url-generator';
 
 @NgModule({
    declarations: [AppComponent, NavComponent, HomeComponent, ListsComponent],

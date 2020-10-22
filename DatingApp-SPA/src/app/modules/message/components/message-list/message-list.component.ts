@@ -4,7 +4,7 @@ import { AppRouteNames } from 'src/app/app-routing.names';
 import { Component, OnInit } from '@angular/core';
 import { Message } from '../../models/message';
 import { ContainerType } from '../../models/container.type';
-import { MessageFacade } from '../../ngrx/message.facade';
+import { MessageFacade } from '../../ngrx/message/message.facade';
 import { map, take } from 'rxjs/operators';
 
 @Component({
