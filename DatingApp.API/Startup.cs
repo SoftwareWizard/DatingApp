@@ -16,6 +16,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using SignalR;
 
 namespace DatingApp.API
 {
@@ -36,6 +37,7 @@ namespace DatingApp.API
 
             services.AddDbContext<DataContext>(optionsBuilder => optionsBuilder.UseSqlServer(connectionString));
             services.Configure<CloudinarySettings>(cloudinarySettingsSection);
+            services.AddSingleton<PresenceTracker>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<ILikesRepository, LikesRepository>();
