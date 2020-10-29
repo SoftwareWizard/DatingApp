@@ -22,6 +22,7 @@ import { reducers, metaReducers } from './core/ngrx/app.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { EntityDataModule, HttpUrlGenerator } from '@ngrx/data';
 import { MessageApiUrlGenerator } from './modules/message/ngrx/message/message-api.url-generator';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
    declarations: [AppComponent, NavComponent, HomeComponent, ListsComponent],
@@ -45,7 +46,8 @@ import { MessageApiUrlGenerator } from './modules/message/ngrx/message/message-a
       !environment.production ? StoreDevtoolsModule.instrument() : [],
       EffectsModule.forRoot([]),
       EntityDataModule.forRoot({}),
-      AdminModule
+      AdminModule,
+      ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
    ],
    exports: [],
    providers: [
