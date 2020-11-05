@@ -10,6 +10,21 @@
          "request": "launch",
          "url": "http://localhost:8080/",
          "webRoot": "${workspaceFolder}"
+      },
+      {
+         "type": "chrome",
+         "request": "launch",
+         "name": "Debug Unit Tests",
+         "address": "localhost",
+         "port": 9222,
+         "webRoot": "${workspaceFolder}",
+         "sourceMapPathOverrides": {
+            "webpack:/*": "${webRoot}/*",
+            "/./*": "${webRoot}/*",
+            "/src/*": "${webRoot}/*",
+            "/*": "*",
+            "/./~/*": "${webRoot}/node_modules/*"
+         }
       }
    ]
 }
