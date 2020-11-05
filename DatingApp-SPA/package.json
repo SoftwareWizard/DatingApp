@@ -24,6 +24,7 @@
     "@kolkov/ngx-gallery": "^1.2.3",
     "@microsoft/signalr": "^3.1.9",
     "@netbasal/spectator-cli": "^0.2.0",
+    "@ngneat/spectator": "^6.1.0",
     "@ngrx-ducks/core": "^10.1.1",
     "@ngrx-ducks/schematics": "^10.0.1",
     "@ngrx/data": "^10.0.1",
