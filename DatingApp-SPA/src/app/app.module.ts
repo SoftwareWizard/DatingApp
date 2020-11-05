@@ -1,4 +1,3 @@
-import { HomeContainerComponent } from './core/container/home/home.container';
 import { AdminModule } from './modules/admin/admin.module';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -12,9 +11,12 @@ import { ErrorsModule } from './modules/errors/errors.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { MessageModule } from './modules/message/message.module';
 
-import { ListsComponent } from './components';
-
-import { ErrorInterceptor, JwtInterceptor, LoadingInterceptor, NavComponent } from './core';
+import {
+   ErrorInterceptor,
+   JwtInterceptor,
+   LoadingInterceptor,
+   NavComponent,
+} from './core';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreModule } from '@ngrx/store';
 import { RouterState, StoreRouterConnectingModule } from '@ngrx/router-store';
@@ -24,16 +26,22 @@ import { EffectsModule } from '@ngrx/effects';
 import { EntityDataModule, HttpUrlGenerator } from '@ngrx/data';
 import { MessageApiUrlGenerator } from './modules/message/ngrx/message/message-api.url-generator';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { AppContainerComponent } from './core/container';
+import {
+   AppContainerComponent,
+   HomeContainerComponent,
+   LikesContainerComponent,
+} from './core/container';
 import { HomeComponent } from './core/components/home/home.component';
+import { LikesComponent } from './core/components/likes/likes.component';
 
 @NgModule({
    declarations: [
       AppContainerComponent,
       HomeContainerComponent,
+      LikesContainerComponent,
       HomeComponent,
       NavComponent,
-      ListsComponent,
+      LikesComponent,
    ],
    imports: [
       BrowserModule,
@@ -56,7 +64,9 @@ import { HomeComponent } from './core/components/home/home.component';
       EffectsModule.forRoot([]),
       EntityDataModule.forRoot({}),
       AdminModule,
-      ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+      ServiceWorkerModule.register('ngsw-worker.js', {
+         enabled: environment.production,
+      }),
    ],
    exports: [],
    providers: [

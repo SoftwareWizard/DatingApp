@@ -1,6 +1,6 @@
 <div class="text-center mt-3">
   <h2>
-    {{ predicate === LikedPredicateType.liked ? predicateTexts.get(LikedPredicateType.liked) : predicateTexts.get(LikedPredicateType.likedBy)}}
+    {{ headerText }}
   </h2>
 </div>
 
@@ -8,9 +8,7 @@
   <div class="row">
     <div class="btn-group" name="predicate">
       <button *ngFor="let entry of predicateTexts | keyvalue" class="btn btn-secondary" btnRadio="{{entry.key}}"
-        [(ngModel)]="predicate"
-        (click)="loadLikes()"
-        >{{ entry.value }}</button>
+        [(ngModel)]="selectedPredicate" (click)="onPredicateChanged()">{{ entry.value }}</button>
     </div>
   </div>
 </div>
