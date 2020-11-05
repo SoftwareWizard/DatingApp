@@ -4,11 +4,12 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AppRouteNames } from './app-routing.names';
 
 import { NotFoundComponent, ServerErrorComponent, TestErrorsComponent } from './modules/errors';
-import { HomeComponent, ListsComponent } from './components';
+import { ListsComponent } from './components';
 import { AuthGuard } from './modules/auth';
+import { HomeContainerComponent } from './core/container';
 
 const routes: Routes = [
-   { path: AppRouteNames.ROOT, component: HomeComponent },
+   { path: AppRouteNames.ROOT, component: HomeContainerComponent },
    {
       path: AppRouteNames.MEMBERS,
       runGuardsAndResolvers: 'always',
@@ -34,7 +35,7 @@ const routes: Routes = [
       canActivate: [AdminGuard],
       loadChildren: () => import('./modules/admin/admin.module').then(m => m.AdminModule),
    },
-   { path: '**', component: HomeComponent, pathMatch: 'full' },
+   { path: '**', component: HomeContainerComponent, pathMatch: 'full' },
 ];
 
 @NgModule({

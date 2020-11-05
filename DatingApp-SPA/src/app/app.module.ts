@@ -1,3 +1,4 @@
+import { HomeContainerComponent } from './core/container/home/home.container';
 import { AdminModule } from './modules/admin/admin.module';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -11,7 +12,7 @@ import { ErrorsModule } from './modules/errors/errors.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { MessageModule } from './modules/message/message.module';
 
-import { AppComponent, HomeComponent, ListsComponent } from './components';
+import { ListsComponent } from './components';
 
 import { ErrorInterceptor, JwtInterceptor, LoadingInterceptor, NavComponent } from './core';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -23,9 +24,17 @@ import { EffectsModule } from '@ngrx/effects';
 import { EntityDataModule, HttpUrlGenerator } from '@ngrx/data';
 import { MessageApiUrlGenerator } from './modules/message/ngrx/message/message-api.url-generator';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { AppContainerComponent } from './core/container';
+import { HomeComponent } from './core/components/home/home.component';
 
 @NgModule({
-   declarations: [AppComponent, NavComponent, HomeComponent, ListsComponent],
+   declarations: [
+      AppContainerComponent,
+      HomeContainerComponent,
+      HomeComponent,
+      NavComponent,
+      ListsComponent,
+   ],
    imports: [
       BrowserModule,
       BrowserAnimationsModule,
@@ -47,7 +56,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
       EffectsModule.forRoot([]),
       EntityDataModule.forRoot({}),
       AdminModule,
-      ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+      ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
    ],
    exports: [],
    providers: [
@@ -60,6 +69,6 @@ import { ServiceWorkerModule } from '@angular/service-worker';
          useClass: MessageApiUrlGenerator,
       },
    ],
-   bootstrap: [AppComponent],
+   bootstrap: [AppContainerComponent],
 })
 export class AppModule {}
