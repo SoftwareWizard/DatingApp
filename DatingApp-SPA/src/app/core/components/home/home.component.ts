@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { AppRouteNames } from 'src/app/app-routing.names';
 import { AuthRouteEnum } from 'src/app/modules/auth';
 
 @Component({
@@ -15,9 +14,5 @@ export class HomeComponent {
 
    get AUTH_ROUTES(): typeof AuthRouteEnum {
       return AuthRouteEnum;
-   }
-
-   get ROUTES(): AppRouteNames {
-      return AppRouteNames;
    }
 }

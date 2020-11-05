@@ -11,6 +11,6 @@ export class HomeContainerComponent implements OnInit {
    constructor(private authFacade: AuthFacade) {}
 
    ngOnInit(): void {
-      this.loggedIn$ = this.authFacade.select.isLoggedIn;
+      this.loggedIn$ = this.authFacade.select?.isLoggedIn;
    }
 }
