@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { AuthRoutingModule } from './auth-routing.module';
+import { AuthRoutingModule } from './auth.routing.module';
 
 import { RegisterComponent } from './components/register/register.component';
 import { TextInputComponent } from './components/text-input/text-input.component';
