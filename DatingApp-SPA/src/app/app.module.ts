@@ -15,7 +15,6 @@ import {
    ErrorInterceptor,
    JwtInterceptor,
    LoadingInterceptor,
-   NavComponent,
 } from './core';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreModule } from '@ngrx/store';
@@ -30,15 +29,18 @@ import {
    AppContainerComponent,
    HomeContainerComponent,
    LikesContainerComponent,
+   NavContainerComponent,
 } from './core/container';
 import { HomeComponent } from './core/components/home/home.component';
 import { LikesComponent } from './core/components/likes/likes.component';
+import { NavComponent } from './core/components/nav/nav.component';
 
 @NgModule({
    declarations: [
       AppContainerComponent,
       HomeContainerComponent,
       LikesContainerComponent,
+      NavContainerComponent,
       HomeComponent,
       NavComponent,
       LikesComponent,
