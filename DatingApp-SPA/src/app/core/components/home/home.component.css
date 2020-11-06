@@ -1,0 +1,4 @@
+/* used as marker class for test*/
+.register {
+   --dummy-style: foo;
+}

@@ -1,11 +1,16 @@
+import { By } from '@angular/platform-browser';
+import { RouterLink } from '@angular/router';
 import { Spectator, createComponentFactory } from '@ngneat/spectator';
+import { MockDirective, ngMocks } from 'ng-mocks';
+import { AuthRouteEnum } from 'src/app/modules/auth';
 import { HomeComponent } from './home.component';
-
-const REGISTER_BUTTON_TEXT = 'Register';
 
 describe('HomeComponent', () => {
    let spectator: Spectator<HomeComponent>;
-   const createComponent = createComponentFactory(HomeComponent);
+   const createComponent = createComponentFactory({
+      component: HomeComponent,
+      declarations: [MockDirective(RouterLink)],
+   });
 
    beforeEach(() => (spectator = createComponent()));
 
@@ -16,16 +21,18 @@ describe('HomeComponent', () => {
    it('should display Register Button when not logged in', () => {
       spectator.setInput({ loggedIn: false });
       spectator.detectChanges();
-      const buttons = spectator.queryAll('button');
-      const editButton = buttons.find(item => item.textContent === REGISTER_BUTTON_TEXT);
+
+      const editButton = spectator.debugElement.query(By.css('.register'));
       expect(editButton).toBeTruthy();
+      const routerLinkMock = ngMocks.get(editButton, RouterLink);
+      expect(routerLinkMock.routerLink).toBe(`/auth/${AuthRouteEnum.REGISTER}`);
    });
 
    it('should not display Register Button when logged in', () => {
       spectator.setInput({ loggedIn: true });
       spectator.detectChanges();
-      const buttons = spectator.queryAll('button');
-      const editButton = buttons.find(item => item.textContent === REGISTER_BUTTON_TEXT);
+
+      const editButton = spectator.debugElement.query(By.css('.register'));
       expect(editButton).toBeFalsy();
    });
 });
