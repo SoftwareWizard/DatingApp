@@ -1,4 +1,10 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import {
+   Component,
+   Input,
+   Output,
+   EventEmitter,
+   ChangeDetectionStrategy,
+} from '@angular/core';
 import { AppRouteNames } from 'src/app/app-routing.names';
 import { MembersRouteNames } from 'src/app/modules/members/members-routing.names';
 import { LoginModel, User } from 'src/app/modules/auth';
@@ -7,7 +13,7 @@ import { LoginModel, User } from 'src/app/modules/auth';
    selector: 'app-nav',
    templateUrl: './nav.component.html',
    styleUrls: ['./nav.component.css'],
-   changeDetection: ChangeDetectionStrategy.OnPush
+   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavComponent {
    ROUTES = AppRouteNames;

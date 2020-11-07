@@ -1,9 +1,9 @@
 import { LikedPredicateType } from 'src/app/modules/members/models/likedPredicate.type';
-import { TEST_MEMBERS } from 'test/test-members';
 import { Spectator, createComponentFactory } from '@ngneat/spectator';
 import { LikesContainerComponent } from './likes.container';
 import { LikeService } from 'src/app/modules/members';
 import { of } from 'rxjs';
+import { TEST_MEMBERS } from 'test/test-data/test-members';
 
 describe('LikesContainerComponent', () => {
    let spectator: Spectator<LikesContainerComponent>;
@@ -14,7 +14,7 @@ describe('LikesContainerComponent', () => {
 
    beforeEach(() => (spectator = createComponent()));
 
-   it('should ', () => {
+   it('should be created', () => {
       expect(spectator.component).toBeTruthy();
    });
 
