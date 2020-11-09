@@ -1,4 +1,3 @@
-
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LoginModel, User, AuthFacade } from 'src/app/modules/auth';
@@ -16,9 +15,9 @@ export class NavContainerComponent implements OnInit {
    constructor(private authFacade: AuthFacade) {}
 
    ngOnInit(): void {
-      this.loggedIn$ = this.authFacade.select.isLoggedIn;
-      this.loggedOut$ = this.authFacade.select.isLoggedOut;
-      this.user$ = this.authFacade.select.user;
+      this.loggedIn$ = this.authFacade.select?.isLoggedIn;
+      this.loggedOut$ = this.authFacade.select?.isLoggedOut;
+      this.user$ = this.authFacade.select?.user;
    }
 
    onLogin(loginModel: LoginModel): void {

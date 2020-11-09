@@ -6,10 +6,11 @@ import { LikesComponent } from './likes.component';
 import { ButtonRadioDirective } from 'ngx-bootstrap/buttons';
 import { NgModel } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { TEST_MEMBERS } from 'test/test-members';
+import { TEST_MEMBERS } from 'test/test-data/test-members';
 
 describe('LikesComponent', () => {
    let spectator: Spectator<LikesComponent>;
+
    const createComponent = createComponentFactory({
       component: LikesComponent,
       declarations: [
@@ -20,7 +21,10 @@ describe('LikesComponent', () => {
       imports: [],
    });
 
-   beforeEach(() => (spectator = createComponent()));
+   beforeEach(() => {
+      spectator = createComponent();
+
+   });
 
    it('should be created', () => {
       expect(spectator.component).toBeTruthy();

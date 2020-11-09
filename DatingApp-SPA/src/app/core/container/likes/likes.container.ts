@@ -4,7 +4,7 @@ import { LikedPredicateType } from 'src/app/modules/members/models/likedPredicat
 
 @Component({
    templateUrl: './likes.container.html',
-   changeDetection: ChangeDetectionStrategy.OnPush,
+   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LikesContainerComponent implements OnInit {
    members: Partial<Member[]> = [];

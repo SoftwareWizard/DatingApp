@@ -9,8 +9,8 @@ export class HasRoleDirective implements OnInit {
    @Input() appHasRole: string[];
 
    constructor(
-      private viewContainerRef: ViewContainerRef,
-      private templateRef: TemplateRef<any>,
+      public viewContainerRef: ViewContainerRef,
+      public templateRef: TemplateRef<any>,
       private authFacade: AuthFacade
    ) {}
 
