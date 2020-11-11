@@ -3,12 +3,11 @@ import { SharedModule } from './../../../modules/shared/shared.module';
 import { Spectator, createComponentFactory } from '@ngneat/spectator';
 import { NavComponent } from './nav.component';
 import { RouterLinkActive, RouterLinkWithHref } from '@angular/router';
-import { MockDirective, ngMocks } from 'ng-mocks';
+import { MockDirective } from 'ng-mocks';
 import { waitForAsync } from '@angular/core/testing';
 import { NavComponentPageObject } from 'test/page-objects/nav.component.po';
 import { TEST_USER } from 'test/test-data/test-user';
 import { HasRoleDirective } from 'test/mocks/has-role-mock.directive';
-import { By } from '@angular/platform-browser';
 
 describe('NavComponent', () => {
    let spectator: Spectator<NavComponent>;
