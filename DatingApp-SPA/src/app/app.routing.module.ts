@@ -14,23 +14,26 @@ import {
    LikesContainerComponent,
 } from './core/container';
 
-const routes: Routes = [
+export const routes: Routes = [
    { path: AppRouteNames.ROOT, component: HomeContainerComponent },
    {
       path: AppRouteNames.MEMBERS,
       runGuardsAndResolvers: 'always',
       canActivate: [AuthGuard],
-      loadChildren: './modules/members/members.module#MembersModule',
+      loadChildren: () =>
+         import('./modules/members/members.module').then(m => m.MembersModule),
    },
    {
       path: AppRouteNames.MESSAGES,
       runGuardsAndResolvers: 'always',
       canActivate: [AuthGuard],
-      loadChildren: './modules/message/message.module#MessageModule',
+      loadChildren: () =>
+         import('./modules/message/message.module').then(m => m.MessageModule),
    },
    {
       path: AppRouteNames.AUTH,
-      loadChildren: './modules/auth/auth.module#AuthModule',
+      loadChildren: () =>
+         import('./modules/auth/auth.module').then(m => m.AuthModule),
    },
    {
       path: AppRouteNames.LIKES,

@@ -1,7 +1,4 @@
-import { dispatch } from '@ngrx-ducks/core';
-
 import { Component, OnInit } from '@angular/core';
-import { AuthFacade, User } from 'src/app/modules/auth';
 
 @Component({
    selector: 'app-root',
@@ -10,7 +7,9 @@ import { AuthFacade, User } from 'src/app/modules/auth';
 export class AppContainerComponent implements OnInit {
    title = 'DatingApp-SPA';
 
-   constructor(private authFacade: AuthFacade) {}
+   constructor(
+    //  private authFacade: AuthFacade
+     ) {}
 
    ngOnInit(): void {
       this.tryLogin();
