@@ -1,15 +1,8 @@
-// tslint:disable-next-line: no-reference
-/// <reference path='../../test/helper/custom.matchers.d.ts' />
 
-import { AppRouteNames } from 'src/app/app-routing.names';
-import { AuthGuard } from './modules/auth/guards/auth.guard';
-import { AuthFacade } from 'src/app/modules/auth';
-import { LikeService } from 'src/app/modules/members';
-import { AdminPanelComponent } from './modules/admin/components/admin-panel/admin-panel.component';
-import { NotFoundComponent } from './modules/errors/not-found/not-found.component';
+// tslint:disable-next-line: no-reference
+// / <reference path='../../test/helper/custom.matchers.d.ts' />
+
 import { MockComponent } from 'ng-mocks';
-import { HomeContainerComponent } from './core/container/home/home.container';
-import { AppContainerComponent } from './core/container/app/app.container';
 import { waitForAsync } from '@angular/core/testing';
 import {
    createRoutingFactory,
@@ -23,12 +16,22 @@ import { NgxSpinnerComponent } from 'ngx-spinner';
 
 import { findRouteTargetComponent } from 'test/helper/find-route-target';
 import { of } from 'rxjs';
-import { MessageListComponent } from './modules/message';
 import { CustomMatchers } from 'test/helper/custom.matchers';
 import {
    LikesContainerComponent,
    NavContainerComponent,
+   HomeContainerComponent,
+   AppContainerComponent,
 } from './core/container';
+import { AppRouteNames } from 'src/app/app-routing.names';
+import { AuthGuard } from './modules/auth/guards/auth.guard';
+import { AuthFacade } from 'src/app/modules/auth';
+import { LikeService } from 'src/app/modules/members';
+import { AdminPanelComponent } from './modules/admin/components/admin-panel/admin-panel.component';
+import { NotFoundComponent } from './modules/errors/not-found/not-found.component';
+import { HomeComponent } from './core/components/home/home.component';
+import { MessageListComponent } from './modules/message';
+import { AsyncPipe } from './../../test/mocks/async-mock.pipe';
 
 describe('app.routing navigate to', () => {
    let spectator: SpectatorRouting<AppContainerComponent>;
@@ -37,6 +40,7 @@ describe('app.routing navigate to', () => {
 
    const createComponent = createRoutingFactory({
       component: AppContainerComponent,
+      // imports: [CommonModule, BrowserModule],
       mocks: [AuthFacade, AuthGuard, LikeService],
       declarations: [
          MockComponent(NavContainerComponent),
@@ -46,6 +50,8 @@ describe('app.routing navigate to', () => {
          MockComponent(AdminPanelComponent),
          MockComponent(MessageListComponent),
          MockComponent(LikesContainerComponent),
+         MockComponent(HomeComponent),
+         AsyncPipe,
       ],
       routes,
       stubsEnabled: false,
@@ -59,9 +65,41 @@ describe('app.routing navigate to', () => {
    });
 
    it(
+      'not-found works',
+      waitForAsync(async () => {
+         debugger;
+         await spectator.fixture.whenStable();
+         const route = routes.find(
+            item => item.path === AppRouteNames.NOT_FOUND
+         );
+
+         await spectator.fixture.ngZone.run(async () =>
+            router.navigateByUrl(AppRouteNames.NOT_FOUND)
+         );
+
+         spectator.detectComponentChanges();
+         await spectator.fixture.whenStable();
+         const targetComponent = findRouteTargetComponent(
+            spectator,
+            NotFoundComponent
+         );
+
+         //  expect(route).not.toHaveCanActivateGuard('AuthGuard');
+         expect(targetComponent).toBeTruthy();
+      })
+   );
+
+   it(
       'home works',
       waitForAsync(async () => {
+         debugger;
          const route = routes.find(item => item.path === AppRouteNames.ROOT);
+         await spectator.fixture.whenStable();
+
+         await spectator.fixture.ngZone.run(async () =>
+            router.navigateByUrl(AppRouteNames.LIKES)
+         );
+
          await spectator.fixture.whenStable();
          const targetComponent = findRouteTargetComponent(
             spectator,
