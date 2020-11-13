@@ -1,4 +1,4 @@
-import { AuthFacade } from './../../../auth/ngrx/auth.facade';
+import { AuthFacade } from './../../../auth/store/auth.facade';
 import { Observable } from 'rxjs';
 import { AppRouteNames } from 'src/app/app-routing.names';
 import { Component, OnInit } from '@angular/core';

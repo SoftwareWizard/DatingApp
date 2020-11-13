@@ -4,7 +4,7 @@ import { Spectator, createComponentFactory } from '@ngneat/spectator';
 
 import { MockComponent, ngMocks } from 'ng-mocks';
 import { AuthFacade } from 'src/app/modules/auth';
-import * as authSelectors from '../../../modules/auth/ngrx/auth.selectors';
+import * as authSelectors from '../../../modules/auth/store/auth.selectors';
 import { IFacadeSpy } from 'test/helper/facade-spy.type';
 import { getFacadeSpy } from 'test/helper/facade-helper';
 import { of } from 'rxjs';

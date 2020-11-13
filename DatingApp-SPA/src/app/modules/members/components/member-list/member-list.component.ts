@@ -2,7 +2,7 @@ import { Observable, Subscription } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { Member } from '../../models/member';
 import { take, map } from 'rxjs/operators';
-import { AuthFacade } from './../../../auth/ngrx/auth.facade';
+import { AuthFacade } from './../../../auth/store/auth.facade';
 import { MembersFacade } from '../../ngrx/members/members.facade';
 import { LikesFacade } from '../../ngrx/likes/likes.facade';
 

@@ -1,4 +1,4 @@
-import { AuthFacade } from './../../auth/ngrx/auth.facade';
+import { AuthFacade } from './../../auth/store/auth.facade';
 import { Directive, TemplateRef, ViewContainerRef, OnInit, Input } from '@angular/core';
 import { take } from 'rxjs/operators';
 

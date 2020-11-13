@@ -1,6 +1,6 @@
 import { AuthGuard } from './modules/auth/guards/auth.guard';
 import { AppRouteNames } from './app-routing.names';
-import { AuthFacade } from './modules/auth/ngrx/auth.facade';
+import { AuthFacade } from './modules/auth/store/auth.facade';
 import { LikeService } from './modules/members/services/like.service';
 import {
    ComponentFixture,
@@ -20,7 +20,7 @@ import { NgZone, Type } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { TEST_MEMBERS } from 'test/test-data/test-members';
 import { FacadeSpy } from 'test/mocks/spy.facade';
-import * as authSelectors from './modules/auth/ngrx/auth.selectors';
+import * as authSelectors from './modules/auth/store/auth.selectors';
 import { LikesContainerComponent } from './core/container';
 import { AppContainerComponent } from './core/container/app/app.container';
 import { TestErrorsComponent } from './modules/errors/test-errors/test-errors.component';

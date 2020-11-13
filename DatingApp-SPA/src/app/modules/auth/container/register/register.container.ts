@@ -1,4 +1,4 @@
-import { AuthFacade } from '../../ngrx/auth.facade';
+import { AuthFacade } from '../../store/auth.facade';
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RegisterModel } from '../../models/register.model';
 

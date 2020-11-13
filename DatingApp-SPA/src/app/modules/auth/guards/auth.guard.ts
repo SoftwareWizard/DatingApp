@@ -1,4 +1,4 @@
-import { AuthFacade } from './../ngrx/auth.facade';
+import { AuthFacade } from './../store/auth.facade';
 import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
 import { Observable } from 'rxjs';

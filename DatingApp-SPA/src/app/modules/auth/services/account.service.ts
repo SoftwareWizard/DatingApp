@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from '../models/user';
 import { map } from 'rxjs/operators';
-import { user } from '../ngrx/auth.selectors';
+import { user } from '../store/auth.selectors';
 
 @Injectable({
    providedIn: 'root',

@@ -8,8 +8,8 @@ import { AuthRoutingModule } from './auth.routing.module';
 
 import { RegisterComponent } from './components/register/register.component';
 import { TextInputComponent } from './components/text-input/text-input.component';
-import { AuthEffects } from './ngrx/auth.effects';
-import * as authFacade from './ngrx/auth.facade';
+import { AuthEffects } from './store/auth.effects';
+import * as authFacade from './store/auth.facade';
 @NgModule({
    declarations: [RegisterComponent, TextInputComponent, RegisterContainerComponent],
    imports: [
