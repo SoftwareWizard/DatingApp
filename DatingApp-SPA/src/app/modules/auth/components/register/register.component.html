@@ -5,22 +5,21 @@
       <form [formGroup]="registerForm" (ngSubmit)="onRegister()" autocomplete="off">
         <label class="control-label mr-2">I am </label>
         <div class="form-check form-check-inline">
-          <input formControlName="gender" class="form-check-input" type="radio" name="gender" id="gender_male" value="male">
-          <label class="form-check-label" for="gender_male">Male</label>
+          <input formControlName="gender" class="form-check-input" type="radio" name="gender" id="gender-male" value="male">
+          <label class="form-check-label" for="gender-male">Male</label>
         </div>
         <div class="form-check form-check-inline">
           <input formControlName="gender" class="form-check-input" type="radio" name="gender" id="gender-female" value="female">
           <label class="form-check-label" for="gender-female">Female</label>
         </div>
-        <app-text-input [formControl]="registerForm.controls['username']" [label]="'Username'"></app-text-input>
-        <app-text-input [formControl]="registerForm.controls['knownAs']" [label]="'Known As'"></app-text-input>
-        <app-text-input [formControl]="registerForm.controls['dateOfBirth']" [label]="'Date of Birth'" [type]="'date'"></app-text-input>
-        <app-text-input [formControl]="registerForm.controls['city']" [label]="'City'"></app-text-input>
-        <app-text-input [formControl]="registerForm.controls['country']" [label]="'Country'"></app-text-input>
-        <app-text-input [formControl]="registerForm.controls['password']" [label]="'Password'" [type]="'password'">
+        <app-text-input id="username" [formControl]="registerForm.controls['username']" [label]="'Username'"></app-text-input>
+        <app-text-input id="knownAs" [formControl]="registerForm.controls['knownAs']" [label]="'Known As'"></app-text-input>
+        <app-text-input id="dateOfBirth" [formControl]="registerForm.controls['dateOfBirth']" [label]="'Date of Birth'" [type]="'date'"></app-text-input>
+        <app-text-input id="city" [formControl]="registerForm.controls['city']" [label]="'City'"></app-text-input>
+        <app-text-input id="country" [formControl]="registerForm.controls['country']" [label]="'Country'"></app-text-input>
+        <app-text-input id="password" [formControl]="registerForm.controls['password']" [label]="'Password'" [type]="'password'">
         </app-text-input>
-        <app-text-input [formControl]="registerForm.controls['confirmPassword']" [label]="'Confirm Password'"
-          [type]="'password'">
+        <app-text-input id="confirmPassword" [formControl]="registerForm.controls['confirmPassword']" [label]="'Confirm Password'" [type]="'password'">
         </app-text-input>
 
         <div class="row mt-1" *ngIf="validationErrors">
@@ -30,8 +29,8 @@
         </div>
 
         <div class="row justify-content-center">
-          <button class="btn btn-success mr-2" type="submit" [disabled]="!registerForm.valid">Register</button>
-          <button class="btn btn-danger mr-2" (click)="onCancel()" type="button">Cancel</button>
+          <button id="btnRegister" class="btn btn-success mr-2" type="submit" [disabled]="!registerForm.valid">Register</button>
+          <button id="btnCancel" class="btn btn-danger mr-2" (click)="onCancel()" type="button">Cancel</button>
         </div>
       </form>
     </div>
