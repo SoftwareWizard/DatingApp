@@ -1,145 +1,168 @@
-// tslint:disable-next-line: no-reference
-/// <reference path='../../test/helper/custom.matchers.d.ts' />
-
-import { AppRouteNames } from 'src/app/app-routing.names';
 import { AuthGuard } from './modules/auth/guards/auth.guard';
-import { AuthFacade } from 'src/app/modules/auth';
-import { LikeService } from 'src/app/modules/members';
-import { AdminPanelComponent } from './modules/admin/components/admin-panel/admin-panel.component';
-import { NotFoundComponent } from './modules/errors/not-found/not-found.component';
-import { MockComponent } from 'ng-mocks';
-import { HomeContainerComponent } from './core/container/home/home.container';
-import { AppContainerComponent } from './core/container/app/app.container';
-import { waitForAsync } from '@angular/core/testing';
+import { AppRouteNames } from './app-routing.names';
+import { AuthFacade } from './modules/auth/ngrx/auth.facade';
+import { LikeService } from './modules/members/services/like.service';
 import {
-   createRoutingFactory,
-   SpectatorRouting,
-   SpyObject,
-} from '@ngneat/spectator';
+   ComponentFixture,
+   fakeAsync,
+   TestBed,
+   tick,
+   waitForAsync,
+} from '@angular/core/testing';
+import { Router } from '@angular/router';
+import { SpyLocation } from '@angular/common/testing';
+import { AppModule } from './app.module';
+import { RouterTestingModule } from '@angular/router/testing';
 import { routes } from './app.routing.module';
 import { Location } from '@angular/common';
-import { Router } from '@angular/router';
-import { NgxSpinnerComponent } from 'ngx-spinner';
+import { asyncData } from 'test/helper/async-observable-helper';
+import { NgZone, Type } from '@angular/core';
+import { By } from '@angular/platform-browser';
+import { TEST_MEMBERS } from 'test/test-data/test-members';
+import { FacadeSpy } from 'test/mocks/spy.facade';
+import * as authSelectors from './modules/auth/ngrx/auth.selectors';
+import { LikesContainerComponent } from './core/container';
+import { AppContainerComponent } from './core/container/app/app.container';
+import { TestErrorsComponent } from './modules/errors/test-errors/test-errors.component';
+import { ServerErrorComponent } from './modules/errors/server-error/server-error.component';
+import { NotFoundComponent } from './modules/errors/not-found/not-found.component';
+import { HomeContainerComponent } from './core/container/home/home.container';
+import { CustomMatchers } from 'test/helper/jasmine-matchers';
 
-import { findRouteTargetComponent } from 'test/helper/find-route-target';
-import { of } from 'rxjs';
-import { MessageListComponent } from './modules/message';
-import { CustomMatchers } from 'test/helper/custom.matchers';
-import {
-   LikesContainerComponent,
-   NavContainerComponent,
-} from './core/container';
+let comp: AppContainerComponent;
+let fixture: ComponentFixture<AppContainerComponent>;
+let router: Router;
+let location: SpyLocation;
+let ngZone: NgZone;
 
-describe('app.routing navigate to', () => {
-   let spectator: SpectatorRouting<AppContainerComponent>;
-   let location: SpyObject<Location>;
-   let router: SpyObject<Router>;
+const authFacadeSpy = new FacadeSpy(AuthFacade, authSelectors);
+const likeServiceSpy = jasmine.createSpyObj('LikeService', ['getLikes']);
+const authGuardSpy = jasmine.createSpyObj('AuthGuard', ['canActivate']);
 
-   const createComponent = createRoutingFactory({
-      component: AppContainerComponent,
-      mocks: [AuthFacade, AuthGuard, LikeService],
-      declarations: [
-         MockComponent(NavContainerComponent),
-         MockComponent(NgxSpinnerComponent),
-         MockComponent(HomeContainerComponent),
-         MockComponent(NotFoundComponent),
-         MockComponent(AdminPanelComponent),
-         MockComponent(MessageListComponent),
-         MockComponent(LikesContainerComponent),
-      ],
-      routes,
-      stubsEnabled: false,
-   });
+describe('app.routing', () => {
+   beforeAll(() => jasmine.addMatchers(CustomMatchers));
 
-   beforeEach(() => {
-      spectator = createComponent();
-      location = spectator.inject(Location);
-      router = spectator.inject(Router);
-      jasmine.addMatchers(CustomMatchers);
-   });
+   beforeEach(
+      waitForAsync(() => {
+         TestBed.configureTestingModule({
+            imports: [AppModule, RouterTestingModule.withRoutes(routes)],
+            providers: [
+               { provide: LikeService, useValue: likeServiceSpy },
+               { provide: AuthFacade, useValue: authFacadeSpy },
+               { provide: AuthGuard, useValue: authGuardSpy },
+            ],
+            declarations: [],
+         }).compileComponents();
 
-   it(
-      'home works',
-      waitForAsync(async () => {
-         const route = routes.find(item => item.path === AppRouteNames.ROOT);
-         await spectator.fixture.whenStable();
-         const targetComponent = findRouteTargetComponent(
-            spectator,
-            HomeContainerComponent
-         );
-
-         expect(route).not.toHaveCanActivateGuard('AuthGuard');
-         expect(targetComponent).toBeTruthy();
+         createComponent();
       })
    );
 
-   it(
-      'likes works',
-      waitForAsync(async () => {
-         const route = routes.find(item => item.path === AppRouteNames.LIKES);
-         const authGuardSpy = spectator.inject(AuthGuard);
-         authGuardSpy.canActivate.and.returnValue(of(true));
+   it('should navigate to default', fakeAsync(() => {
+      ngZone.run(() => router.initialNavigation());
+      advance();
+      expectPathToBe(AppRouteNames.ROOT);
+      expectElementOf(HomeContainerComponent);
+   }));
 
-         await spectator.fixture.whenStable();
-         await spectator.fixture.ngZone.run(async () =>
-            router.navigateByUrl(AppRouteNames.LIKES)
-         );
+   it('should navigate to fallback', fakeAsync(() => {
+      ngZone.run(() => router.navigateByUrl('illegal'));
+      advance();
+      expectPathToBe('illegal');
+      expectElementOf(HomeContainerComponent);
+   }));
 
-         await spectator.fixture.whenStable();
-         const targetComponent = findRouteTargetComponent(
-            spectator,
-            LikesContainerComponent
-         );
+   it('should navigate to LikesContainerComponent', fakeAsync(() => {
+      const route = routes.find(item => item.path === AppRouteNames.LIKES);
 
-         expect(route).toBeTruthy();
-         expect(route).toHaveCanActivateGuard('AuthGuard');
-         expect(targetComponent).toBeTruthy();
-      })
-   );
+      likeServiceSpy.getLikes.and.returnValue(asyncData(TEST_MEMBERS));
+      authGuardSpy.canActivate.and.returnValue(asyncData(true));
 
-   it('messages module works', () => {
+      ngZone.run(() => router.navigateByUrl(AppRouteNames.LIKES));
+      advance();
+      expectPathToBe(AppRouteNames.LIKES);
+      expectElementOf(LikesContainerComponent);
+
+      expect(route).toBeTruthy();
+      expect(route).toHaveCanActivateGuard('AuthGuard');
+   }));
+
+   it('should navigate to NotFoundComponent', fakeAsync(() => {
+      ngZone.run(() => router.navigateByUrl(AppRouteNames.NOT_FOUND));
+      advance();
+      expectPathToBe(AppRouteNames.NOT_FOUND);
+      expectElementOf(NotFoundComponent);
+   }));
+
+   it('should navigate to server-error', fakeAsync(() => {
+      ngZone.run(() => router.navigateByUrl(AppRouteNames.SERVER_ERROR));
+      advance();
+      expectPathToBe(AppRouteNames.SERVER_ERROR);
+      expectElementOf(ServerErrorComponent);
+   }));
+
+   it('should navigate to test-error', fakeAsync(() => {
+      ngZone.run(() => router.navigateByUrl(AppRouteNames.TEST_ERRORS));
+      advance();
+      expectPathToBe(AppRouteNames.TEST_ERRORS);
+      expectElementOf(TestErrorsComponent);
+   }));
+
+   it('can navigate to messages module', () => {
       const route = routes.find(item => item.path === AppRouteNames.MESSAGES);
       expect(route).toBeTruthy();
       expect(route).toHaveCanActivateGuard('AuthGuard');
       expect(route).toHaveLazyLoadedModule('MessageModule');
    });
 
-   it('members module works', () => {
+   it('can navigate to members module', () => {
       const route = routes.find(item => item.path === AppRouteNames.MEMBERS);
       expect(route).toBeTruthy();
       expect(route).toHaveCanActivateGuard('AuthGuard');
       expect(route).toHaveLazyLoadedModule('MembersModule');
    });
 
-   it('auth module works', () => {
+   it('can navigate to auth module', () => {
       const route = routes.find(item => item.path === AppRouteNames.AUTH);
       expect(route).toBeTruthy();
       expect(route).not.toHaveCanActivateGuard('AuthGuard');
       expect(route).toHaveLazyLoadedModule('AuthModule');
    });
 
-   it('admin module works', () => {
+   it('can navigate to admin module', () => {
       const route = routes.find(item => item.path === AppRouteNames.ADMIN);
       expect(route).toBeTruthy();
       expect(route).not.toHaveCanActivateGuard('AuthGuard');
       expect(route).toHaveCanActivateGuard('AdminGuard');
       expect(route).toHaveLazyLoadedModule('AdminModule');
    });
-
-   it(
-      'unknown redirects to root',
-      waitForAsync(async () => {
-         await spectator.fixture.whenStable();
-         await spectator.fixture.ngZone.run(async () =>
-            router.navigateByUrl('illegal')
-         );
-
-         await spectator.fixture.whenStable();
-         const targetComponent = findRouteTargetComponent(
-            spectator,
-            HomeContainerComponent
-         );
-         expect(targetComponent).toBeTruthy();
-      })
-   );
 });
+
+function advance(): void {
+   tick(); // wait while navigating
+   fixture.detectChanges(); // update view
+   tick(); // wait for async data to arrive
+}
+
+function createComponent(): void {
+   fixture = TestBed.createComponent(AppContainerComponent);
+   comp = fixture.componentInstance;
+   ngZone = fixture.ngZone;
+
+   const injector = fixture.debugElement.injector;
+   location = injector.get(Location) as SpyLocation;
+   router = injector.get(Router);
+}
+
+function expectPathToBe(path: string, expectationFailOutput?: any): void {
+   expect(location.path()).toEqual(
+      `/${path}`,
+      expectationFailOutput || 'location.path()'
+   );
+}
+
+function expectElementOf(type: Type<any>): any {
+   const debugElement = fixture.debugElement.query(By.directive(type));
+   expect(debugElement).toBeTruthy('expected an element for ' + type.name);
+   return debugElement;
+}

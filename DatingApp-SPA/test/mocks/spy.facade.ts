@@ -1,23 +1,33 @@
-import { IFacadeSpy } from './facade-spy.type';
-import { Spectator } from '@ngneat/spectator';
+import { of } from 'rxjs';
 
-export const getSpyFacade = (
-   spectator: Spectator<any>,
-   TFacade: any,
-   TSelectors
-): IFacadeSpy<typeof TFacade> => {
-   const spy = spectator.inject(TFacade) as IFacadeSpy<typeof TFacade>;
+export class FacadeSpy {
+   public select: any;
 
-   const x = new TFacade();
-   const names = Object.keys(x).reverse();
-   names.pop();
+   constructor(TFacade: any, TSelectors: any) {
+      const x = new TFacade();
+      // const spy = jasmine.createSpyObj(x.name, ['']);
 
-   names.forEach(
-      name => (spy[name] = jasmine.createSpyObj(name, ['dispatch']))
-   );
+      const names = Object.keys(x).reverse();
+      names.pop();
 
-   const selectorNames = Object.keys(TSelectors);
-   // tslint:disable-next-line: no-string-literal
-   spy['select'] = jasmine.createSpyObj('select', selectorNames);
-   return spy;
-};
+      names.forEach(
+         name => (this[name] = jasmine.createSpyObj(name, ['dispatch']))
+      );
+
+      const selectorNames = Object.keys(TSelectors);
+
+      // tslint:disable-next-line: no-string-literal
+      this['select'] = jasmine.createSpyObj('select', selectorNames);
+      selectorNames.forEach(selectorName => {
+         // tslint:disable-next-line: no-string-literal
+         this['select'][selectorName] = of();
+      });
+   }
+   //  constructor() {
+   //     this.select = jasmine.createSpyObj('select', ['isLoggedIn']);
+   //     this.select.isLoggedIn = of(true); //. and.returnValue(of(true));
+   //  }
+   //  select = {
+   //     isLoggedIn : of(false),
+   //  };
+}

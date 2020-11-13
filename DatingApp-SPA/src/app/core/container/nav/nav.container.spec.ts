@@ -6,8 +6,8 @@ import { NavContainerComponent } from '..';
 import { of } from 'rxjs';
 import { AuthFacade } from 'src/app/modules/auth';
 import * as authSelectors from '../../../modules/auth/ngrx/auth.selectors';
-import { IFacadeSpy } from 'test/mocks/facade-spy.type';
-import { getSpyFacade } from 'test/mocks/spy.facade';
+import { IFacadeSpy } from 'test/helper/facade-spy.type';
+import { getFacadeSpy } from 'test/helper/facade-helper';
 
 describe('NavContainer', () => {
    let spectator: Spectator<NavContainerComponent>;
@@ -27,7 +27,7 @@ describe('NavContainer', () => {
          'app-nav'
       ).componentInstance;
 
-      authFacadeSpy = getSpyFacade(spectator, AuthFacade, authSelectors);
+      authFacadeSpy = getFacadeSpy(spectator, AuthFacade, authSelectors);
    });
 
    it('should be created', () => {

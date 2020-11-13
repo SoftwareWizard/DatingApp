@@ -1,3 +1,7 @@
+
+// tslint:disable-next-line: no-reference
+/// <reference path="./jasmine-matchers.d.ts" />
+
 import { LoadChildrenCallback, Route } from '@angular/router';
 import MatchersUtil = jasmine.MatchersUtil;
 import CustomMatcherFactories = jasmine.CustomMatcherFactories;
