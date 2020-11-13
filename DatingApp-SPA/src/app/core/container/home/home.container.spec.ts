@@ -5,8 +5,8 @@ import { Spectator, createComponentFactory } from '@ngneat/spectator';
 import { MockComponent, ngMocks } from 'ng-mocks';
 import { AuthFacade } from 'src/app/modules/auth';
 import * as authSelectors from '../../../modules/auth/ngrx/auth.selectors';
-import { IFacadeSpy } from 'test/mocks/facade-spy.type';
-import { getSpyFacade } from 'test/mocks/spy.facade';
+import { IFacadeSpy } from 'test/helper/facade-spy.type';
+import { getFacadeSpy } from 'test/helper/facade-helper';
 import { of } from 'rxjs';
 
 describe('HomeContainer', () => {
@@ -28,7 +28,7 @@ describe('HomeContainer', () => {
          'app-home'
       ).componentInstance;
 
-      authFacadeSpy = getSpyFacade(spectator, AuthFacade, authSelectors);
+      authFacadeSpy = getFacadeSpy(spectator, AuthFacade, authSelectors);
    });
 
    it('should be created', () => {

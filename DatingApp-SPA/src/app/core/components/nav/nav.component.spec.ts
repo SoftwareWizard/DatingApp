@@ -8,6 +8,7 @@ import { waitForAsync } from '@angular/core/testing';
 import { NavComponentPageObject } from 'test/page-objects/nav.component.po';
 import { TEST_USER } from 'test/test-data/test-user';
 import { HasRoleDirective } from 'test/mocks/has-role-mock.directive';
+import { AppRouteNames } from 'src/app/app-routing.names';
 
 describe('NavComponent', () => {
    let spectator: Spectator<NavComponent>;
@@ -108,13 +109,9 @@ describe('NavComponent', () => {
    });
 
    it('should display admin link correct dependent of role', () => {
-      pageObject.input.set({
-         user: TEST_USER,
-         loggedIn: true,
-         loggedOut: false,
-      });
+      pageObject.loginToPage(TEST_USER);
 
-      const hasRoleDirectiveMock = pageObject.hasRoleDirectiveMock;
+      const hasRoleDirectiveMock = pageObject.btnAdminHasRoleDirectiveMock;
       hasRoleDirectiveMock.hide();
       pageObject.detectChanges();
 
@@ -124,5 +121,54 @@ describe('NavComponent', () => {
       pageObject.detectChanges();
 
       expect(pageObject.btnAdmin).toBeTruthy();
+   });
+
+   describe('should route to', () => {
+      beforeEach(() => {
+         pageObject.loginToPage();
+         pageObject.detectChanges();
+      });
+
+      it('Home', () => {
+         expect(pageObject.btnHome).toBeTruthy();
+         expect(pageObject.btnHomeRouterLinkMock.routerLink).toBe(
+            `/${AppRouteNames.ROOT}`
+         );
+      });
+
+      it('Members', () => {
+         expect(pageObject.btnMembers).toBeTruthy();
+         expect(pageObject.btnMembersRouterLinkMock.routerLink).toBe(
+            `/${AppRouteNames.MEMBERS}`
+         );
+      });
+
+      it('Likes', () => {
+         expect(pageObject.btnLikes).toBeTruthy();
+         expect(pageObject.btnLikesRouterLinkMock.routerLink).toBe(
+            `/${AppRouteNames.LIKES}`
+         );
+      });
+
+      it('Messages', () => {
+         expect(pageObject.btnMessages).toBeTruthy();
+         expect(pageObject.btnMessagesRouterLinkMock.routerLink).toBe(
+            `/${AppRouteNames.MESSAGES}`
+         );
+      });
+
+      it('Admin', () => {
+         expect(pageObject.btnAdmin).toBeTruthy();
+         expect(pageObject.btnAdminRouterLinkMock.routerLink).toBe(
+            `/${AppRouteNames.ADMIN}`
+         );
+      });
+
+      it('TestErrors', () => {
+         expect(pageObject.btnTestError).toBeTruthy();
+         expect(pageObject.btnTestErrorRouterLinkMock.routerLink).toBe(
+            `/${AppRouteNames.TEST_ERRORS}`
+         );
+      });
    });
 });
