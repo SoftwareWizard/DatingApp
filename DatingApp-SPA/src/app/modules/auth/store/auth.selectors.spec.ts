@@ -10,8 +10,10 @@ describe('Auth Store', () => {
       });
 
       it('should return gender', () => {
-         const authState = new AuthStateBuilder().build();
-         expect(authSelectors.gender(authState)).toBe(TEST_USER.gender);
+         const authState = new AuthStateBuilder().user
+            .withGender('female')
+            .build();
+         expect(authSelectors.gender(authState)).toBe('female');
       });
 
       it('should return isLoggedIn', () => {
@@ -31,17 +33,14 @@ describe('Auth Store', () => {
       });
 
       it('should return isAdminRole', () => {
-         let authState = new AuthStateBuilder().user.withRoles([]).build();
-         expect(authSelectors.isAdminRole(authState)).toBeFalse();
-         authState = new AuthStateBuilder().user.withRoles(['Admin']).build();
+         const authState = new AuthStateBuilder().user
+            .withRoles(['Admin'])
+            .build();
          expect(authSelectors.isAdminRole(authState)).toBeTrue();
       });
 
       it('should return isModeratorRole', () => {
-         let authState = new AuthStateBuilder().user.withRoles([]).build();
-         expect(authSelectors.isModeratorRole(authState)).toBeFalse();
-
-         authState = new AuthStateBuilder().user
+         const authState = new AuthStateBuilder().user
             .withRoles(['Moderator'])
             .build();
          expect(authSelectors.isModeratorRole(authState)).toBeTrue();
