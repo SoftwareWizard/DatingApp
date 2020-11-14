@@ -1,49 +1,42 @@
 import { TEST_USER } from 'test/test-data/test-user';
 import * as authSelectors from './auth.selectors';
-import { AuthStateBuilder } from 'test/builder/auth.state.builder';
 
 describe('Auth Store', () => {
    describe('Selectors', () => {
       it('should return user', () => {
-         const authState = new AuthStateBuilder().build();
-         expect(authSelectors.user(authState)).toEqual(TEST_USER);
+         expect(authSelectors.user.projector(TEST_USER)).toEqual(TEST_USER);
       });
 
       it('should return gender', () => {
-         const authState = new AuthStateBuilder().user
-            .withGender('female')
-            .build();
-         expect(authSelectors.gender(authState)).toBe('female');
+         expect(authSelectors.gender.projector(TEST_USER)).toBe('male');
       });
 
       it('should return isLoggedIn', () => {
-         let authState = new AuthStateBuilder().build();
-         expect(authSelectors.isLoggedIn(authState)).toBeTrue();
-
-         authState = new AuthStateBuilder().withUser(null).build();
-         expect(authSelectors.isLoggedIn(authState)).toBeFalse();
+         expect(authSelectors.isLoggedIn.projector(TEST_USER)).toBeTrue();
+         expect(authSelectors.isLoggedIn.projector(null)).toBeFalse();
       });
 
       it('should return isLoggedOut', () => {
-         let authState = new AuthStateBuilder().build();
-         expect(authSelectors.isLoggedOut(authState)).toBeFalse();
-
-         authState = new AuthStateBuilder().withUser(null).build();
-         expect(authSelectors.isLoggedOut(authState)).toBeTrue();
+         expect(authSelectors.isLoggedOut.projector(true)).toBeFalse();
+         expect(authSelectors.isLoggedOut.projector(false)).toBeTrue();
       });
 
       it('should return isAdminRole', () => {
-         const authState = new AuthStateBuilder().user
-            .withRoles(['Admin'])
-            .build();
-         expect(authSelectors.isAdminRole(authState)).toBeTrue();
+         let user = null;
+         expect(authSelectors.isAdminRole.projector(user)).toBeFalse();
+         user = { roles: null };
+         expect(authSelectors.isAdminRole.projector(user)).toBeFalse();
+         user = { roles: ['Admin'] };
+         expect(authSelectors.isAdminRole.projector(user)).toBeTrue();
       });
 
       it('should return isModeratorRole', () => {
-         const authState = new AuthStateBuilder().user
-            .withRoles(['Moderator'])
-            .build();
-         expect(authSelectors.isModeratorRole(authState)).toBeTrue();
+        let user = null;
+        expect(authSelectors.isModeratorRole.projector(user)).toBeFalse();
+        user = { roles: null };
+        expect(authSelectors.isModeratorRole.projector(user)).toBeFalse();
+        user = { roles: ['Moderator'] };
+        expect(authSelectors.isModeratorRole.projector(user)).toBeTrue();
       });
    });
 });
