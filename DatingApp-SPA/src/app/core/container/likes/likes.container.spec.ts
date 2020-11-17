@@ -31,7 +31,8 @@ describe('LikesContainer', () => {
       ).componentInstance;
    });
 
-   it('should be created', () => {
+   it('should be created', async () => {
+      likeServiceSpy.getLikes.and.returnValue(of([]));
       expect(spectator.component).toBeTruthy();
    });
 
@@ -39,6 +40,7 @@ describe('LikesContainer', () => {
       it('should pass members', async () => {
          likeServiceSpy.getLikes.and.returnValue(of(TEST_MEMBERS));
          await spectator.component.loadLikes();
+         await spectator.fixture.whenStable();
          spectator.detectComponentChanges();
          expect(likesComponentMock.members).toBe(TEST_MEMBERS);
       });

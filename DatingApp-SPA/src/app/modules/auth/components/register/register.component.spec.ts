@@ -6,7 +6,7 @@ import { Spectator, createComponentFactory } from '@ngneat/spectator';
 import { RegisterComponent } from './register.component';
 import { waitForAsync } from '@angular/core/testing';
 
-describe('RegisterComponent', () => {
+xdescribe('RegisterComponent', () => {
    let spectator: Spectator<RegisterComponent>;
    let pageObject: RegisterComponentPageObject;
 
