@@ -15,12 +15,19 @@ module.exports = function (config) {
       client: {
          clearContext: false, // leave Jasmine Spec Runner output visible in browser
       },
-      reporters: ['progress', 'kjhtml','coverage'],
-      coverageIstanbulReporter: {
-         dir: require('path').join(__dirname, './coverage'),
-         reports: ['html', 'lcovonly', 'text-summary'],
-         fixWebpackSourcePaths: true,
-         skipFilesWithNoCoverage: false
+      reporters: ['progress', 'coverage'],
+      preprocessors: {
+         // source files, that you wanna generate coverage for
+         // do not include tests or libraries
+         // (these files will be instrumented by Istanbul)
+         'src/**/*.ts': ['coverage'],
+      },
+      coverageReporter: {
+         dir: 'coverage/',
+         reporters: [
+            // { type: 'html', subdir: '.' },
+            { type: 'lcov', subdir: '.' },
+         ],
       },
       port: 9876,
       colors: true,

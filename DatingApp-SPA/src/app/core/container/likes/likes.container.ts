@@ -1,6 +1,8 @@
+import { LikedPredicateType } from './../../../modules/members/models/likedPredicate.type';
+import { LikeService } from './../../../modules/members/services/like.service';
+import { Member } from './../../../modules/members/models/member';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { LikeService, Member } from 'src/app/modules/members';
-import { LikedPredicateType } from 'src/app/modules/members/models/likedPredicate.type';
+
 
 @Component({
    templateUrl: './likes.container.html',
