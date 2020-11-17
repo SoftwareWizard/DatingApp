@@ -1,7 +1,7 @@
 import { PresenceService } from './../../../core/services/presence.service';
 import { Injectable } from '@angular/core';
 import { catchError, concatMap, exhaustMap, map, switchMap, tap } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { of, Observable } from 'rxjs';
 
 import { Router } from '@angular/router';
 import { AppRouteNames } from './../../../app-routing.names';
@@ -40,6 +40,7 @@ export class AuthEffects {
          ofType(actions.appLogin),
          switchMap(_ => {
             const user = this.localStorageService.getUser();
+            console.log('DEBUG: AuthEffects -> user', user);
             if (user) {
                this.router.navigateByUrl(`${this.ROUTES.MEMBERS}`);
                return of(actions.appLoginSuccess(user));
