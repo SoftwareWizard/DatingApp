@@ -1,7 +1,14 @@
 import { PresenceService } from './../../../core/services/presence.service';
 import { Injectable } from '@angular/core';
-import { catchError, concatMap, exhaustMap, map, switchMap, tap } from 'rxjs/operators';
-import { of, Observable } from 'rxjs';
+import {
+   catchError,
+   concatMap,
+   exhaustMap,
+   map,
+   switchMap,
+   tap,
+} from 'rxjs/operators';
+import { of } from 'rxjs';
 
 import { Router } from '@angular/router';
 import { AppRouteNames } from './../../../app-routing.names';
@@ -11,7 +18,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { LocalStorageService } from 'src/app/core';
 import { ToastrService } from 'ngx-toastr';
 import { AccountService } from './../services/account.service';
-import { getActions, dispatch } from '@ngrx-ducks/core';
+import { getActions } from '@ngrx-ducks/core';
 import { AuthFacade } from './auth.facade';
 
 const actions = getActions(AuthFacade);
@@ -35,12 +42,11 @@ export class AuthEffects {
       private router: Router
    ) {}
 
-   appLoginName$ = createEffect(() => {
+   appLogin$ = createEffect(() => {
       return this.actions$.pipe(
          ofType(actions.appLogin),
          switchMap(_ => {
             const user = this.localStorageService.getUser();
-            console.log('DEBUG: AuthEffects -> user', user);
             if (user) {
                this.router.navigateByUrl(`${this.ROUTES.MEMBERS}`);
                return of(actions.appLoginSuccess(user));
@@ -57,11 +63,25 @@ export class AuthEffects {
          exhaustMap(action =>
             this.accountService.login(action.payload).pipe(
                map(user => actions.loginSuccess(user)),
-               catchError(error => of(actions.loginFailure(error)))
+               catchError(error => of(actions.loginFailure({ error })))
             )
          )
       );
    });
+
+   navbarLogout$ = createEffect(
+      () => {
+         return this.actions$.pipe(
+            ofType(actions.navbarLogout),
+            tap(() => {
+               this.presenceService.stopHubConnection();
+               this.localStorageService.removeUser();
+               this.router.navigateByUrl('/');
+            })
+         );
+      },
+      { dispatch: false }
+   );
 
    loginSuccess$ = createEffect(
       () => {
@@ -94,7 +114,7 @@ export class AuthEffects {
          exhaustMap(action =>
             this.accountService.register(action.payload).pipe(
                map(_ => actions.registerSuccess()),
-               catchError(error => of(actions.registerFailure(error)))
+               catchError(error => of(actions.registerFailure({ error })))
             )
          )
       );
@@ -118,20 +138,6 @@ export class AuthEffects {
          return this.actions$.pipe(
             ofType(actions.registerFailure),
             tap(_ => this.toastr.error(this.MSG_ERROR, this.MSG_TITLE_REGISTER))
-         );
-      },
-      { dispatch: false }
-   );
-
-   navbarLogout$ = createEffect(
-      () => {
-         return this.actions$.pipe(
-            ofType(actions.navbarLogout),
-            tap(() => {
-               this.presenceService.stopHubConnection();
-               this.localStorageService.removeUser();
-               this.router.navigateByUrl('/');
-            })
          );
       },
       { dispatch: false }
