@@ -4,7 +4,9 @@ import * as authSelectors from './auth.selectors';
 describe('Auth Store', () => {
    describe('Selectors', () => {
       it('should return user', () => {
-         expect(authSelectors.user.projector(TEST_USER)).toEqual(TEST_USER);
+         expect(authSelectors.user.projector({ user: TEST_USER })).toEqual(
+            TEST_USER
+         );
       });
 
       it('should return gender', () => {
@@ -31,12 +33,12 @@ describe('Auth Store', () => {
       });
 
       it('should return isModeratorRole', () => {
-        let user = null;
-        expect(authSelectors.isModeratorRole.projector(user)).toBeFalse();
-        user = { roles: null };
-        expect(authSelectors.isModeratorRole.projector(user)).toBeFalse();
-        user = { roles: ['Moderator'] };
-        expect(authSelectors.isModeratorRole.projector(user)).toBeTrue();
+         let user = null;
+         expect(authSelectors.isModeratorRole.projector(user)).toBeFalse();
+         user = { roles: null };
+         expect(authSelectors.isModeratorRole.projector(user)).toBeFalse();
+         user = { roles: ['Moderator'] };
+         expect(authSelectors.isModeratorRole.projector(user)).toBeTrue();
       });
    });
 });
