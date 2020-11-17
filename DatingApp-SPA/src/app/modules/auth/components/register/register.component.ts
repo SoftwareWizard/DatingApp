@@ -1,22 +1,32 @@
-import { AuthFacade } from './../../ngrx/auth.facade';
 import { RegisterModel } from './../../models/register.model';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { User } from '../../models/user';
+import {
+   ChangeDetectionStrategy,
+   Component,
+   EventEmitter,
+   OnInit,
+   Output,
+} from '@angular/core';
+import {
+   AbstractControl,
+   FormBuilder,
+   FormGroup,
+   ValidatorFn,
+   Validators,
+} from '@angular/forms';
 
 @Component({
    selector: 'app-register',
    templateUrl: './register.component.html',
    styleUrls: ['./register.component.css'],
+   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterComponent implements OnInit {
-   @Input() user: User;
-   @Output() cancelRegister = new EventEmitter();
+   @Output() register = new EventEmitter<RegisterModel>();
 
    registerForm: FormGroup;
    validationErrors: string[];
 
-   constructor(private fb: FormBuilder, private authFacade: AuthFacade) {}
+   constructor(private fb: FormBuilder) {}
 
    ngOnInit(): void {
       this.initializeForm();
@@ -30,7 +40,14 @@ export class RegisterComponent implements OnInit {
          dateOfBirth: ['', Validators.required],
          city: ['', Validators.required],
          country: ['', Validators.required],
-         password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(8)]],
+         password: [
+            '',
+            [
+               Validators.required,
+               Validators.minLength(4),
+               Validators.maxLength(8),
+            ],
+         ],
          confirmPassword: [
             '',
             [
@@ -51,12 +68,12 @@ export class RegisterComponent implements OnInit {
       };
    }
 
-   register(): void {
+   onRegister(): void {
       const registerModel = this.registerForm.value as RegisterModel;
-      this.authFacade.register.dispatch(registerModel);
+      this.register.emit(registerModel);
    }
 
-   cancel(): void {
+   onCancel(): void {
       this.registerForm.reset();
       this.initializeForm();
    }

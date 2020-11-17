@@ -350,7 +350,6 @@ MigrationBackup/
 
 # globs
 Makefile.in
-*.userprefs
 *.usertasks
 config.make
 config.status
@@ -431,3 +430,6 @@ $RECYCLE.BIN/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+/DatingApp-SPA/.vscode/settings.json
+/DatingApp.API/.vscode/settings.json
+/DatingApp-SPA/.vscode/

@@ -1,4 +1,4 @@
-import { AuthFacade } from './../../../auth/ngrx/auth.facade';
+import { AuthFacade } from './../../../auth/store/auth.facade';
 import { Member } from '../../models/member';
 import { ToastrService } from 'ngx-toastr';
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';

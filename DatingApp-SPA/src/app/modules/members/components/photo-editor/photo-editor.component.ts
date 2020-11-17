@@ -1,4 +1,4 @@
-import { AuthFacade } from './../../../auth/ngrx/auth.facade';
+import { AuthFacade } from './../../../auth/store/auth.facade';
 import { Member } from '../../models/member';
 import { Component, Input, OnInit } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';

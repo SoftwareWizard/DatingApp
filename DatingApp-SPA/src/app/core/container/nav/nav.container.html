@@ -1,0 +1,7 @@
+<app-nav
+  [user]="user$ | async"
+  [loggedIn]="loggedIn$ | async"
+  [loggedOut]="loggedOut$ | async"
+  (login)="onLogin($event)"
+  (logout)="onLogout()">
+</app-nav>

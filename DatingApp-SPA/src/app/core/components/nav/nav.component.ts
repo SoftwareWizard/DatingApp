@@ -1,6 +1,10 @@
-import { AuthFacade } from './../../../modules/auth/ngrx/auth.facade';
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import {
+   Component,
+   Input,
+   Output,
+   EventEmitter,
+   ChangeDetectionStrategy,
+} from '@angular/core';
 import { AppRouteNames } from 'src/app/app-routing.names';
 import { MembersRouteNames } from 'src/app/modules/members/members-routing.names';
 import { LoginModel, User } from 'src/app/modules/auth';
@@ -9,32 +13,26 @@ import { LoginModel, User } from 'src/app/modules/auth';
    selector: 'app-nav',
    templateUrl: './nav.component.html',
    styleUrls: ['./nav.component.css'],
+   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NavComponent implements OnInit {
+export class NavComponent {
    ROUTES = AppRouteNames;
    MEMBERS_ROUTES = MembersRouteNames;
 
-   loginModel: LoginModel = { username: null, password: null};
-   user$: Observable<User>;
-   loggedIn$: Observable<boolean>;
-   loggedOut$: Observable<boolean>;
+   @Input() user: User;
+   @Input() loggedIn: boolean;
+   @Input() loggedOut: boolean;
 
-   constructor(private authFacade: AuthFacade) {}
+   @Output() login = new EventEmitter<LoginModel>();
+   @Output() logout = new EventEmitter();
 
-   ngOnInit(): void {
-      this.loggedIn$ = this.authFacade.select.isLoggedIn;
-      this.loggedOut$ = this.authFacade.select.isLoggedOut;
-      this.user$ = this.authFacade.select.user;
+   loginModel: LoginModel = { username: null, password: null };
+
+   onLogin(): void {
+      this.login.emit(this.loginModel);
    }
 
-   login(): void {
-      this.authFacade.navbarLogin.dispatch({
-         username: this.loginModel.username,
-         password: this.loginModel.password,
-      });
-   }
-
-   logout(): void {
-      this.authFacade.navbarLogout.dispatch();
+   onLogout(): void {
+      this.logout.emit();
    }
 }

@@ -1,4 +1,4 @@
-import { AuthFacade } from './../../../auth/ngrx/auth.facade';
+import { AuthFacade } from './../../../auth/store/auth.facade';
 import { MessageThreadFacade } from './../../ngrx/message-thread/message-thread.facade';
 import { Message } from './../../models/message';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';

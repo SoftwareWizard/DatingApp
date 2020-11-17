@@ -3,7 +3,7 @@ import { SharedModule } from './../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { MessageRoutingModule } from './message-routing.module';
+import { MessageRoutingModule } from './message.routing.module';
 import { MessageListComponent } from './components/message-list/message-list.component';
 import { MessageThreadComponent } from './components/message-thread/message-thread.component';
 import { EntityDefinitionService, DefaultDataServiceConfig, HttpUrlGenerator } from '@ngrx/data';

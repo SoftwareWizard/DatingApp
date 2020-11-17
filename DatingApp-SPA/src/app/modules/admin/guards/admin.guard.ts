@@ -1,5 +1,5 @@
 import { ToastrService } from 'ngx-toastr';
-import { AuthFacade } from './../../auth/ngrx/auth.facade';
+import { AuthFacade } from './../../auth/store/auth.facade';
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';

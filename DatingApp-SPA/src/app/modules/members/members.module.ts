@@ -1,7 +1,7 @@
 import { LikesEffects } from './ngrx/likes/likes.effects';
 import { MembersEffects } from './ngrx/members/members.effects';
 import { MessageModule } from './../message/message.module';
-import { MembersRoutingModule } from './members-routing.module';
+import { MembersRoutingModule } from './members.routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';

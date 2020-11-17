@@ -4,16 +4,18 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './modules/shared/shared.module';
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule } from './app.routing.module';
 
 import { MembersModule } from './modules/members/members.module';
 import { ErrorsModule } from './modules/errors/errors.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { MessageModule } from './modules/message/message.module';
 
-import { AppComponent, HomeComponent, ListsComponent } from './components';
-
-import { ErrorInterceptor, JwtInterceptor, LoadingInterceptor, NavComponent } from './core';
+import {
+   ErrorInterceptor,
+   JwtInterceptor,
+   LoadingInterceptor,
+} from './core';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreModule } from '@ngrx/store';
 import { RouterState, StoreRouterConnectingModule } from '@ngrx/router-store';
@@ -22,9 +24,27 @@ import { reducers, metaReducers } from './core/ngrx/app.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { EntityDataModule, HttpUrlGenerator } from '@ngrx/data';
 import { MessageApiUrlGenerator } from './modules/message/ngrx/message/message-api.url-generator';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import {
+   AppContainerComponent,
+   HomeContainerComponent,
+   LikesContainerComponent,
+   NavContainerComponent,
+} from './core/container';
+import { HomeComponent } from './core/components/home/home.component';
+import { LikesComponent } from './core/components/likes/likes.component';
+import { NavComponent } from './core/components/nav/nav.component';
 
 @NgModule({
-   declarations: [AppComponent, NavComponent, HomeComponent, ListsComponent],
+   declarations: [
+      AppContainerComponent,
+      HomeContainerComponent,
+      LikesContainerComponent,
+      NavContainerComponent,
+      HomeComponent,
+      NavComponent,
+      LikesComponent,
+   ],
    imports: [
       BrowserModule,
       BrowserAnimationsModule,
@@ -45,7 +65,10 @@ import { MessageApiUrlGenerator } from './modules/message/ngrx/message/message-a
       !environment.production ? StoreDevtoolsModule.instrument() : [],
       EffectsModule.forRoot([]),
       EntityDataModule.forRoot({}),
-      AdminModule
+      AdminModule,
+      ServiceWorkerModule.register('ngsw-worker.js', {
+         enabled: environment.production,
+      }),
    ],
    exports: [],
    providers: [
@@ -58,6 +81,6 @@ import { MessageApiUrlGenerator } from './modules/message/ngrx/message/message-a
          useClass: MessageApiUrlGenerator,
       },
    ],
-   bootstrap: [AppComponent],
+   bootstrap: [AppContainerComponent],
 })
 export class AppModule {}

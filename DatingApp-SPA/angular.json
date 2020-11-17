@@ -49,6 +49,7 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
+              "serviceWorker": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -60,7 +61,8 @@
                   "maximumWarning": "6kb",
                   "maximumError": "10kb"
                 }
-              ]
+              ],
+              "ngswConfigPath": "ngsw-config.json"
             }
           }
         },
@@ -88,6 +90,17 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
+            "sourceMap": true,
+            "codeCoverage": true,
+            "codeCoverageExclude": [
+              "src/**/index.ts",
+              "src/main.ts",
+              "src/**/*.spec.ts",
+              "src/test.ts",
+              "src/polyfills.ts",
+              "src/**/models/*.*",
+              "src/environments/*.*"
+            ],
             "assets": [
               "src/favicon.ico",
               "src/assets"
