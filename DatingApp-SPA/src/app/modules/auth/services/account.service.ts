@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from '../models/user';
 import { map } from 'rxjs/operators';
-import { user } from '../store/auth.selectors';
 
 @Injectable({
    providedIn: 'root',
@@ -30,7 +29,7 @@ export class AccountService {
       return this.http.post<User>(`${this.baseUrl}/auth/register`, model);
    }
 
-   getDecodedToken(token): any {
+   private getDecodedToken(token): any {
       const tokenPayloadEncoded = token.split('.')[1];
       const tokenPayloadPlain = atob(tokenPayloadEncoded);
       return JSON.parse(tokenPayloadPlain);
