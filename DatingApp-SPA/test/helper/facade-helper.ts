@@ -1,5 +1,5 @@
 import { IFacadeSpy } from './facade-spy.type';
-import { Spectator } from '@ngneat/spectator';
+import { Spectator, SpectatorService } from '@ngneat/spectator';
 import { of } from 'rxjs';
 
 export const getFacadeSpy = (
@@ -7,9 +7,25 @@ export const getFacadeSpy = (
    TFacade: any,
    TSelectors
 ): IFacadeSpy<typeof TFacade> => {
-   const x = new TFacade();
    const spy = spectator.inject(TFacade) as IFacadeSpy<typeof TFacade>;
+   return populateSpy(spy, TFacade, TSelectors);
+};
 
+export const getFacadeSpyFromService = (
+   spectator: SpectatorService<any>,
+   TFacade: any,
+   TSelectors
+): IFacadeSpy<typeof TFacade> => {
+   const spy = spectator.inject(TFacade) as IFacadeSpy<typeof TFacade>;
+   return populateSpy(spy, TFacade, TSelectors);
+};
+
+function populateSpy(
+   spy: any,
+   TFacade: any,
+   TSelectors
+): IFacadeSpy<typeof TFacade> {
+   const x = new TFacade();
    const names = Object.keys(x).reverse();
    names.pop();
 
@@ -24,5 +40,6 @@ export const getFacadeSpy = (
       // tslint:disable-next-line: no-string-literal
       spy['select'][selectorName] = of();
    });
+
    return spy;
-};
+}
