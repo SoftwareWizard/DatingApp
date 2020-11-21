@@ -58,10 +58,18 @@ This is the result of the Udemy Course "Build an app with ASPNET Core and Angula
 - Debugger for Chrome
 - Debugger for Microsoft Edge
 
-### Nuger
+### Nuget
 - NuGet Gallery
 - NuGet Package Manager
-  
+
+### NPM
+- npm
+- NPM Browser
+### Unit Testing
+- Jamine code snippets
+- Test Explorer UI
+- Angular/Karma Test Explorer
+- Coverage Gutters
 ### CSS / Sass
 - CSS Peek
 - Sass
@@ -91,4 +99,4 @@ This is the result of the Udemy Course "Build an app with ASPNET Core and Angula
 - Color Info
 - EditorConfig for VS Config
 - GitLens
-- npm
+- Unsaved Files
