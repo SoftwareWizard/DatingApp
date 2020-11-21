@@ -14,18 +14,25 @@ This is the result of the Udemy Course "Build an app with ASPNET Core and Angula
 
 ## Material Icon Settings
 ```json
-"material-icon-theme.files.associations": {
-        "*.state.ts": "Ngrx-state",
-        "*.selectors.ts": "Ngrx-reducer",
-        "*.reducer.ts": "Ngrx-reducer",
-        "*.facade.ts": "Ngrx-actions",
-        "*.effects.ts": "Ngrx-effects",
-        "*.entity.ts": "Ngrx-entity",
-        "*.entity-metadata.ts": "Ngrx-entity",
-    },
-    "material-icon-theme.folders.associations": {
-        "ngrx": "Ngrx-store"
-    }
+  "material-icon-theme.files.associations": {
+      "*.state.ts": "Ngrx-state",
+      "*.selectors.ts": "Ngrx-reducer",
+      "*.reducer.ts": "Ngrx-reducer",
+      "*.facade.ts": "Ngrx-actions",
+      "*.effects.ts": "Ngrx-effects",
+      "*.entity.ts": "Ngrx-entity",
+      "*.entity-metadata.ts": "Ngrx-entity",
+      "*.routing.module.ts": "Routing",
+      "*.container.ts": "Angular-component",
+      "animations.ts": "Video"
+   },
+   "material-icon-theme.folders.associations": {
+      "builder": "Tools",
+      "modules": "Packages",
+      "page-objects": "Views",
+      "store": "Ngrx-store",
+      "test-data": "Json"
+   },
 ```
 
 ## VS Code Extensions
